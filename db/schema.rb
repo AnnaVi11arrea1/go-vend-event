@@ -10,35 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_141839) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_13_234841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.date "started_at"
     t.date "application_due_at"
-    t.text "information"
+    t.date "started_at"
+    t.string "information"
     t.string "application_link"
     t.string "tags"
-    t.text "address"
-    t.float "latitude"
-    t.float "longitude"
+    t.string "address"
+    t.integer "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.text "about"
+    t.string "avatar"
     t.string "username"
     t.string "first_name"
     t.string "last_name"
     t.string "social_media"
-    t.string "email"
-    t.string "password"
-    t.text "about"
-    t.string "avatar"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 5, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   create_table "vendor_events", force: :cascade do |t|

@@ -8,7 +8,6 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    @event = Event.find(params[:id])
   end
 
   # GET /events/new
@@ -66,6 +65,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :started_at, :application_due_at, :information, :application_link, :tags, :address, :latitude, :longitude)
+      params.require(:event).permit(:name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :host_id)
     end
 end
