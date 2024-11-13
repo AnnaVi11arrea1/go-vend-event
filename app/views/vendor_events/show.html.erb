@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @vendor_event %>
+
+<div>
+  <%= link_to "Edit this vendor event", edit_vendor_event_path(@vendor_event) %> |
+  <%= link_to "Back to vendor events", vendor_events_path %>
+
+  <%= button_to "Destroy this vendor event", @vendor_event, method: :delete %>
+</div>

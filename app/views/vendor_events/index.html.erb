@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Vendor events</h1>
+
+<div id="vendor_events">
+  <% @vendor_events.each do |vendor_event| %>
+    <%= render vendor_event %>
+    <p>
+      <%= link_to "Show this vendor event", vendor_event %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New vendor event", new_vendor_event_path %>

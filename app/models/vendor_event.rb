@@ -1,0 +1,2 @@
+class VendorEvent < ApplicationRecord
+end
