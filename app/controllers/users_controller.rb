@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ index show edit update destroy ]
+  before_action :authenticate_user!
+  devise :database_authenticatable, :registerable,
+       :recoverable, :rememberable, :validatable
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @user = current_user
   end
 
   # GET /users/1 or /users/1.json
@@ -59,7 +62,7 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
+    def set_users
       @user = User.find(params[:id])
     end
 
