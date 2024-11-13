@@ -16,5 +16,5 @@
 #
 class User < ApplicationRecord
   has_many :events
-  has_many :vendor_events through: :events # vendor_events is a join table
+  has_many :vendor_events
 end

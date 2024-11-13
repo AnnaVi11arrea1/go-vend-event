@@ -5,6 +5,12 @@ Rails.application.routes.draw do
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
 
-  # get "/your_first_screen" => "pages#first"
+  get "/" => "users#index"
+  get "/users" => "users#show"
+  get "/users/new" => "users#new"
+  post "/users" => "users#create"
+  get "/users/:id/edit" => "users#edit"
+  patch "/users/:id" => "users#update"
+
   
 end

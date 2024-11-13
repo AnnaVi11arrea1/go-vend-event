@@ -17,5 +17,5 @@
 #
 class Event < ApplicationRecord
   belongs_to :user
-  has_many :vendor_event
+  has_many :vendor_events
 end
