@@ -21,6 +21,18 @@
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
+    <%= f.input :first_name,
+                hint: "Add your first name",
+                required: false,
+                input_html: { autocomplete: "first-name" } %>            
+    <%= f.input :last_name,
+                hint: "Add your last name",
+                required: false,
+                input_html: { autocomplete: "last-name" } %>   
+    <%= f.input :social_media,
+                hint: "Add a link to a relevent social media page",
+                required: false,
+                input_html: { autocomplete: "social-media" } %>   
   </div>
 
   <div class="form-actions">

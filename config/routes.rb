@@ -10,6 +10,6 @@ Rails.application.routes.draw do
 
   get "/users/:id", to: "users#show", as: "user_profile"
 
-  get "/users/:id/edit", to: "users#edit", as: "edit_user"
+  get "/users/:id/edit", to: "reigstrations#edit", as: "edit_user"
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
 end
