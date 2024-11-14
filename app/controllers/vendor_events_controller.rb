@@ -1,4 +1,6 @@
 class VendorEventsController < ApplicationController
+  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+
   # before_action :set_vendor_event, only: %i[ show edit update destroy ]
 
 
