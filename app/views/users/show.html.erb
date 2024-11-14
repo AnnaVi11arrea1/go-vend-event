@@ -1,5 +1,3 @@
-<% @user do |profile| %>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -14,16 +12,24 @@
         <p><strong>Email:</strong> <%= @user.email %></p>
       </div>
       <div class="col-md-6">
-        <h2>Events</h2>
-        <% if @user.events.present? %>
+        <h2>Hosted Events</h2>
           <ul>
-            <% @user.events.each do |event| %>
+            <% @user.hosted_events.each do |event| %>
               <li><%= link_to event.name, event_path(event) %></li>
             <% end %>
           </ul>
-        <% else %>
-          <p><%= @user.first_name %> has not created any events yet.</p>
-        <% end %>
+            <% if !@user.hosted_events.any? %>
+            <p><%= @user.first_name %> has not created any events yet.</p>
+            <% end %>
+        <h2>Vendor Events</h2>
+          <ul>
+            <% @user.vendor_events.each do |event| %>
+              <li><%= link_to event.name, event_path(event) %></li>
+            <% end %>
+          </ul>
+            <% if !@user.vendor_events.any? %>
+            <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
+            <% end %>
       </div>
     </div>
   </div>

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
   before_action :authenticate_user!, only: %i[ edit update destroy ]
+  before_action :set_user, only: %i[ edit update destroy ]
+
+  def create
+    @user = User.new(user_params)
 
   def new
     @user = User.new
@@ -11,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def edit
