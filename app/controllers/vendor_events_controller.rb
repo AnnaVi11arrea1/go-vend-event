@@ -1,13 +1,17 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit update destroy ]
+  # before_action :set_vendor_event, only: %i[ show edit update destroy ]
+
 
   # GET /vendor_events or /vendor_events.json
   def index
-    @vendor_events = VendorEvent.all
+    # @vendor_events = VendorEvent.all
+
   end
 
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
+
+
   end
 
   # GET /vendor_events/new

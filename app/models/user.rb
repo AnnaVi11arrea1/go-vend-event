@@ -36,4 +36,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :vendor_events
+  has_many :hosted_events, class_name: 'Event', foreign_key: 'host_id'
+
 end

@@ -7,6 +7,8 @@
 #  application_due_at :date
 #  application_link   :string
 #  information        :string
+#  latitude           :float
+#  longitude          :float
 #  name               :string
 #  started_at         :date
 #  tags               :string
@@ -15,4 +17,6 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
+  belongs_to :user, foreign_key: 'host_id'
+  has_many :vendor_events
 end
