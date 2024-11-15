@@ -17,8 +17,6 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable
   belongs_to :host, class_name: "User", foreign_key: "host_id"
-  belongs_to :vendorevents, class_name: "VendorEvent", foreign_key: "event_id", dependent: :destroy
+  has_many :vendorevents, class_name: "VendorEvent", foreign_key: "event_id", dependent: :destroy
 end

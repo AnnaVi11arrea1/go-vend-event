@@ -1,44 +1,41 @@
-<%= @event do |information| %>
 <div>
   <p>
     <strong>Name:</strong>
-    <%= information.name %>
+    <%= event.name %>
   </p>
 
   <p>
     <strong>Application due at:</strong>
-    <%= information.application_due_at %>
+    <%= event.application_due_at %>
   </p>
 
   <p>
     <strong>Started at:</strong>
-    <%= information.started_at %>
+    <%= event.started_at %>
   </p>
 
   <p>
     <strong>Information:</strong>
-    <%= information.information %>
+    <%= event.information %>
   </p>
 
   <p>
     <strong>Application link:</strong>
-    <%= information.application_link %>
+    <%= event.application_link %>
   </p>
 
   <p>
     <strong>Tags:</strong>
-    <%= information.tags %>
+    <%= event.tags %>
   </p>
 
   <p>
     <strong>Address:</strong>
-    <%= information.address %>
+    <%= event.address %>
   </p>
 
   <p>
     <strong>Host:</strong>
-    <%= information.host.username %>
+    <%= event.host.username %>
   </p>
-
 </div>
-<% end %>

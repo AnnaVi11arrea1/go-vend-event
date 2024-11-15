@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :event_params, only: %i[ create update ]
   # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
 
   # GET /events or /events.json
@@ -9,13 +10,13 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
+    
   end
 
   # GET /events/new
   def new
     @event = Event.new
   end
-
 
   # GET /events/1/edit
   def edit
@@ -26,6 +27,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.host = current_user
     respond_to do |format|
+    
       if @event.save
         format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
