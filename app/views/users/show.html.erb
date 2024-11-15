@@ -14,20 +14,20 @@
       <div class="col-md-6">
         <h2>Hosted Events</h2>
           <ul>
-            <% @user.hosted_events.each do |event| %>
+            <% @user.events.each do |event| %>
               <li><%= link_to event.name, event_path(event) %></li>
             <% end %>
           </ul>
-            <% if !@user.hosted_events.any? %>
+            <% if !@user.events.any? %>
             <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
         <h2>Vendor Events</h2>
           <ul>
-            <% @user.vendor_events.each do |event| %>
+            <% @user.vendorevents.each do |event| %>
               <li><%= link_to event.name, event_path(event) %></li>
             <% end %>
           </ul>
-            <% if !@user.vendor_events.any? %>
+            <% if !@user.vendorevents.any? %>
             <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
             <% end %>
       </div>
