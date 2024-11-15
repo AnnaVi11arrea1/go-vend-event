@@ -1,41 +1,42 @@
-<div>
-  <p>
-    <strong>Name:</strong>
-    <%= event.name %>
-  </p>
+<div class="d-flex">
+<div class="card">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    
+    <h5 class="card-title">
+        <p><strong>Name:</strong><%= event.name %></p>
+    </h5>
 
-  <p>
+    <p class="card-text"> 
     <strong>Application due at:</strong>
-    <%= event.application_due_at %>
-  </p>
+    <%= event.application_due_at %></p>
 
-  <p>
+    <p class="card-text"> 
     <strong>Started at:</strong>
-    <%= event.started_at %>
-  </p>
+    <%= event.started_at %>></p>
 
-  <p>
+    <p class="card-text"> 
     <strong>Information:</strong>
-    <%= event.information %>
-  </p>
+    <%= event.information %></p>
 
-  <p>
+    <p class="card-text"> 
     <strong>Application link:</strong>
-    <%= event.application_link %>
-  </p>
+    <%= event.application_link %>>
 
-  <p>
+    <p class="card-text"> 
     <strong>Tags:</strong>
     <%= event.tags %>
-  </p>
 
-  <p>
+    <p class="card-text"> 
     <strong>Address:</strong>
-    <%= event.address %>
-  </p>
+    <%= event.address %></p>
 
-  <p>
+    <p class="card-text"> 
     <strong>Host:</strong>
-    <%= event.host.username %>
-  </p>
+    <%= event.host.username %></p>
+
+  <%= link_to "Show this event", event, class:"btn btn-primary" %>
+   
+  </div>
+</div>
 </div>

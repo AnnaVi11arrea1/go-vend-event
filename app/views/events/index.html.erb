@@ -4,11 +4,11 @@
 
 <div id="events">
   <% @events.each do |event| %>
+
     <%= render event %>
-    <p>
-      <%= link_to "Show this event", event %>
-    </p>
+    
   <% end %>
+
 </div>
 
 <%= link_to "New event", new_event_path %>
