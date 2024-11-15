@@ -6,7 +6,10 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h2>Personal Information</h2>
+        <div>
+          <%= @user.avatar %>
+        </div>
+        <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
         <p><strong>Last Name:</strong> <%= @user.last_name %></p>
         <p><strong>Email:</strong> <%= @user.email %></p>
