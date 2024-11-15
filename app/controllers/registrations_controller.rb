@@ -13,12 +13,15 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     @user = current_user
 
+
     respond_to do |format|
       if @user.update(user_params)
 
         format.html { redirect_to user_path(@user), notice: "user was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
+
+
 
 
         format.html { render :edit, status: :unprocessable_entity }
@@ -28,6 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
 
 
   # Only allow a list of trusted parameters through.
