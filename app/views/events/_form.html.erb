@@ -4,6 +4,8 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+
+
     <%= f.input :name %>
     <%= f.input :application_due_at %>
     <%= f.input :started_at %>
@@ -11,6 +13,7 @@
     <%= f.input :application_link %>
     <%= f.input :tags %>
     <%= f.input :address %>
+
 
   </div>
 
