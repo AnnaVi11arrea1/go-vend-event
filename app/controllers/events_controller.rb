@@ -24,6 +24,14 @@ class EventsController < ApplicationController
   def edit
   end
 
+  def add_event
+    @event_id = params.fetch("id")
+    @addedEvent = Event.where({added: true})
+    
+    @addedEvent.save
+    format html {redirect_to event_path, notice: "Event Updated successfully"}
+  end
+
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)

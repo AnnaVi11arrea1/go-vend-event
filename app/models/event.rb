@@ -17,11 +17,21 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
-  belongs_to :host, class_name: "User", foreign_key: "host_id"
-  has_many :vendorevents, class_name: "VendorEvent", foreign_key: "event_id", dependent: :destroy
+  has_many :users, through: :vendor_events
+  has_many :vendor_events, dependent: :destroy
   def self.ransackable_attributes(auth_object = nil)
     %w[name address tags started_at]
   end
+
+  validates :name, presence: true
+  validates :application_due_at, presence: true
+  validates :started_at, presence: true
+  validates :information, presence: true
+  validates :application_link, presence: true
+  validates :tags, presence: true
+  validates :address, presence: true
+
+
 
   def self.ransackable_associations(auth_object = nil)
     []

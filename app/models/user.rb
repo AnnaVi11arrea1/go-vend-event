@@ -4,7 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  about                  :text
-#  avatar                 :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -14,6 +13,7 @@
 #  first_name             :string
 #  last_name              :string
 #  locked_at              :datetime
+#  photo                  :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -34,11 +34,19 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
-  has_many :vendorevents, class_name: "VendorEvent", foreign_key: "user_id", dependent: :destroy
-  has_many :events, class_name: 'Event', foreign_key: 'host_id', dependent: :destroy
+  has_many :events,  dependent: :destroy
+  has_many :vendor_events, dependent: :destroy
+
+
+
+  validates :username, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
+
+
 
   has_one_attached :avatar
 

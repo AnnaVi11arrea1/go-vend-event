@@ -9,7 +9,7 @@
     
             <% if current_user.present? %>
             <li class="nav-item">
-            <%= link_to "My Events", events_path, class:"dropdown-item"  %>
+            <%= link_to "My Events", vendor_events_path(current_user), class:"dropdown-item"  %>
             </li>
             <li class="nav-item">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"dropdown-item" %>

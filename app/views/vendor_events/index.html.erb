@@ -2,13 +2,29 @@
 
 <h1>Vendor events</h1>
 
-<div id="vendor_events">
-  <% @vendor_events.each do |vendor_event| %>
+<% if @hosted_events.present? %>
+<div id="vendor_event">
+  <% @hosted_events.each do |vendor_event| %>
     <%= render vendor_event %>
     <p>
-      <%= link_to "Show this vendor event", vendor_event %>
+      <%= link_to "Show this vendor event", vendor_events_path(@vendor_event) %>
     </p>
   <% end %>
 </div>
+<% else %>
+  <p>No vendor events found</p>
+<% end %>
 
+<% if @added_events %>
+<div id="vendor_event">
+  <% @added_events.each do |vendor_event| %>
+    <%= render vendor_event %>
+    <p>
+      <%= link_to "Show this vendor event", vendor_events_path(@vendor_event) %>
+    </p>
+  <% end %>
+</div>
+<% else %>
+  <p>No vendor events found</p>
+<% end %>
 <%#= link_to "New vendor event", new_vendor_event_path %>

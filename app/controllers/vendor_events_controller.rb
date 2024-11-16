@@ -1,19 +1,17 @@
 class VendorEventsController < ApplicationController
-  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :set_vendor_event, only: %i[ index show edit create update destroy]
 
-  # before_action :set_vendor_event, only: %i[ show edit update destroy ]
 
 
   # GET /vendor_events or /vendor_events.json
   def index
-    # @vendor_events = VendorEvent.all
-
+    @vendor_events = VendorEvent.all
+    @hosted_events = VendorEvent.where({user_id: current_user.id})
+    @added_events = VendorEvent.where({added: true })
   end
 
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
-
-
   end
 
   # GET /vendor_events/new
@@ -50,7 +48,17 @@ class VendorEventsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
       end
+
+
     end
+  end
+
+  def add_event
+    @event_id = params.fetch("id")
+    @addedEvent = Event.where({added: true})
+
+    @addedEvent.save
+    format html {redirect_to event_path, notice: "Event Updated successfully"}
   end
 
   # DELETE /vendor_events/1 or /vendor_events/1.json
@@ -66,11 +74,9 @@ class VendorEventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vendor_event
-      @vendor_event = VendorEvent.find(params[:id])
+      @vendor_event = VendorEvent.where(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def vendor_event_params
-      params.require(:vendor_event).permit(:event_id, :application_status, :paid, :user_id)
-    end
+
 end

@@ -3,10 +3,15 @@
     <div class="col justify-content-center">
       <img src="https://picsum.photos/200" width="200px" alt="...">
       <h5>
-        <p><strong>Name: </strong><%= event.name %></p>
+        <p><strong>Name: </strong><%= event.name %></p></h5>
         <%= link_to "Show this event", event, class:"btn btn-primary" %>
         <%= link_to "Add event", event, class:"btn btn-light" %>
-      </h5>
+
+        <form action="/add_event/<%= event.id %>">
+            <input value=true type="hidden" name="added">
+            <button type="submit">Add to my events!</button>
+        </form>
+        
     </div>
     
       <div class="col">
@@ -35,8 +40,8 @@
         <%= event.address %></p>
 
         <p class="card-text"> 
-        <strong>Host:</strong>
-        <%= event.host.username %></p>
+        <strong>Event ID:</strong>
+        <%= event.id %></p>
       </div>
       </div>
   </div>
