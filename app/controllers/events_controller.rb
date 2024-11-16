@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :event_params, only: %i[ create update ]
+  # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
 
   # GET /events or /events.json
   def index
@@ -9,7 +10,7 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    @event = Event.find(params[:id])
+    
   end
 
   # GET /events/new
@@ -24,8 +25,9 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)
-
+    @event.host = current_user
     respond_to do |format|
+    
       if @event.save
         format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
@@ -52,7 +54,6 @@ class EventsController < ApplicationController
   # DELETE /events/1 or /events/1.json
   def destroy
     @event.destroy!
-
     respond_to do |format|
       format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
       format.json { head :no_content }
@@ -60,13 +61,15 @@ class EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def event_params
-      params.require(:event).permit(:name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :host_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def event_params
+    params.require(:event).permit(:name, :application_due_at, :started_at, :information, :application_link, :tags, :address)
+  end
+
+  
 end

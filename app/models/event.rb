@@ -17,6 +17,6 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
-  belongs_to :host, required: true, class_name: "User", foreign_key: 'host_id'
+  belongs_to :host, class_name: "User", foreign_key: "host_id"
   has_many :vendorevents, class_name: "VendorEvent", foreign_key: "event_id", dependent: :destroy
 end

@@ -1,42 +1,43 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Name:</strong>
-    <%= @event.name %>
-  </p>
+<div class="d-flex p-3 bg-info bg-opacity-10 border border-info border-start-0 rounded-end mb-2">
+  <div class="card-body row">
+    <div class="col justify-content-center">
+      <img src="https://picsum.photos/200" width="200px" alt="...">
+      <h5>
+        <p><strong>Name: </strong><%= event.name %></p>
+        <%= link_to "Show this event", event, class:"btn btn-primary" %>
+        <%= link_to "Add event", event, class:"btn btn-light" %>
+      </h5>
+    </div>
+    
+      <div class="col">
+        <p class="card-text"> 
+        <strong>Application due at:</strong>
+        <%= event.application_due_at %></p>
 
-  <p>
-    <strong>Application due at:</strong>
-    <%= @event.application_due_at %>
-  </p>
+        <p class="card-text"> 
+        <strong>Started at:</strong>
+        <%= event.started_at %></p>
 
-  <p>
-    <strong>Started at:</strong>
-    <%= @event.started_at %>
-  </p>
+        <p class="card-text"> 
+        <strong>Information:</strong>
+        <%= event.information %></p>
+  
+        <p class="card-text"> 
+        <strong>Application link:</strong>
+        <%= event.application_link %>>
 
-  <p>
-    <strong>Information:</strong>
-    <%= @event.information %>
-  </p>
+        <p class="card-text"> 
+        <strong>Tags:</strong>
+        <%= event.tags %>
 
-  <p>
-    <strong>Application link:</strong>
-    <%= @event.application_link %>
-  </p>
+        <p class="card-text"> 
+        <strong>Address:</strong>
+        <%= event.address %></p>
 
-  <p>
-    <strong>Tags:</strong>
-    <%= @event.tags %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= @event.address %>
-  </p>
-
-  <p>
-    <strong>Host:</strong>
-    <%= @event.host_id %>
-  </p>
-
+        <p class="card-text"> 
+        <strong>Host:</strong>
+        <%= event.host.username %></p>
+      </div>
+      </div>
+  </div>
 </div>
