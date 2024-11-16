@@ -1,4 +1,21 @@
 <p style="color: green"><%= notice %></p>
+<%= search_form_for @q do |f| %>
+
+<div>
+  <%= f.label :name_cont %>
+  <%= f.text_field :name_cont %>
+</div>
+
+<div>
+  <%= f.label :started_at_gteq %>
+  <%= f.date_field :started_at_gteq %>
+</div>
+
+<div>
+  <%= f.submit %>
+  <%= link_to "Clear", events_path %>
+</div>
+ <% end %>
 
 <h1>Events</h1>
 
