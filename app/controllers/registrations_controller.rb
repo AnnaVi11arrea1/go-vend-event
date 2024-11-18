@@ -32,6 +32,8 @@ class RegistrationsController < Devise::RegistrationsController
       else
 
 
+
+
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -39,6 +41,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
 
 
   # Only allow a list of trusted parameters through.
