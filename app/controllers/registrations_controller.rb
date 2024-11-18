@@ -29,6 +29,8 @@ class RegistrationsController < Devise::RegistrationsController
         format.html { redirect_to user_path(@user), notice: "user was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
+
+
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
