@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ show edit create update destroy ]
+  before_action :authenticate_user!, only: %i[ index show edit create update destroy ]
   before_action :set_user, only: %i[ show edit update destroy ]
-  after_action :user_params, only: %i[ edit update]
+
 
   def create
     @user = User.new(user_params)
@@ -17,11 +17,11 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @hosted_events = Event.all.where(host_id: @user.id)
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def update
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name, :social_media, :about, :avatar)
-  end
+  # def user_params
+  #   params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name, :social_media, :about, :avatar)
+  # end
 end
