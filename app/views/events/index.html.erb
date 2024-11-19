@@ -30,8 +30,23 @@
 <div id="events">
   <% @events.each do |event| %>
 
-    <%= render event %>
-    
+    <div class="d-flex p-3 mb-2">
+      <div class="mycard row
+      ">
+        <div class="col justify-content-center">
+        </div>
+        <div class="col">
+          <p class="card-text"> 
+            <strong>Name:</strong>
+            <%= event.name %></p>
+            <%= link_to "Show this event", event, class:"btn btn-primary" %>
+            <form>
+            <%= button_to 'Add to Vendor Events', new_vendor_event_path(event), method: :post, class: 'btn btn-primary' %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
 
 </div>

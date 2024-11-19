@@ -4,17 +4,9 @@ Rails.application.routes.draw do
   }
   root "users#index"
 
-  resources :events, only: [:show, :index, :new, :create] do
-    member do
-      post 'add_event', to: 'vendor_events#add_event'
-    end
-  end
+  resources :events
 
-  resources :vendor_events do
-    member do
-      post "add_event", to: "vendor_events#add_event"
-    end
-  end
+  resources :vendor_events
 
   resources :users, only: [:show]
 
