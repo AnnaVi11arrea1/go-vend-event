@@ -3,14 +3,19 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :event_id %>
+  <div class="form-inputs mycard">
+    <%= f.hidden_field :event_id %>
     <%= f.input :application_status %>
     <%= f.input :paid %>
-    <%= f.input :user_id %>
-  </div>
+    <%= f.hidden_field :user_id %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+      <% end %>
+      <br>
+    <div>
+      <%= link_to "Show Event", @vendor_event %> |
+      <%= link_to "Back to My Events", vendor_events_path %>
+    </div>
   </div>
-<% end %>

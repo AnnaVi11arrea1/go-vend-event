@@ -4,7 +4,6 @@
 
 <%= link_to "New event", new_event_path %>
 
-
 <%= search_form_for @q do |f| %>
 
 <div class="search">
@@ -31,8 +30,7 @@
   <% @events.each do |event| %>
 
     <div class="d-flex p-3 mb-2">
-      <div class="mycard row
-      ">
+      <div class="mycard row">
         <div class="col justify-content-center">
         </div>
         <div class="col">
@@ -40,13 +38,9 @@
             <strong>Name:</strong>
             <%= event.name %></p>
             <%= link_to "Show this event", event, class:"btn btn-primary" %>
-            <form>
-            <%= button_to 'Add to Vendor Events', new_vendor_event_path(event), method: :post, class: 'btn btn-primary' %>
-            </form>
           </div>
         </div>
       </div>
     </div>
   <% end %>
-
 </div>
