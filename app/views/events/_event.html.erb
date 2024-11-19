@@ -4,10 +4,10 @@
       <img src="https://picsum.photos/200" width="200px" alt="...">
       <h5>
         <p><strong>Name: </strong><%= event.name %></p></h5>
-        <%= link_to "Show this event", @event, class:"btn btn-primary" %>
+        <%= link_to "Show this event", event, class:"btn btn-primary" %>
 
         <form>
-        <%= link_to "Add event", new_vendor_event_path(@event), class:"btn btn-light" %>
+        <%= button_to 'Add to Vendor Events', add_event_event_path(event), method: :post, class: 'btn btn-primary' %>
         </form>
     </div>
     

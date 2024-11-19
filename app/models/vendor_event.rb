@@ -15,6 +15,5 @@ class VendorEvent < ApplicationRecord
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
-
-  # has_one :event_name, through: "Event", source: :name
+  delegate :name, to: :event, prefix: true
 end

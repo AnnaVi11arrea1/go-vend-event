@@ -1,4 +1,5 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="mycard">
+<h2 class="title">Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
@@ -18,42 +19,43 @@
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password,
-                hint: "we need your current password to confirm your changes",
+                hint: "Current password required to confirm your changes",
                 required: true,
-                input_html: { autocomplete: "current-password" } %>
+                input_html: { autocomplete: "current-password", class:"m-2" } %>
     <%= f.input :username,
-                hint: "Add a user name",
+                hint: "",
                 required: true,
-                input_html: { autocomplete: "user-name" } %>    
+                input_html: { autocomplete: "user-name", class:"m-2" } %>    
     <%= f.input :first_name,
-                hint: "Add your first name",
+                hint: "",
                 required: false,
-                input_html: { autocomplete: "first-name" } %>            
+                input_html: { autocomplete: "first-name", class:"m-2" } %>            
     <%= f.input :last_name,
-                hint: "Add your last name",
+                hint: "",
                 required: false,
-                input_html: { autocomplete: "last-name" } %>   
+                input_html: { autocomplete: "last-name", class:"m-2" } %>   
     <%= f.input :social_media,
-                hint: "Add a link to a relevent social media page",
+                hint: "Add a link",
                 required: false,
-                input_html: { autocomplete: "social-media" } %>   
+                input_html: { autocomplete: "social-media", class:"m-2" } %>   
     <%= f.input :about,
                 hint: "Tell the world about you or your business",
                 required: false,
-                input_html: { autocomplete: "about" } %>   
+                input_html: { autocomplete: "about",class:"m-2" } %>   
     <%= f.input :avatar, as: :file,
-                hint: "upload a photo",
+                hint: "",
                 required: false,
-                input_html: { autocomplete: "avatar" } %>   
-  </div>
+                input_html: { autocomplete: "avatar", class:"m-2" } %>   
+ 
 
-  <div class="form-actions">
+  <div class="form-actions m-3">
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>
-
+ </div>
 <h3>Cancel my account</h3>
 
 <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
 
 <%= link_to "Back", :back %>
+</div>
