@@ -1,5 +1,5 @@
 class VendorEventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit new create update destroy add_event]
+  before_action :set_vendor_event, only: %i[ show edit new update destroy]
 
   # GET /vendor_events or /vendor_events.json
   def index
@@ -8,7 +8,6 @@ class VendorEventsController < ApplicationController
 
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
-    @vendor_event = VendorEvent.find(params[:id])
   end
   # GET /vendor_events/new
 
@@ -22,12 +21,13 @@ class VendorEventsController < ApplicationController
 
   # POST /vendor_events or /vendor_events.json
   def create
+
     @vendor_event = VendorEvent.new(vendor_event_params)
     @vendor_event.user_id = current_user.id
-    @vendor_event.event_id = params[:event_id]
+    @vendor_event.event_id = params.dig("vendor_event", "event_id")
     respond_to do |format|
       if @vendor_event.save
-        format.html { redirect_to @vendor_event, notice: "Vendor event was successfully created." }
+        format.html { redirect_to vendor_events_path, notice: "Vendor event was successfully created." }
         format.json { render :show, status: :created, location: @vendor_event }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,18 +49,18 @@ class VendorEventsController < ApplicationController
     end
   end
 
-  def add_event
-    @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
-    respond_to do |format|
-      if @vendor_event.save
-        format.html { redirect_to vendor_event_url(@vendor_event), notice: "Event was successfully added to vendor events." }
-        format.json { render :show, status: :created, location: @vendor_event }
-      else
-        format.html { redirect_to events_url, alert: "Failed to add event to vendor events." }
-        format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def add_event
+  #   @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
+  #   respond_to do |format|
+  #     if @vendor_event.save
+  #       format.html { redirect_to vendor_event_url(@vendor_event), notice: "Event was successfully added to vendor events." }
+  #       format.json { render :show, status: :created, location: @vendor_event }
+  #     else
+  #       format.html { redirect_to events_url, alert: "Failed to add event to vendor events." }
+  #       format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /vendor_events/1 or /vendor_events/1.json
   def destroy
@@ -73,8 +73,8 @@ class VendorEventsController < ApplicationController
 
   private
 
-  def set_event
-    @event = Event.find(params[:id])
+  def set_vendor_event
+    @vendor_event = VendorEvent.find(params[:id])
   end
 
   def vendor_event_params
