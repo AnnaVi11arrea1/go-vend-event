@@ -30,7 +30,7 @@ class VendorEventsController < ApplicationController
         format.html { redirect_to vendor_events_path, notice: "Vendor event was successfully created." }
         format.json { render :show, status: :created, location: @vendor_event }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity } #ODO: HANDLE Edge case
         format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
       end
     end

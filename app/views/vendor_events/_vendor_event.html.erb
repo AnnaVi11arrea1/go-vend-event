@@ -1,4 +1,4 @@
-<div id="<%= dom_id vendor_event %>">
+<div id="<%= dom_id vendor_event %>" class="mycard">
   <p>
     <strong>Event:</strong>
     <%= vendor_event.event.name %>
@@ -12,5 +12,12 @@
   <p>
     <strong>Paid:</strong>
     <%= vendor_event.paid %>
+  </p>
+
+  <p>
+    <%= link_to "Show this vendor event", vendor_events_path(vendor_event) %>
+  </p>
+    <p>
+    <%= link_to "Remove this event", vendor_event, method: :delete %>
   </p>
 </div>
