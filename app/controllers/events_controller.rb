@@ -1,10 +1,12 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
 
   # GET /events or /events.json
   def index
+    @vendor_event = VendorEvent.new
+
     @q = Event.ransack(params[:q])
 
     @events = @q.result(distinct: true).page(params[:page]).per(10)
@@ -12,7 +14,7 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    
+    @event = Event.find(params[:id])
   end
 
   # GET /events/new
@@ -25,11 +27,8 @@ class EventsController < ApplicationController
   end
 
   def add_event
-    @event_id = params.fetch("id")
-    @addedEvent = Event.where({added: true})
-    
-    @addedEvent.save
-    format html {redirect_to event_path, notice: "Event Updated successfully"}
+    @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
+    format html {redirect_to add_event_vendor_event_path, notice: "Event Updated successfully"}
   end
 
   # POST /events or /events.json
@@ -73,7 +72,7 @@ class EventsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.where(id: params[:id]).first
   end
 
   # Only allow a list of trusted parameters through.

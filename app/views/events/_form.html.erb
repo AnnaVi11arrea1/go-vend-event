@@ -3,8 +3,8 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-
+  <div class="form-inputs mycard">
+    <h1 class="title">New event</h1>
 
     <%= f.input :name %>
     <%= f.input :application_due_at, as: :date %>
@@ -14,10 +14,9 @@
     <%= f.input :tags %>
     <%= f.input :address, as: :string %>
 
-
-  </div>
-
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
+
+  </div>

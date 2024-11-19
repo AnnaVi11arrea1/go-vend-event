@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   }
   root "users#index"
 
-  resources :vendor_events
   resources :events
+
+  resources :vendor_events
+
   resources :users, only: [:show]
 
-  get "/add_event/:id", to: "vendor_events#show"
+  # get "/add_event/:id", to: "vendor_events#show"
 
 end
