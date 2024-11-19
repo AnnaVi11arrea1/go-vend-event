@@ -1,0 +1,42 @@
+body {
+  background-color: violet !important;
+  font-family: 'Arial', sans-serif;
+}
+
+.nav {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.dropdown-item {
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.mycard {
+  background-color: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
+}
+
+.title {
+  display: flex;
+  justify-self: center;
+  margin-bottom: 5vh;
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: space-between;
+  margin-bottom: 5vh;
+}
