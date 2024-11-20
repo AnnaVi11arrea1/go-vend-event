@@ -3,7 +3,7 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs mycard">
+  <div class="form-inputs mycard d-flex col-6 justify-self-center">
     <h1 class="title">New event</h1>
 
     <%= f.input :name %>
@@ -13,11 +13,15 @@
     <%= f.input :application_link, as: :string %>
     <%= f.input :tags %>
     <%= f.input :address, as: :string %>
+    <br>
     <%= f.input :photo, as: :file %>
-
+  <br>
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
-<% end %>
-
+  <% end %>
+  <br>
+  <div>
+    <%= link_to "Back to events", events_path %>
   </div>
+</div>
