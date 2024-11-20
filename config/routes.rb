@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
   resources :vendor_events
 
-  resources :users, only: [:show]
+  resources :users
 
-  # get "/add_event/:id", to: "vendor_events#show"
+
 
 end
