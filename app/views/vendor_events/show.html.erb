@@ -2,9 +2,8 @@
 
 <%= render @vendor_event%>
 
-<div>
-  <%= link_to "Edit Event", edit_vendor_event_path(@vendor_event) %> |
-  <%= link_to "Back to vendor events", vendor_events_path %>
-
+<div class="row justify-content-around">
+  <%= button_to "Edit Event", edit_vendor_event_path(@vendor_event) %> 
+  <%= button_to "Back to vendor events", vendor_events_path %>
   <%= button_to "Destroy this vendor event", @vendor_event, method: :delete %>
 </div>
