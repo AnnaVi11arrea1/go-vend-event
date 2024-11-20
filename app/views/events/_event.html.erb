@@ -14,11 +14,17 @@
           <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
         <% end%>
         <br>
-    <h5><p><strong>Host: 
-      <% if @host.photo.present? %>
-      <%= image_tag @host.photo.url, alt: "profile pic", width:"10%", class:"rounded-circle" %>
-      <% end %>
-      </strong><%= @host.username %></p></h5>
+    <h5><p><strong>Host:
+      <a href="../users/id">
+        <% if @host.photo.present? %>
+        <%= image_tag @host.photo.url, alt: "profile pic", width:"10%", class:"rounded-circle" %>
+        <% else %>
+        <%= image_tag "favicon.png" %>
+        <% end %>
+        </strong><%= @host.username %>
+        </a>
+      </p>
+    </h5>
     </div>
     
     <div class="col">
