@@ -1,52 +1,54 @@
 <div class="d-flex p-3 mb-2">
   <div class="mycard row">
     <div class="col justify-content-center">
-   
       <h5>
         <p><strong>Name: </strong><%= @event.name %></p></h5>
         <p class="card-text"> 
-        
         <% if @event.photo.present? %>
-        <%= image_tag @event.photo.url, alt: "profile pic", class: "profile-pic" %>
-        <% end %>
-</p>
+        <%= image_tag @event.photo.url, alt: "profile pic", width:"50%" %>
+        <% end %></p>
 
         <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
           <%= form.hidden_field :event_id, value: @event.id %>
           <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
         <% end%>
-
     </div>
     
-      <div class="col">
-        <p class="card-text"> 
-        <strong>Application due at:</strong>
-        <%= @event.application_due_at %></p>
+    <div class="col">
+      <p class="card-text"> 
+      <strong>Application due at:</strong>
+      <%= @event.application_due_at %></p>
 
-        <p class="card-text"> 
-        <strong>Started at:</strong>
-        <%= @event.started_at %></p>
+      <p class="card-text"> 
+      <strong>Started at:</strong>
+      <%= @event.started_at %></p>
 
-        <p class="card-text"> 
-        <strong>Information:</strong>
-        <%= @event.information %></p>
+      <p class="card-text"> 
+      <strong>Information:</strong>
+      <%= @event.information %></p>
+
+      <p class="card-text"> 
+      <strong>Application link:</strong>
+      <%= @event.application_link %>>
+
+      <p class="card-text"> 
+      <strong>Tags:</strong>
+      <%= @event.tags %>
+
+      <p class="card-text"> 
+      <strong>Address:</strong>
+      <%= @event.address %></p>
+
+      <p class="card-text"> 
+      <strong>Event ID:</strong>
+      <%= @event.id %></p>
+    
   
-        <p class="card-text"> 
-        <strong>Application link:</strong>
-        <%= @event.application_link %>>
 
-        <p class="card-text"> 
-        <strong>Tags:</strong>
-        <%= @event.tags %>
-
-        <p class="card-text"> 
-        <strong>Address:</strong>
-        <%= @event.address %></p>
-
-        <p class="card-text"> 
-        <strong>Event ID:</strong>
-        <%= @event.id %></p>
-      </div>
-      </div>
+    <div class="row justify-content-around">
+      <%= button_to "Edit this event", edit_event_path(@event) %> 
+      <%= button_to "Back to events", events_path %>
+      <%= button_to "Destroy this event", @event, method: :delete %>
+    </div>
   </div>
 </div>
