@@ -87,7 +87,7 @@ gem "sqlite3", "~> 1.4"
 gem "table_print"
 gem "simple_form"
 gem "carrierwave"
-gem "aws-sdk-s3"
+gem "aws-sdk-s3", require: false
 
 group :development do
   gem "annotate"

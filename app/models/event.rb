@@ -10,6 +10,7 @@
 #  latitude           :float
 #  longitude          :float
 #  name               :string
+#  photo              :string
 #  started_at         :date
 #  tags               :string
 #  created_at         :datetime         not null

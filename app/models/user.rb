@@ -32,6 +32,7 @@
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
@@ -48,6 +49,6 @@ class User < ApplicationRecord
 
 
 
-  has_one_attached :avatar
+  has_one_attached :photo 
 
 end
