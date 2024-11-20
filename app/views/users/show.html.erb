@@ -3,13 +3,12 @@
       <div class="col-md-12">
         <h1 class="title"><%= @user.username %>'s Profile</h1>
       </div>
-
+    </div>
     <div class="row">
+      <div class="col-1"></div>
       <div class="col">
         <div>
-          
-            <%= image_tag @user.photo.url, alt: "profile pic", class: "profile-pic" %>
-            
+          <%= image_tag @user.photo.url, alt: "profile pic", class: "rounded-circle", width:"70%" %>
         </div>
         <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
@@ -21,7 +20,7 @@
         <%= link_to "Edit Profile", edit_user_registration_path %>
         <% end %>
       </div>
-
+      <div class="col-1"></div>
 
       <div class="col">
         <h2>Hosted Events</h2>
@@ -33,11 +32,10 @@
             <% if !@hosted_events.any? %>
             <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
-
-        <h2>Vendor Events</h2>
+        <h2>My Events</h2>
           <ul>
             <% @user.vendor_events.each do |event| %>
-              <li><%= link_to event.id, vendor_event_path %></li>
+              <li><%= link_to event.event.name, vendor_event_path(event) %></li>
             <% end %>
           </ul>
             <% if !@user.vendor_events.any? %>

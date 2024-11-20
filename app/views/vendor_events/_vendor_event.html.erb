@@ -1,24 +1,28 @@
 <div id="<%= dom_id vendor_event %>" class="mycard">
+<div class="row justify-content-between">
+   <p class="px-4 col">
 
-
+    <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+  </p>
+   <p class="col">
     <strong>Event:</strong>
     <%= vendor_event.event.name %>
   </p>
 
-  <p>
+  <p class="col">
     <strong>Application status:</strong>
     <%= vendor_event.application_status %>
   </p>
 
-  <p>
+  <p class="col">
     <strong>Paid:</strong>
     <%= vendor_event.paid %>
   </p>
 
-  <p>
-    <%= link_to "Event Details", vendor_event_path(vendor_event) %>
+  <p class="col">
+    <%= link_to "Event Details", event_path(vendor_event.event) %>
   </p>
-    <p>
-    <%= link_to "Remove Event", vendor_event, method: :delete %>
-  </p>
+  <p class="col">
+    <%= link_to "Edit My Event", edit_vendor_event_path(vendor_event) %>
+  </div>
 </div>

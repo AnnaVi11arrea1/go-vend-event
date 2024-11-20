@@ -9,12 +9,13 @@ class EventsController < ApplicationController
 
     @q = Event.ransack(params[:q])
 
-    @events = @q.result(distinct: true).page(params[:page]).per(10)
+    @events = Event.page(params[:page]).per(5)
   end
 
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
+    @host = User.find(@event.host_id)
   end
 
   # GET /events/new

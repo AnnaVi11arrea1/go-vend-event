@@ -20,6 +20,10 @@
 class Event < ApplicationRecord
   has_many :users, through: :vendor_events
   has_many :vendor_events, dependent: :destroy
+
+  has_one :host, class_name: 'User', foreign_key: 'host_id'
+
+
   def self.ransackable_attributes(auth_object = nil)
     %w[name address tags started_at]
   end

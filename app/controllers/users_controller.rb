@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @hosted_events = Event.all.where(:host_id => @user.id)
-    
+    @vendor_event = VendorEvent.all.where(:user_id => @user.id)
   end
 
   def edit

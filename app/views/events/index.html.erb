@@ -4,6 +4,8 @@
 
 <%= link_to "New event", new_event_path %>
 
+
+
 <%= search_form_for @q do |f| %>
 
 <div class="search">
@@ -25,11 +27,13 @@
   <% end %>
 </div>
 
-
 <div id="events">
-  <% @events.each do |event| %>
 
-    <div class="d-flex p-3 mb-2">
+  <%= paginate @events, :container => false %>
+
+
+  <% @events.each do |event| %>
+    <div class="d-flex p-1">
       <div class="mycard row">
         <div class="col justify-content-center">
           <% if event.photo.present?%>
