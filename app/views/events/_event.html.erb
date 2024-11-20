@@ -1,12 +1,14 @@
 <div class="d-flex p-3 mb-2">
   <div class="mycard row">
     <div class="col justify-content-center">
-      <img src="https://picsum.photos/200" width="200px" alt="...">
+   
       <h5>
         <p><strong>Name: </strong><%= @event.name %></p></h5>
         <p class="card-text"> 
         
-        <%= image_tag url_for(@event.photo) if @event.photo.attached? %>
+        <% if @event.photo.present? %>
+        <%= image_tag @event.photo.url, alt: "profile pic", class: "profile-pic" %>
+        <% end %>
 </p>
 
         <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
