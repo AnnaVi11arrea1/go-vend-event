@@ -12,7 +12,4 @@ Rails.application.routes.draw do
 
 
 
-
-  # get "/add_event/:id", to: "vendor_events#show"
-
 end

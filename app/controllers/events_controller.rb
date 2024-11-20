@@ -60,6 +60,19 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit_photo
+    @user = current_user
+  end
+
+  def update_photo
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to @user, notice: 'photo was successfully updated.'
+    else
+      render :edit_user
+    end
+  end
+
   # DELETE /events/1 or /events/1.json
   def destroy
     @event.destroy!

@@ -54,4 +54,7 @@ class Event < ApplicationRecord
     end
   end
 
+  has_one_attached :photo
+  mount_uploader :photo, PhotoUploader
+
 end

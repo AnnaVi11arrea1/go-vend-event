@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @hosted_events = Event.all.where(:host_id => @user.id)
-
+    
   end
 
   def edit
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, notice: 'photo was successfully updated.'
     else
-      render :edit_photo
+      render :edit_user
     end
   end
 
@@ -65,6 +65,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :avatar, :photo)
+    params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo)
   end
 end

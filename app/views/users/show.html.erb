@@ -8,11 +8,8 @@
       <div class="col">
         <div>
           
-     
-          <% if @user.photo.attached? %>
-            <%= image_tag url_for(@user.photo), class: "profile-pic" %>
-            <% end %>
-  
+            <%= image_tag @user.photo.url, alt: "profile pic", class: "profile-pic" %>
+            
         </div>
         <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>

@@ -48,7 +48,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
 
-
+ 
   has_one_attached :photo 
+
+  mount_uploader :photo, PhotoUploader
 
 end

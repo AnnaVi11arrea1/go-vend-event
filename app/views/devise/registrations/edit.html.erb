@@ -41,17 +41,14 @@
     <%= f.input :about,
                 hint: "Tell the world about you or your business",
                 required: false,
-                input_html: { autocomplete: "about",class:"m-2" } %>    
+                input_html: { autocomplete: "about",class:"m-2" } %> 
+    <%= f.input :photo, as: :file %>   
   <div class="form-actions m-3">
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>
 </div>
 
-<%= form_with model: @user, local: true do |form| %>
-<%= form.file_field :photo %>
-<%= form.submit %>
-<% end %>
 <br>
 <h3>Cancel my account</h3>
 
