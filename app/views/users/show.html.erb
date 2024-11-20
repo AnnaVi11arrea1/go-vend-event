@@ -32,8 +32,8 @@
         <h2>My Events</h2>
           <ul>
             <% @user.vendor_events.each do |event| %>
-              <li><%= link_to event.id, event_path %>
-              <%= event.event.name %>
+              <li><%= link_to event.event.name, event_path %>
+              
               </li>
             <% end %>
           </ul>
