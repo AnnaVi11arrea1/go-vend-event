@@ -3,13 +3,10 @@
       <div class="col-md-12">
         <h1 class="title"><%= @user.username %>'s Profile</h1>
       </div>
-
     <div class="row">
       <div class="col">
         <div>
-          
-            <%= image_tag @user.photo.url, alt: "profile pic", class: "profile-pic" %>
-            
+          <%= image_tag @user.photo.url, alt: "profile pic", class: "profile-pic" %>
         </div>
         <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
@@ -22,7 +19,6 @@
         <% end %>
       </div>
 
-
       <div class="col">
         <h2>Hosted Events</h2>
           <ul>
@@ -33,7 +29,6 @@
             <% if !@hosted_events.any? %>
             <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
-
         <h2>Vendor Events</h2>
           <ul>
             <% @user.vendor_events.each do |event| %>

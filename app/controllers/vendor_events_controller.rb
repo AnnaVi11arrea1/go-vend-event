@@ -8,6 +8,7 @@ class VendorEventsController < ApplicationController
 
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
+    @vendor_events = VendorEvent.all.where(:user_id => current_user.id)
   end
   # GET /vendor_events/new
 

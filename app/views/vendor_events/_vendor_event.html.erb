@@ -1,6 +1,11 @@
 <div id="<%= dom_id vendor_event %>" class="mycard">
 
 
+   <p>
+    <strong>Event:</strong>
+    <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+  </p>
+   <p>
     <strong>Event:</strong>
     <%= vendor_event.event.name %>
   </p>
