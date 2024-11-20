@@ -3,8 +3,7 @@
     <div class="col justify-content-center">
       <h5>
         <p><strong>Name: </strong><%= @event.name %></p></h5>
-        <h5>
-        <p><strong>Host: </strong><%= @host.username %></p></h5>
+        
         <p class="card-text"> 
         <% if @event.photo.present? %>
         <%= image_tag @event.photo.url, alt: "profile pic", width:"50%" %>
@@ -14,6 +13,12 @@
           <%= form.hidden_field :event_id, value: @event.id %>
           <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
         <% end%>
+        <br>
+    <h5><p><strong>Host: 
+      <% if @host.photo.present? %>
+      <%= image_tag @host.photo.url, alt: "profile pic", width:"10%", class:"rounded-circle" %>
+      <% end %>
+      </strong><%= @host.username %></p></h5>
     </div>
     
     <div class="col">
