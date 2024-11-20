@@ -32,15 +32,23 @@
     <div class="d-flex p-3 mb-2">
       <div class="mycard row">
         <div class="col justify-content-center">
+          <% if event.photo.present?%>
+          <%= image_tag event.photo.url, alt:"profile pic", class:"profile-pic" %>
+          <% end %>
+          <strong>Name:</strong>
+            <%= event.name %>
         </div>
         <div class="col">
           <p class="card-text"> 
-            <strong>Name:</strong>
-            <%= event.name %></p>
+            <strong>Where:</strong>
+            <%= event.address %>
+            <br>
+            <strong>When:</strong>
+            <%= event.started_at.strftime("%B %d, %Y") %></p>
             <%= link_to "Show this event", event, class:"btn btn-primary" %>
-          </div>
         </div>
       </div>
     </div>
+    
   <% end %>
 </div>

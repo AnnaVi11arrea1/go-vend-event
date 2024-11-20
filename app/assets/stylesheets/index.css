@@ -56,3 +56,13 @@ body::before {
   flex-direction: column;
   border-bottom: 1px solid #333;
 }
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  visibility: visible;
+
+
+}

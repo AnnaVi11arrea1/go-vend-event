@@ -10,6 +10,7 @@
 #  latitude           :float
 #  longitude          :float
 #  name               :string
+#  photo              :string
 #  started_at         :date
 #  tags               :string
 #  created_at         :datetime         not null
@@ -52,5 +53,8 @@ class Event < ApplicationRecord
       all
     end
   end
+
+  has_one_attached :photo
+  mount_uploader :photo, PhotoUploader
 
 end
