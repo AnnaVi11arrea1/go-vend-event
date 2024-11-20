@@ -3,6 +3,8 @@
     <div class="col justify-content-center">
       <h5>
         <p><strong>Name: </strong><%= @event.name %></p></h5>
+        <h5>
+        <p><strong>Host: </strong><%= @host.username %></p></h5>
         <p class="card-text"> 
         <% if @event.photo.present? %>
         <%= image_tag @event.photo.url, alt: "profile pic", width:"50%" %>
