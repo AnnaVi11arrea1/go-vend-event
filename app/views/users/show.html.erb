@@ -29,10 +29,12 @@
             <% if !@hosted_events.any? %>
             <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
-        <h2>Vendor Events</h2>
+        <h2>My Events</h2>
           <ul>
             <% @user.vendor_events.each do |event| %>
-              <li><%= link_to event.id, vendor_event_path %></li>
+              <li><%= link_to event.id, event_path %>
+              <%= event.event.name %>
+              </li>
             <% end %>
           </ul>
             <% if !@user.vendor_events.any? %>
