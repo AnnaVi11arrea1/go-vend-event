@@ -3,7 +3,7 @@
 
 
     task admin: :environment do
-      if !Rails.env.development? && Users.count == 0
+      if !Rails.env.development? && Users.count = 0
         user = User.new
         user.email = 'stayfluorescent@gmail.com'
         user.password = 'password'
