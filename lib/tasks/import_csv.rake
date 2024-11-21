@@ -3,13 +3,15 @@
 
 
     task admin: :environment do
-      if !Rails.env.development? && User.count = 0
-        user = User.new
-        user.email = 'stayfluorescent@gmail.com'
-        user.password = 'password'
-        user.role = 'admin'
-        user.username = 'everfluorescent'
+      if !Rails.env.development? && User.count == 0
+        user = User.new(
+          email: 'stayfluorescent@gmail.com',
+          password: 'password',
+          role: 'admin',
+          username: 'everfluorescent'
+        )
         user.save!
+        puts "Admin user created with email: #{user.email}" if user.persisted?
       end
     end
 
