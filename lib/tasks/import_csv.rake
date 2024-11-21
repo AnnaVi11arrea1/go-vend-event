@@ -1,4 +1,3 @@
-
   namespace :csv do
     desc "Import data from CSV into Users"
     task import: :environment do
