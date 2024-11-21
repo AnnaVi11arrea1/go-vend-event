@@ -7,5 +7,5 @@ bundle exec rake assets:precompile
 bundle exec rake assets:clean
 bundle exec rake db:migrate
 
-bundle exec rake import_csv:admin
-bundle exec rake import_csv:events
+bundle exec rake csv:admin
+bundle exec rake csv:events
