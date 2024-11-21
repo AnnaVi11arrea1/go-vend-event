@@ -8,10 +8,10 @@ class EventsController < ApplicationController
     @vendor_event = VendorEvent.new
 
     @q = Event.ransack(params[:q])
-
+    
     @events = Event.page(params[:page]).per(5)
   end
-
+  
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])

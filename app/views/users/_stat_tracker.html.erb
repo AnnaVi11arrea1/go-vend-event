@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="title">Stat Tracker</h2>
+    </div>
+  </div>
+  <div class="row">
+      <h4 class="col">Event Name</h4>
+       <div class="p-1"></div>
+      <h4 class="col">Expense</h4>
+       <div class="p-1"></div>
+      <h4 class="col">Sales</h4>
+  </div>
+<% @user.vendor_events.each do |event|%>
+  <div class="row">
+    <div class="p-1"></div>
+    <div class="col">
+      <p><%= event.event.name %></p>
+    </div>
+    <div class="p-1"></div>
+    <div>
+        <label for="expense" visibility="hidden">
+        <input type="float" class="d-flex" id="expense">
+    </div>
+    <div class="p-1"></div>
+    <div class="col">
+        <label for="sales" visibility="hidden">
+        <input type="float" class="d-flex" id="sales">
+    </div>
+  </div> 
+<% end %> 
+</div>

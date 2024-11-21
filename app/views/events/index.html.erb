@@ -2,47 +2,40 @@
 
 <h1 class="title">Search Events</h1>
 
-<%= link_to "New event", new_event_path %>
-
-
+<div id="events" class="card">
 
 <%= search_form_for @q do |f| %>
 
-<div class="search">
+<div class="search pt-3 d-flex justify-content-center">
   <div>
     <%= f.label :name_cont %>
     <%= f.text_field :name_cont %>
   </div>
-
-  <div>
-    <%= f.label :started_at_gteq %>
+  <div class="search px-2">
+    <%= f.label :started_at_gteq, "On or after " %>
     <%= f.date_field :started_at_gteq %>
   </div>
-
-  <div>
+  <div class="search px-2">
     <%= f.submit %>
+  </div>
+  <div class="search px-2">
     <%= link_to "Clear", events_path %>
   </div>
-
   <% end %>
 </div>
 
-<div id="events">
-
-  <%= paginate @events, :container => false %>
-
 
   <% @events.each do |event| %>
-    <div class="d-flex p-1">
-      <div class="mycard row">
-        <div class="col justify-content-center">
+    <div class="d-flex ps-4 mb-2 mycard justify-content-between">
+      <div class="row">
+        <div class="col-6">
           <% if event.photo.present?%>
           <%= image_tag event.photo.url, alt:"profile pic", class:"profile-pic" %>
           <% end %>
           <strong>Name:</strong>
             <%= event.name %>
         </div>
-        <div class="col">
+        <div class="col-6">
           <p class="card-text"> 
             <strong>Where:</strong>
             <%= event.address %>
@@ -53,6 +46,8 @@
         </div>
       </div>
     </div>
-    
   <% end %>
+<div class="d-flex justify-content-around p-3">
+  <%= paginate @events, :container => false %>
+</div>
 </div>

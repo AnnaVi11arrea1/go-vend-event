@@ -22,4 +22,20 @@ class VendorEvent < ApplicationRecord
   mount_uploader :photo, PhotoUploader
 
 
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name paid application_status]
+  end
+
+  def self.search(search)
+    if search
+      where('name LIKE ? OR application_status LIKE ? OR paid LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      all
+    end
+  end
+
 end
