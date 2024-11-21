@@ -1,6 +1,20 @@
   namespace :csv do
     desc "Import data from CSV into Users"
-    task import: :environment do
+
+
+    task admin: :environment do
+      if !Rails.env.development? && Users.count == 0
+        user = User.new
+        user.email = 'stayfluorescent@gmail.com'
+        user.password = 'password'
+        user.role = 'admin'
+        user.username = 'everfluorescent'
+        user.save!
+      end
+    end
+
+
+    task events: :environment do
       require 'csv'
       
       csv_file = File.read(Rails.root.join('lib', 'csvs', 'events.csv')) # Adjust the path
