@@ -5,8 +5,8 @@
 
   <div class="form-inputs mycard">
     <%= f.hidden_field :event_id %>
-    <%= f.input :application_status %>
-    <%= f.input :paid %>
+    <%= f.input :application_status, input_html: { id: 'application-status-input' } %>
+    <%= f.input :paid, input_html: { id: 'paid-checkbox' } %>
     <%= f.hidden_field :user_id %>
 
     <div class="form-actions">

@@ -1,28 +1,38 @@
 <div id="<%= dom_id vendor_event %>" class="mycard">
-<div class="row justify-content-between">
-   <p class="px-4 col">
+<div class="justify-content-between">
+  <div class="d-flex align-self-center">
+   <p class="px-4">
 
     <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
   </p>
-   <p class="col">
+   <p>
     <strong>Event:</strong>
     <%= vendor_event.event.name %>
   </p>
+  </div>
 
-  <p class="col">
+  <p>
     <strong>Application status:</strong>
+    <% if vendor_event.application_status? %>
     <%= vendor_event.application_status %>
+    <% else %>
+    <div>Not applied</div>
+    <% end %>
   </p>
 
-  <p class="col">
+  
     <strong>Paid:</strong>
-    <%= vendor_event.paid %>
-  </p>
+    <% if vendor_event.paid? %>
+    <p>PAID</p>
+    <% else %>
+    <p>DUE</p>
+    <% end %>
+  
 
-  <p class="col">
-    <%= link_to "Event Details", event_path(vendor_event.event) %>
+  <p>
+    <%= link_to "Details", event_path(vendor_event.event) %>
   </p>
-  <p class="col">
-    <%= link_to "Edit My Event", edit_vendor_event_path(vendor_event) %>
+  <p>
+    <%= link_to "Edit Status", edit_vendor_event_path(vendor_event) %>
   </div>
 </div>
