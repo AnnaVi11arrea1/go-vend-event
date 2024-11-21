@@ -14,7 +14,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       ## Rememberable
       t.datetime :remember_created_at
       t.text :about
-      t.string :avatar
+      t.string :photo
       t.string :username
       t.string :first_name
       t.string :last_name
