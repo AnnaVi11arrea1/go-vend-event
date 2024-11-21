@@ -7,7 +7,6 @@
         user = User.new(
           email: 'stayfluorescent@gmail.com',
           password: 'password',
-          role: 'admin',
           username: 'everfluorescent'
         )
         user.save!
