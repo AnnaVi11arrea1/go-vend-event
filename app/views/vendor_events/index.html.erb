@@ -2,6 +2,23 @@
 
 <h1 class="title">My events</h1>
 
+<%= search_form_for @a do |f| %>
+
+<div class="search pt-3 d-flex justify-content-center">
+  <div>
+    <%= f.label :paid_cont, "Find" %>
+    <%= f.text_field :paid_cont %>
+  </div>
+
+  <div class="search px-2">
+    <%= f.submit %>
+  </div>
+  <div class="search px-2">
+    <%= link_to "Clear", events_path %>
+  </div>
+  <% end %>
+</div>
+
 <% if @vendor_events.present? %>
 <div id="vendor_event">
   <% @vendor_events.each do |vendor_event| %>

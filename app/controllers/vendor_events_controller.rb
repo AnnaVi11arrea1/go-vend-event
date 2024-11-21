@@ -3,7 +3,9 @@ class VendorEventsController < ApplicationController
 
   # GET /vendor_events or /vendor_events.json
   def index
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id)
+    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
+    @a = VendorEvent.ransack(params[:a])
+ 
   end
 
   # GET /vendor_events/1 or /vendor_events/1.json
