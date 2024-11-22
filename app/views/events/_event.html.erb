@@ -57,13 +57,13 @@
         <strong>Address:</strong>
         <%= @event.address %></p>
 
-        <p class="card-text"> 
-        <strong>Event ID:</strong>
-        <%= @event.id %></p>
-
       <div class="row justify-content-around">
-        <%= link_to "Back to events", events_path %>
-        <% if host = current_user %>
+
+          <% if current_user.vendor_events.exists?(event_id: @event.id) %>
+          <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
+          <% end %>
+
+        <% if @host == current_user %>
           <%= link_to "Edit this event", edit_event_path(@event) %> 
           <%= link_to "Destroy this event", @event, method: :delete %>
         <% end %>
