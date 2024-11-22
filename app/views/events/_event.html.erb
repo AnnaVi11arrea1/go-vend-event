@@ -18,14 +18,14 @@
 
         <br>
     <h5><p><strong>Host:
-      <a href="../users/id">
+      <%= link_to user_path(@host) do %>
         <% if @host.photo.present? %>
         <%= image_tag @host.photo.url, alt: "profile pic", width:"10%", class:"rounded-circle" %>
         <% else %>
         <%= image_tag "favicon.png" %>
         <% end %>
         </strong><%= @host.username %>
-        </a>
+        <% end %>
       </p>
     </h5>
 
