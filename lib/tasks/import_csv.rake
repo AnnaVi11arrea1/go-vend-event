@@ -11,7 +11,7 @@
         )
         user.save!
         puts "Admin user created with email: #{user.email}" if user.persisted?
-      end
+      # end
     end
 
 
@@ -23,6 +23,7 @@
 
       csv.each do |row|
         Event.find_or_create_by!(
+          id: row[:id], # assign original primary key
           name: row['name'],
           application_due_at: row['application_due_at'],
           application_link: row['application_link'],

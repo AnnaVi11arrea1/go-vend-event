@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
     @q = Event.ransack(params[:q])
     
-    @events = Event.page(params[:page]).per(5)
+    @events = @q.result.page(params[:page]).per(5)
   end
   
   # GET /events/1 or /events/1.json
