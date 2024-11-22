@@ -6,6 +6,8 @@
       if !Rails.env.development? && User.count == 0
         user = User.new(
           email: 'stayfluorescent@gmail.com',
+          first_name: 'Anna',
+          last_name: 'Villarreal',
           password: 'password',
           username: 'everfluorescent'
         )
