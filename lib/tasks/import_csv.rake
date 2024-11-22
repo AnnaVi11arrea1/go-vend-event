@@ -11,7 +11,7 @@
         )
         user.save!
         puts "Admin user created with email: #{user.email}" if user.persisted?
-      # end
+      end
     end
 
 
