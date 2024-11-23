@@ -41,9 +41,6 @@
     task users: :environment do
       if Rails.env.development?
         FollowRequest.destroy_all
-        Comment.destroy_all
-        Like.destroy_all
-        Photo.destroy_all
         User.destroy_all
       end
 
