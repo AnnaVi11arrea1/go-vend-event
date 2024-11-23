@@ -61,7 +61,7 @@
 
           <% if current_user.vendor_events.exists?(event_id: @event.id) %>
           <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
-          <% end %>
+           <% end %>
 
         <% if @host == current_user %>
           <%= link_to "Edit this event", edit_event_path(@event) %> 
