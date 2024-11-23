@@ -95,6 +95,7 @@
               application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
               application_link: Faker::Internet.url,
               photo: "https://picsum.photos/200",
+              host_id: user.id
             )
           end
         end
