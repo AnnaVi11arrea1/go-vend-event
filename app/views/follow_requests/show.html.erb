@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @follow_request %>
+
+<div>
+  <%= link_to "Edit this follow request", edit_follow_request_path(@follow_request) %> |
+  <%= link_to "Back to follow requests", follow_requests_path %>
+
+  <%= button_to "Destroy this follow request", @follow_request, method: :delete %>
+</div>
