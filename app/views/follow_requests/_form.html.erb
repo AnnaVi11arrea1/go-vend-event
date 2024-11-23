@@ -1,15 +1,34 @@
+<%= form_with(model: follow_request) do |form| %>
+  <% if follow_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(follow_request.errors.count, "error") %> prohibited this follow_request from being saved:</h2>
 
-<%= simple_form_for(@follow_request) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <ul>
+        <% follow_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div class="form-inputs">
-    <%= f.association :recipient %>
-    <%= f.association :sender %>
-    <%= f.input :status %>
+  <div>
+    <%= form.label :sender_id, style: "display: block" %>
+    
+    <%= form.collection_select :sender_id, User.all, :id, :username, prompt: "select sender" %>
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div>
+    <%= form.label :recepient_id, style: "display: block" %>
+    <%= form.collection_select :recepient_id, User.all, :id, :username, prompt: "select recipient" %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
   </div>
 <% end %>
