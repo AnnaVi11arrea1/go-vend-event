@@ -17,10 +17,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @hosted_events = Event.all.where(:host_id => @user.id)
-    @vendor_event = VendorEvent.all.where(:user_id => @user.id)
-    @user = User.where(:id => params[:id]).first
-
+    @hosted_events = Event.where(:host_id => @user.id)
+    @vendor_event = VendorEvent.where(:user_id => @user.id)
   end
 
   def edit
@@ -62,7 +60,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

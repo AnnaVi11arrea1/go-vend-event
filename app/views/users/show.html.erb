@@ -8,7 +8,11 @@
       <div class="col-1"></div>
       <div class="col">
         <div>
+          <% if @user.photo.present?%>
           <%= image_tag @user.photo.url, alt: "profile pic", class: "rounded-circle", width:"70%" %>
+          <% else %>
+          <%= image_tag "favicon.png" %>
+          <% end %>
         </div>
         <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
@@ -29,7 +33,7 @@
               <li><%= link_to event.name, event_path(event) %></li>
             <% end %>
           </ul>
-            <% if !@hosted_events.any? %>
+            <% if @hosted_events.empty? %>
             <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
         <h2>My Events</h2>
@@ -38,7 +42,7 @@
               <li><%= link_to event.event.name, vendor_event_path(event) %></li>
             <% end %>
           </ul>
-            <% if !@user.vendor_events.any? %>
+            <% if @user.vendor_events.empty? %>
             <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
             <% end %>
       </div>
@@ -47,4 +51,16 @@
 
 <% if @user == current_user %>
   <%= render "users/stat_tracker" %>
+
+  <%= @user.followers.count %>
+  <% @user.followers.each do |list| %>
+    <div>
+      <%= list.username %>
+      <% if list.photo.attached? %>
+        <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
+      <% else %>
+        <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
+      <% end %>
+    </div>
   <% end %>
+<% end %>
