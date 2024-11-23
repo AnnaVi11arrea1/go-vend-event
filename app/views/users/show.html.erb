@@ -9,7 +9,7 @@
       <div class="col">
         <div>
           <% if @user.photo.present?%>
-          <%= image_tag @user.photo.url, alt: "profile pic", class: "rounded-circle", width:"70%" %>
+          <%= image_tag @user.photo.url, alt: "profile pic", class:"rounded-circle", width:"70%" %>
           <% else %>
           <%= image_tag "favicon.png" %>
           <% end %>
@@ -20,6 +20,7 @@
         <p><strong>Email:</strong> <%= @user.email %></p>
         <p><strong>Social:</strong> <%= @user.social_media %></p>
         <p><strong>About:</strong> <%= @user.about %></p>
+        <%= link_to "Follow #{@user.username}", new_follow_request_path %>
         <% if @user == current_user %>
         <%= link_to "Edit Profile", edit_user_registration_path %>
         <% end %>

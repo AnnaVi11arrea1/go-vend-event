@@ -1,5 +1,6 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
+  before_action :follow_request_params, only: %i[ create update ]
 
   # GET /follow_requests or /follow_requests.json
   def index
