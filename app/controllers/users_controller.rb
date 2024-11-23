@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ show edit update destroy update_photo ]
   before_action :set_user, only: %i[ show edit update destroy update_photo ]
 
 
@@ -19,6 +19,8 @@ class UsersController < ApplicationController
   def show
     @hosted_events = Event.all.where(:host_id => @user.id)
     @vendor_event = VendorEvent.all.where(:user_id => @user.id)
+    @user = User.where(:id => params[:id]).first
+
   end
 
   def edit

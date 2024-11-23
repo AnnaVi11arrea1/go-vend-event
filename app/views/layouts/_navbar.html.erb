@@ -1,49 +1,24 @@
-<nav class="navbar sticky-top navbar-expand-lg nav">
-  <%= link_to "goVend", root_url, class:"navbar-brand brand" %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon dropdown-item"></span>
-  </button>
+<nav class="navbar sticky-top navbar-expand-lg nav justify-content-between">
+  <%= link_to "goVend", root_url, class:"navbar-brand text-white iceberg-regular" %>
 
+  <div class="dropdown">
+    <button class="dropbtn iceberg-regular">Menu</button>
+    <div class="dropdown-content">
 
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav ml-auto nav-tabs" id="myTab" role="tablist"">
-        
-            <% if current_user.present? %>
-            <li class="nav-item" role="presentation">
-              <%= link_to "Search", events_path, class:"dropdown-item nav-link", 
-              aria: { current: (current_page?(events_path) ? 'page' : nil) } %>
-            </li>
-            <li class="nav-item" role="presentation">
-            <%= link_to "My Events", vendor_events_path, class:"dropdown-item nav-link",
-            aria: { current: (current_page?(events_path) ? 'page' : nil) }  %>
-            </li>
-            <li class="nav-item" role="presentation">
-              <%= link_to "Profile", user_path(current_user), class:"dropdown-item nav-link",
-              aria: { current: (current_page?(events_path) ? 'page' : nil) } %>
-            </li>
-            <li class="nav-item" role="presentation">
-              <%= link_to "Host", new_event_path, class:"dropdown-item nav-link",
-              aria: { current: (current_page?(events_path) ? 'page' : nil) } %>
-            </li>
-            <li class="nav-item" role="presentation">
-              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"dropdown-item nav-link",
-              aria: { current: (current_page?(events_path) ? 'page' : nil) }%>
-            </li>
-            
-            <% else %>
+      <% if current_user.present? %>
       
-            <li class="nav-item" role="presentation">
-            <%= link_to "Sign In", new_user_session_path, class:"dropdown-item nav-link", 
-            aria: { current: (current_page?(events_path) ? 'page' : nil) }%>
-            </li>
-            <li class="nav-item" role="presentation">
-            <%= link_to "Sign Up", new_user_registration_path, class:"dropdown-item nav-link",
-            aria: { current: (current_page?(events_path) ? 'page' : nil) } %>
-            </li>
-          <% end %>
+        <%= link_to "Search", events_path %>
+        <%= link_to "My Events", vendor_events_path  %>
+        <%= link_to "Profile", user_path(current_user)%>
+        <%= link_to "Host", new_event_path%>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete%>
         
-        </div>
-      </ul>
-  </div>
+      <% else %>
 
+        <%= link_to "Sign In", new_user_session_path %>
+        <%= link_to "Sign Up", new_user_registration_path %>
+      
+      <% end %>
+    </div>
+  </div>
 </nav>

@@ -1,22 +1,39 @@
-<h1 class="title">Connecting Vendors To Events</h1>
-<div class="container">
-  <div class="row">
-    <div class="col-md-5 card">
-      <h2>Get started</h2>
-      <p>Sign up to create a profile and start connecting with events</p>
-      <p>After you make an account, you can "Host" and event my creating a new event and updating the details.</p>
-      <p>Once you have created an event, it becomes searchable to all users.</p>
-      <p>Users can search for events by name, date, or location.</p>
+
+
+    <div class="mycard row-5">
+      <h2 class="d-flex justify-content-center splash iceberg-regular">Connecting Vendors To Events</h2>
+      <div class="p-3">
+        <p> Hello there! Welcome to goVend. Let me give you a brief rundown. As a vendor for the past 7 years, I know how daunting of a task it is to <strong>find events to vend</strong> at, stay organized, keep track of the vents you have attended, wondering if they were paid, wondering if you applied to them, and most embarassingly of all, double booking. <em>Sound familier?</em></p>
+        <p>Allow me to simplify your life. goVend is a platform that connects vendors to events. It allows you to search for events, apply to them, and keep track of the events you have attended. It also allows you to create events and search for vendors. </p>
+        <p>So, what are you waiting for? Sign up and discover event success today!</p>
+        <p><em><strong>Made with love by a vendor, for vendors and events.</strong></em></p>
+      </div>
+
+      <br>
+      <div class="d-flex row">
+        <div class=" col">
+          <%= image_tag "booth.jpeg", alt:"vendor booth", width:"100%", class:"mycard" %>
+        </div>
+        <div class="col">
+          <h3 class="d-flex justify-content-center">Fast Account Setup</h3>
+          <ol>
+            <li> Sign up and start finding events in less than 5 minutes.</li>
+            <li> Create a profile to showcase your business.</li>
+          </ol>
+        </div>
+      </div>
+      <br>
+      <h3 class="d-flex justify-content-center">So many perks</h3>
+      <ul>  
+        <li> Easily host events you want to share with a simple setup.</li>
+        <li> Once you have created an event, it becomes searchable to all users.</li>
+        <li> Search for events that are looking for vendors!</li>
+        <li> View a hosts page to see their other hosted events.</li>
+        <li> Create a list of your events and update the status.</li>
+      </ul>
     </div>
+
     <div class="col-md-2"></div>  <!-- Spacer -->
-    <div class="col-md-5 card">
-      <div>
-      <%= link_to "Create account", new_user_registration_path, class:"title" %>
-      </div>
-      <div>
-      <%= image_tag "booth.jpeg", alt:"vendor booth", width:"100%", class:"rounded" %>
-      </div>
-    </div>
-  </div>
-</div>
+    
+
       

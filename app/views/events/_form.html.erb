@@ -3,7 +3,7 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs mycard d-flex col-6 justify-self-center">
+  <div class="form-inputs mycard">
     <h1 class="title">New event</h1>
 
     <%= f.input :name %>
