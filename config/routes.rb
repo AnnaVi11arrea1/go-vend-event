@@ -1,20 +1,20 @@
 Rails.application.routes.draw do
-  resources :follow_requests
+  root "users#index"
+
   devise_for :users, controllers: {
     registrations: "registrations"
   }
-  root "users#index"
 
-  resources :events
+  resources :follow_requests, except: [:index, :show, :new, :edit]
+  resources :events 
 
   resources :vendor_events
+  resources :users
 
-  resources :users do
-    member do
-      post :follow
-    end
-  end
-
+  get ":username/feed" => "users#feed", as: :feed
+  get ":username/followers" => "users#followers", as: :followers
+  get ":username/following" => "users#following", as: :following
+  get ":username/discover" => "users#discover", as: :discover
 
 
 

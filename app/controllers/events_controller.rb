@@ -15,7 +15,7 @@ class EventsController < ApplicationController
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
-    @host = User.find(@event.host_id)
+    @host = @event.host
   end
 
   # GET /events/new

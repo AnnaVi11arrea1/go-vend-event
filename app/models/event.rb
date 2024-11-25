@@ -29,7 +29,7 @@ class Event < ApplicationRecord
   has_many :users, through: :vendor_events
   has_many :vendor_events, dependent: :destroy
 
-  has_one :host, class_name: 'User', foreign_key: 'host_id'
+  belongs_to :host, class_name: 'User', foreign_key: 'host_id'
   has_one_attached :photo
   mount_uploader :photo, PhotoUploader
 

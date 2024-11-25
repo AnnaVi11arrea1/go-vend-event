@@ -43,6 +43,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_many :vendor_events
+  has_many :hosted_events, class_name: 'Event', foreign_key: 'host_id'
   has_many :events, through: :vendor_events
   has_many :sent_follow_requests, foreign_key: :recipient_id, class_name: 'FollowRequest'
   has_many :received_follow_requests, foreign_key: :sender_id, class_name: 'FollowRequest'
