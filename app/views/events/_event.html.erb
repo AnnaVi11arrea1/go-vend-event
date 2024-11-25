@@ -7,7 +7,9 @@
         <p class="card-text"> 
         
         <% if @event.photo.present? %>
-        <%= image_tag @event.photo.url, alt: "profile pic", width:"50%" %>
+        <%= image_tag url_for(@event.photo), alt: "profile pic", width:"50%" %>
+        <% else %>
+        <%= image_tag "favicon.png", alt:"profile pic", width:"200px", class:"rounded-circle" %>
         <% end %>
 </p>
 
