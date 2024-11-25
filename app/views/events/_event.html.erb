@@ -17,7 +17,7 @@
 
       <br>
       <div>Host:
-        <%= link_to user_path(@host), target: "_blank" do %>
+        <%= link_to user_path(@host.id), target: "_blank" do %>
           <% if @host.photo.present? %>
             <%= image_tag url_for(@host.photo), alt: "profile pic", width: "20px" %>
             <%= @host.username %>

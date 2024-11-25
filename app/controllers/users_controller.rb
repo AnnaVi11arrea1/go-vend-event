@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
   before_action :authenticate_user!, only: %i[ edit update destroy update_photo followers following feed ]
-  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed ]
-
-
+  before_action :set_user, only: %i[  show edit update destroy update_photo followers following feed ]
   
   def index
     @users = User.all
@@ -71,11 +69,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    if params[:username]
-    @user = User.find_by!(username: params.fetch(:username))
-    else
-      @user = current_user
-    end
+    @user = User.find(params[:id]) unless params[:username]
   end
 
   # Only allow a list of trusted parameters through.
