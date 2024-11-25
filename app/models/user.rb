@@ -46,15 +46,25 @@ class User < ApplicationRecord
   has_many :events, through: :vendor_events
   has_many :sent_follow_requests, foreign_key: :recipient_id, class_name: 'FollowRequest'
   has_many :received_follow_requests, foreign_key: :sender_id, class_name: 'FollowRequest'
-  has_many :leaders, through: :accepted_sent_follow_requests, source: :recipient
   has_many :accepted_sent_follow_requests, -> { accepted }, foreign_key: :sender_id, class_name: "FollowRequest"
   has_many :accepted_received_follow_requests, -> { accepted }, foreign_key: :recipient_id, class_name: "FollowRequest"
+
+  has_many :leaders, through: :accepted_sent_follow_requests, source: :recipient, dependent: :destroy
   has_many :followers, through: :accepted_received_follow_requests, source: :sender
+
   has_many :feed, through: :leaders, source: :events
   has_many :discover, through: :leaders, source: :followers # events of the leaders followers 
 
   has_one_attached :photo 
 
   mount_uploader :photo, PhotoUploader
+
+  def follow(other_user)
+    leaders.create(followed_user: other_user)
+  end
+
+  def unfollow(other_user)
+    leaders.where(followed_user: other_user).destroy
+  end
 
 end

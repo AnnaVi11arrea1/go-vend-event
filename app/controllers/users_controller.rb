@@ -1,9 +1,19 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ show edit update destroy update_photo ]
+  before_action :authenticate_user!, only: %i[ show edit update destroy update_photo follow]
   before_action :set_user, only: %i[ show edit update destroy update_photo ]
 
 
+  
+  def index
+    @users = User.all
+  end
+  
+  def show
+    @hosted_events = Event.where(:host_id => @user.id)
+    @vendor_event = VendorEvent.where(:user_id => @user.id)
+  end
+  
   def create
     @user = User.new(user_params)
   end
@@ -12,13 +22,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def index
-    @users = User.all
-  end
+  def follow 
+    user_to_follow = User.find(params[:id])
+    current_user.follow(user_to_follow)
 
-  def show
-    @hosted_events = Event.where(:host_id => @user.id)
-    @vendor_event = VendorEvent.where(:user_id => @user.id)
+    respond_to do |format|
+      format.html { redirect_to user_to_follow, notice: "request sent" }
+    format.json { render json: { success: true, message: "You are now following #{user_to_follow.username}" } }
+    end
+  rescue StandardError => e
+    respond_to do |format|
+      format.json { render json: { success: false, message: e.message }, status: :unprocessable_entity }
+    end
   end
 
   def edit

@@ -9,13 +9,13 @@ Rails.application.routes.draw do
 
   resources :vendor_events
 
-  resources :users
-
-  resources :spreadsheets, only: [:index] do
-    collection do
-      post 'update'
+  resources :users do
+    member do
+      post :follow
     end
   end
+
+
 
 
 end

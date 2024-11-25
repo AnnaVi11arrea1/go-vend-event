@@ -11,24 +11,10 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :sender_id, style: "display: block" %>
-    
-    <%= form.collection_select :sender_id, User.all, :id, :username, prompt: "select sender" %>
+    <%= form.hidden_field :recipient_id %>
 
-  </div>
-
-  <div>
-    <%= form.label :recepient_id, style: "display: block" %>
-    <%= form.collection_select :recepient_id, User.all, :id, :username, prompt: "select recipient" %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit "Follow", class: "btn btn-outline-secondary btn-block" %>
   </div>
 <% end %>
+

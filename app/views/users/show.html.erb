@@ -21,6 +21,10 @@
         <p><strong>Social:</strong> <%= @user.social_media %></p>
         <p><strong>About:</strong> <%= @user.about %></p>
         <%= link_to "Follow #{@user.username}", new_follow_request_path %>
+        
+        9<button class="follow-btn" data-user-id="<%= @user.id %>">Follow</button>
+        
+
         <% if @user == current_user %>
         <%= link_to "Edit Profile", edit_user_registration_path %>
         <% end %>
