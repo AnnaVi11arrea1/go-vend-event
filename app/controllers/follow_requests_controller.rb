@@ -1,10 +1,9 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
 
-
   # GET /follow_requests or /follow_requests.json
   def index
-    @follow_requests = FollowRequest.all
+    @follow_requests = FollowRequest.all.where(recipient_id: current_user.id)
   end
 
   # GET /follow_requests/1 or /follow_requests/1.json
@@ -13,10 +12,7 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/new
   def new
-    @follow_request = FollowRequest.new
-    @sender = User.where(:id => :sender_id)
-    @reciever = User.where(:id => :reciever_id)
-   
+    @follow_request = FollowRequest.new   
   end
 
   # GET /follow_requests/1/edit
@@ -42,7 +38,7 @@ class FollowRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @follow_request.update(follow_request_params)
-        format.html { redirect_to follow_request_url(@follow_request), notice: "Follow request was successfully updated." }
+        format.html { redirect_back fallback_location: root_url, notice: "Follow request was successfully updated." }
         format.json { render :show, status: :ok, location: @follow_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
