@@ -5,9 +5,8 @@ Rails.application.routes.draw do
     registrations: "registrations"
   }
 
-  resources :follow_requests, except: [:index, :show, :new, :edit]
+  resources :follow_requests
   resources :events 
-
   resources :vendor_events
   resources :users, only: [:show]
 

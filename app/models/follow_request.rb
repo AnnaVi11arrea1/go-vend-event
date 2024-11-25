@@ -27,11 +27,14 @@ class FollowRequest < ApplicationRecord
 
   validates :recipient_id, uniqueness: { scope: :sender_id, message: "already requested" }
 
-  validate :users_cant_follow_themselves
+  validate :sender_is_not_recipient
+  validates :recipient, presence: true
 
-  def users_cant_follow_themselves
+  private
+
+  def sender_is_not_recipient
     if sender_id == recipient_id
-      errors.add(:sender_id, "can't follow themselves")
+      errors.add(:sender, "can't follow themselves")
     end
   end
 end

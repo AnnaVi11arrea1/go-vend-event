@@ -1,18 +1,16 @@
-<%= form_with(model: follow_request) do |form| %>
+<%= form_for(follow_request) do |form| %>
   <% if follow_request.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(follow_request.errors.count, "error") %> prohibited this follow_request from being saved:</h2>
-
-      <ul>
-        <% follow_request.errors.each do |error| %>
+      <ul><% follow_request.errors.each do |error| %>
           <li><%= error.full_message %></li>
-        <% end %>
+          <% end %>
       </ul>
     </div>
   <% end %>
 
-    <%= form.hidden_field :recipient_id %>
-    <%= form.hidden_field :sender_id %>
+  <%= form.hidden_field :recipient_id, value: @recipient_id %>
+  <%= form.hidden_field :sender_id, value: current_user.id %>
 
   <div class="actions">
     <%= form.submit "Follow", class: "btn btn-outline-secondary btn-block" %>

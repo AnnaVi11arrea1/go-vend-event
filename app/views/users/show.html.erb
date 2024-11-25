@@ -9,9 +9,9 @@
       <div class="col">
         <div>
           <% if @user.photo.present?%>
-          <%= image_tag @user.photo.url, alt: "profile pic", class:"rounded-circle", width:"70%" %>
+          <%= image_tag @user.photo.url, alt: "profile pic", width:"200px", class:"rounded-circle" %>
           <% else %>
-          <%= image_tag "favicon.png" %>
+          <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
           <% end %>
         </div>
         <h2>Contact Information</h2>
@@ -20,15 +20,22 @@
         <p><strong>Email:</strong> <%= @user.email %></p>
         <p><strong>Social:</strong> <%= @user.social_media %></p>
         <p><strong>About:</strong> <%= @user.about %></p>
-        <%= link_to "Follow #{@user.username}", follow_request_path %>
+
+          <% if @user.photo.present? %>
+            <%= image_tag url_for(@user.photo), alt:"profile pic", width:"30px" %>
+          <% else %>
+            <%= image_tag "favicon.png", alt: "profile pic", width:"30px" %>
+          <% end %>
+
         
-        9<button class="follow-btn" data-user-id="<%= @user.id %>">Follow</button>
-        
+          <%= link_to "Follow #{@user.username}", new_follow_request_path(recipient_id: @user.id) %>
+
 
         <% if @user == current_user %>
-        <%= link_to "Edit Profile", edit_user_registration_path %>
+          <%= link_to "Edit Profile", edit_user_registration_path %>
         <% end %>
       </div>
+
       <div class="col-1"></div>
 
       <div class="col">
