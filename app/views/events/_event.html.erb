@@ -10,7 +10,7 @@
       <% end %>
       </p>
 
-      <% form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
+      <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
         <%= form.hidden_field :event_id, value: @event.id %>
         <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
       <% end %>
