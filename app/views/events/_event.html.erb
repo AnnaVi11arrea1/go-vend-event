@@ -1,22 +1,25 @@
+
 <div class="d-flex p-3 mb-2">
-  <div class="mycard row">
-    <div class="col justify-content-center">
-      <p><strong>Name: </strong><%= @event.name %></p>
-      <p class="card-text"> 
+  <div class="mycard">
+    <h1 class="title"><strong>Event Name:</strong><%= @event.name %> </h1>
+    <div class="row justify-content-center">
+      
+    <div class="col">
+      <div class="d-flex justify-content-center"> 
       <% if @event.photo.present? %>
-        <%= image_tag @event.photo.url, alt:"profile pic", width:"200px" %>
+        <%= image_tag @event.photo.url, alt:"profile pic", width:"80%", class:"mycard" %>
       <% else %>
         <%= image_tag "favicon.png", alt:"profile pic", width:"200px", class:"rounded-circle" %>
       <% end %>
-      </p>
-
+      </div>
+      <div class="d-flex justify-content-center pt-3">
       <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
         <%= form.hidden_field :event_id, value: @event.id %>
         <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
       <% end %>
-
-      <br>
-      <div>Host:
+      </div>
+    
+      <div class="d-flex justify-content-center pt-3">Host:
         <%= link_to user_path(@host.id), target: "_blank" do %>
           <% if @host.photo.present? %>
             <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
@@ -28,6 +31,8 @@
         <% end %>
       </div>
 
+      <br>
+    </div>
 
     <div class="col">
       <p class="card-text"> 
@@ -53,6 +58,8 @@
       <p class="card-text"> 
       <strong>Address:</strong>
       <%= @event.address %></p>
+    </div>
+  </div>
 
       <div class="row justify-content-around">
         <% if current_user.vendor_events.exists?(event_id: @event.id) %>
