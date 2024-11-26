@@ -2,6 +2,13 @@
 
 <h1 class="title">Search Events</h1>
 
+    <gmp-map
+      center="37.4220656,-122.0840897"
+      zoom="10"
+      map-id="DEMO_MAP_ID"
+      style="height: 400px"
+    ></gmp-map>
+
 <div id="events" class="card">
 
 <%= search_form_for @q do |f| %>
@@ -51,3 +58,7 @@
   <%= paginate @events, :container => false %>
 </div>
 </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&libraries=maps&v=beta"
+      defer
+    ></script>
