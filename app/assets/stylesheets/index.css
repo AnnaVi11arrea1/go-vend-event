@@ -141,3 +141,20 @@ NAVBAR
   padding-right: 20px;
   box-shadow: 0px 0px 10px 2px rgba(0,0,0,.8);
 }
+
+
+/*================
+
+FOOTER
+===============*/
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
