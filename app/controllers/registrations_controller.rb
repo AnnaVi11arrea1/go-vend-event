@@ -21,7 +21,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def show
-  
+  end
+
+  def logout
+    session.clear
+    redirect_to root_path, notice: 'You have been logged out.'
   end
 
   def update
@@ -49,6 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
   def set_user
     @user = current_user
   end
+
   def user_params
     params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo, :password)
   end

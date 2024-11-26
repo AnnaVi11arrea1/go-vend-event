@@ -8,43 +8,75 @@
       <div class="col-1"></div>
       <div class="col">
         <div>
-          <%= image_tag @user.photo.url, alt: "profile pic", class: "rounded-circle", width:"70%" %>
+          <% if @user.photo.present?%>
+          <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"mycard rounded mb-5" %>
+          <% else %>
+          <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
+          <% end %>
         </div>
+
         <h2>Contact Information</h2>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
         <p><strong>Last Name:</strong> <%= @user.last_name %></p>
         <p><strong>Email:</strong> <%= @user.email %></p>
         <p><strong>Social:</strong> <%= @user.social_media %></p>
         <p><strong>About:</strong> <%= @user.about %></p>
-        <% if @user == current_user %>
-        <%= link_to "Edit Profile", edit_user_registration_path %>
+
+        <div>
+        <% if @user.photo.present? %>
+          <%= image_tag @user.photo.url, alt:"profile pic", width:"30px" %>
+        <% else %>
+          <%= image_tag "favicon.png", alt: "profile pic", width:"30px" %>
         <% end %>
+        <%= link_to "Follow #{@user.username}", new_follow_request_path(recipient_id: @user.id) %>
+        </div>
+        <div>
+          <% if @user == current_user %>
+            <%= link_to "Edit Profile", edit_user_registration_path %>
+            <%= link_to "Follow Requests", follow_request_path %>
+          <% end %>
+        </div>
       </div>
+
       <div class="col-1"></div>
 
       <div class="col">
         <h2>Hosted Events</h2>
-          <ul>
+          <div>
             <% @hosted_events.each do |event| %>
-              <li><%= link_to event.name, event_path(event) %></li>
+              <div class="mycard"><%= link_to event.name, event_path(event) %></div>
             <% end %>
-          </ul>
-            <% if !@hosted_events.any? %>
-            <p><%= @user.first_name %> has not created any events yet.</p>
+          </div>
+            <% if @hosted_events.empty? %>
+              <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
+            <hr>
         <h2>My Events</h2>
-          <ul>
+          <div class="mycard">
             <% @user.vendor_events.each do |event| %>
-              <li><%= link_to event.event.name, vendor_event_path(event) %></li>
+              <div><%= link_to event.event.name, vendor_event_path(event) %></>
             <% end %>
-          </ul>
-            <% if !@user.vendor_events.any? %>
-            <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
+          </div>
+            <% if @user.vendor_events.empty? %>
+              <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
             <% end %>
       </div>
     </div>
   </div>
-
+<br>
 <% if @user == current_user %>
   <%= render "users/stat_tracker" %>
+
+  <%= @user.followers.count %>
+
+  <% @user.followers.each do |list| %>
+    <div>
+      <%= list.username %>
+      <% if list.photo.attached? %>
+        <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
+      <% else %>
+        <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
+      <% end %>
+    </div>
   <% end %>
+<% end %>

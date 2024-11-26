@@ -1,10 +1,11 @@
   namespace :csv do
     desc "Import data from CSV into Users"
 
-
     task admin: :environment do
       if !Rails.env.development? && User.count == 0
         user = User.new(
+          id: 1,  
+          role: 'admin',
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -15,7 +16,6 @@
         puts "Admin user created with email: #{user.email}" if user.persisted?
       end
     end
-
 
     task events: :environment do
       require 'csv'
@@ -37,7 +37,72 @@
           host_id: row['host_id']
         ) 
       end
-  
       puts "Import completed!"
     end
-  end
+
+    task users: :environment do
+      if Rails.env.development?
+        FollowRequest.destroy_all
+        Event.destroy_all
+        User.destroy_all
+      end
+
+      10.times do 
+        first_name = Faker::Name.first_name
+        last_name = Faker::Name.last_name
+        username = Faker::Internet.username(specifier: "#{first_name} #{last_name}", separators: %w())
+        email = Faker::Internet.email(name: "#{first_name} #{last_name}", separators: %w())
+        password = "password"
+        User.create(
+          first_name: first_name,
+          last_name: last_name,
+          username: username,
+          email: email,
+          password: password,
+        )
+        end
+        
+        users = User.all
+        
+        users.each do |first_user|
+          puts "Creating follow requests for #{first_user.username}"
+          users.each do |second_user|
+            puts "Creating follow requests for #{second_user.username}"
+            next if first_user == second_user
+            if rand < 0.75
+              follow_request = first_user.sent_follow_requests.create(
+                sender: first_user,
+                recipient: second_user,
+                status: FollowRequest.statuses.keys.sample
+              )
+            end
+            if rand < 0.75
+              follow_request = second_user.sent_follow_requests.create(
+                sender: second_user,
+                recipient: first_user,
+                status: FollowRequest.statuses.keys.sample
+              )
+            end 
+          end
+        end
+            
+        users.each do |user|
+          rand(10).times do
+            user.events.create!(
+              name: Faker::Company.name, 
+              started_at: Faker::Date.between(from: 1.year.ago, to: Date.today), 
+              tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
+              address: Faker::Address.full_address, 
+              information: Faker::Company.catch_phrase, 
+              application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
+              application_link: Faker::Internet.url,
+              photo: "https://picsum.photos/200",
+              host_id: user.id
+            )
+          end
+        end
+        puts "There are now #{User.count} fake people in the database!"
+        puts "There are now #{Event.count} fake events in the database!"
+        puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
+      end
+    end

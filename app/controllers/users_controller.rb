@@ -1,9 +1,17 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ show edit update destroy update_photo ]
-  before_action :set_user, only: %i[ show edit update destroy update_photo ]
-
-
+  before_action :authenticate_user!, only: %i[ show edit update update_photo followers following feed ]
+  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed ]
+  
+  def index
+    @users = User.all
+  end
+  
+  def show
+    @hosted_events = Event.where(:host_id => @user.id)
+    @vendor_event = VendorEvent.where(:user_id => @user.id)
+  end
+  
   def create
     @user = User.new(user_params)
   end
@@ -12,15 +20,13 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def index
-    @users = User.all
+  def followers 
   end
 
-  def show
-    @hosted_events = Event.all.where(:host_id => @user.id)
-    @vendor_event = VendorEvent.all.where(:user_id => @user.id)
-    @user = User.where(:id => params[:id]).first
+  def following
+  end
 
+  def feed
   end
 
   def edit
@@ -54,17 +60,22 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to root_url, notice: "User was successfully destroyed."
   end
-    
+
+  def logout
+    session.clear
+    redirect_to root_url, notice: "Logged out!"
+  end
+
+
   private
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:id]) unless params[:username]
   end
-
+    
   # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo)

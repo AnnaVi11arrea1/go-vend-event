@@ -89,6 +89,7 @@ gem "simple_form"
 gem "carrierwave"
 gem "aws-sdk-s3", require: false
 gem "kaminari", "~> 1.2"
+gem "jquery-rails"
 
 group :development do
   gem "annotate"

@@ -1,20 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    registrations: "registrations"
-  }
   root "users#index"
 
-  resources :events
+  devise_for :users
 
+  resources :follow_requests
+  resources :events 
   resources :vendor_events
-
   resources :users
 
-  resources :spreadsheets, only: [:index] do
-    collection do
-      post 'update'
-    end
-  end
+  get ":username/feed" => "users#feed", as: :feed
+  get ":username/followers" => "users#followers", as: :followers
+  get ":username/following" => "users#following", as: :following
+  get ":username/discover" => "users#discover", as: :discover
 
-
+  get "/logout" => "users#logout"
 end
