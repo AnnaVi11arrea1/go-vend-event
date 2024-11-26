@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
   before_action :authenticate_user!, only: %i[ edit update update_photo followers following feed ]
-  before_action :set_user, only: %i[ show edit update update_photo followers following feed ]
+  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed ]
   
   def index
     @users = User.all
@@ -60,17 +60,17 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = current_user
+    @user = User.find(params[:id])
     @user.destroy
     redirect_to root_url, notice: "User was successfully destroyed."
   end
-    
+
   private
 
   def set_user
     @user = User.find(params[:id]) unless params[:username]
   end
-
+    
   # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo)
