@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
   root "users#index"
 
-  devise_for :users, controllers: {
-    registrations: "registrations"
-  }
+  devise_for :users
 
   resources :follow_requests
   resources :events 
   resources :vendor_events
-  resources :users, only: [:show]
+  resources :users
 
   get ":username/feed" => "users#feed", as: :feed
   get ":username/followers" => "users#followers", as: :followers

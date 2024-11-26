@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ edit update destroy update_photo followers following feed ]
-  before_action :set_user, only: %i[  show edit update destroy update_photo followers following feed ]
+  before_action :authenticate_user!, only: %i[ edit update update_photo followers following feed ]
+  before_action :set_user, only: %i[ show edit update update_photo followers following feed ]
   
   def index
     @users = User.all
@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   def show
     @hosted_events = Event.where(:host_id => @user.id)
     @vendor_event = VendorEvent.where(:user_id => @user.id)
-
-
   end
   
   def create
@@ -62,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = current_user
     @user.destroy
     redirect_to root_url, notice: "User was successfully destroyed."
   end

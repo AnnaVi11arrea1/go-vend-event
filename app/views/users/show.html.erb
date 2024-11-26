@@ -9,7 +9,7 @@
       <div class="col">
         <div>
           <% if @user.photo.present?%>
-          <%= image_tag @user.photo.url, alt: "profile pic", width:"200px", class:"rounded-circle" %>
+          <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"mycard rounded mb-5" %>
           <% else %>
           <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
           <% end %>
@@ -42,27 +42,28 @@
 
       <div class="col">
         <h2>Hosted Events</h2>
-          <ul>
+          <div>
             <% @hosted_events.each do |event| %>
-              <li><%= link_to event.name, event_path(event) %></li>
+              <div class="mycard"><%= link_to event.name, event_path(event) %></div>
             <% end %>
-          </ul>
+          </div>
             <% if @hosted_events.empty? %>
               <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
+            <hr>
         <h2>My Events</h2>
-          <ul>
+          <div class="mycard">
             <% @user.vendor_events.each do |event| %>
-              <li><%= link_to event.event.name, vendor_event_path(event) %></li>
+              <div><%= link_to event.event.name, vendor_event_path(event) %></>
             <% end %>
-          </ul>
+          </div>
             <% if @user.vendor_events.empty? %>
               <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
             <% end %>
       </div>
     </div>
   </div>
-
+<br>
 <% if @user == current_user %>
   <%= render "users/stat_tracker" %>
 
