@@ -60,12 +60,5 @@ class User < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
-  def follow(other_user)
-    leaders.create(followed_user: other_user)
-  end
-
-  def unfollow(other_user)
-    leaders.where(followed_user: other_user).destroy
-  end
 
 end

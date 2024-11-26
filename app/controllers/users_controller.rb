@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @hosted_events = Event.where(:host_id => @user.id)
     @vendor_event = VendorEvent.where(:user_id => @user.id)
 
+
   end
   
   def create

@@ -4,7 +4,7 @@
       <p><strong>Name: </strong><%= @event.name %></p>
       <p class="card-text"> 
       <% if @event.photo.present? %>
-        <%= image_tag url_for(@event.photo), alt:"profile pic", width:"200px" %>
+        <%= image_tag @event.photo.url, alt:"profile pic", width:"200px" %>
       <% else %>
         <%= image_tag "favicon.png", alt:"profile pic", width:"200px", class:"rounded-circle" %>
       <% end %>
@@ -19,7 +19,7 @@
       <div>Host:
         <%= link_to user_path(@host.id), target: "_blank" do %>
           <% if @host.photo.present? %>
-            <%= image_tag url_for(@host.photo), alt: "profile pic", width: "20px" %>
+            <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
             <%= @host.username %>
           <% else %>
             <%= image_tag "favicon.png", alt: "profile pic", width: "30px" %>

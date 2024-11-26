@@ -4,6 +4,8 @@
     task admin: :environment do
       if !Rails.env.development? && User.count == 0
         user = User.new(
+          id: 1,  
+          role: 'admin',
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
