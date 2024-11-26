@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
-  # before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :authenticate_user!, only: %i[new create edit update destroy ]
 
   # GET /events or /events.json
   def index
@@ -93,6 +93,4 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address)
   end
-
-  
 end

@@ -11,7 +11,7 @@
         <%= link_to "My Events", vendor_events_path  %>
         <%= link_to "Profile", user_path(current_user)%>
         <%= link_to "Host", new_event_path %>
-        <%= link_to "Sign Out", session.clear %>
+        <%= link_to "Sign Out", logout_path(current_user) %>
         
       <% else %>
 

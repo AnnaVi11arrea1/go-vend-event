@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get ":username/following" => "users#following", as: :following
   get ":username/discover" => "users#discover", as: :discover
 
-  get "/logout" => "users#logout", as: :session.clear
+  get "/logout" => "users#logout"
 end
