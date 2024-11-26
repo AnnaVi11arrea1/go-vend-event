@@ -2,8 +2,9 @@
 
 <h1 class="title">Search Events</h1>
 
-<div id="map" style="height: 400px;"></div>
-  
+<div id="map" style="height:500px">
+
+</div>
 
 <div id="events" class="card">
 
@@ -26,7 +27,6 @@
   </div>
   <% end %>
 </div>
-
 
   <% @events.each do |event| %>
     <div class="d-flex ps-4 mb-2 mycard justify-content-between">
@@ -55,33 +55,49 @@
 </div>
 </div>
 
+<script type="module" >
+function initMap() {
 
-<script>
-  function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 41.87657590074282, lng: -87.61936464305545 },
-      zoom: 5,
+      zoom: 3,
     });
 
-    const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name]) %>;
+    const events = JSON.parse('<%= @events.to_json(only: [:latitude, :longitude, :name]).gsub("'", "\\\\'").html_safe %>');
 
-    console.log(events); // Debugging: Check the events data
+    console.log("Loaded events data:", events); // Debugging: Check if events data is loaded
 
-    events.forEach(event => {
-      if (event.latitude && event.longitude) {
-        console.log(`Adding marker for event: ${event.name}`); // Debugging: Check each event
-        new google.maps.Marker({
+    const markerImage = {
+        url: "<%= asset_path('bulb.png') %>", // Path to the image
+        scaledSize: new google.maps.Size(40, 40), // Resize the marker (width, height in pixels)
+        anchor: new google.maps.Point(15, 15) // Optional: Adjust anchor point (center of the icon)
+    };
+    console.log(markerImage);
+
+    events.forEach((event) => {
+      if (event.latitude && event.longitude) { // Debugging: Verify marker data
+        const marker = new google.maps.Marker({
           position: { lat: event.latitude, lng: event.longitude },
           map: map,
+          icon: markerImage,
           title: event.name,
         });
-      }
+              // Optionally, add an info window to each marker
+        const infowindow = new google.maps.InfoWindow({
+          content: `<h3>${event.name}</h3>`,
+      });
+
+        marker.addListener('click', () => {
+          infowindow.open(map, marker);
+      }); 
+      }  
     });
-  }
+  };
+
+  window.initMap = initMap;
+
 </script>
 
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&libraries=maps&callback=initMap&markersv-beta"
-      defer
-    ></script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&loading=async&callback=initMap" defer>
+</script>

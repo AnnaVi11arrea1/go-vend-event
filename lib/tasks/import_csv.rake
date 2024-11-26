@@ -14,6 +14,8 @@
         user.save!
         puts "Admin user created with email: #{user.email}" if user.persisted?
       end
+    
+
       if !Rails.env.development? && User.count == 0
         user = User.new(
           id: 1,  
@@ -27,6 +29,7 @@
         puts "Admin user created with email: #{user.email}" if user.persisted?
       end
     end
+  
 
     task events: :environment do
       require 'csv'
@@ -56,7 +59,7 @@
         FollowRequest.destroy_all
         Event.destroy_all
         User.destroy_all
-      end
+      end 
 
       10.times do 
         first_name = Faker::Name.first_name
@@ -71,31 +74,33 @@
           email: email,
           password: password,
         )
-        end
+      end
         
-        users = User.all
-        
-        users.each do |first_user|
-          puts "Creating follow requests for #{first_user.username}"
-          users.each do |second_user|
-            puts "Creating follow requests for #{second_user.username}"
-            next if first_user == second_user
-            if rand < 0.75
-              follow_request = first_user.sent_follow_requests.create(
-                sender: first_user,
-                recipient: second_user,
-                status: FollowRequest.statuses.keys.sample
-              )
-            end
-            if rand < 0.75
-              follow_request = second_user.sent_follow_requests.create(
-                sender: second_user,
-                recipient: first_user,
-                status: FollowRequest.statuses.keys.sample
-              )
-            end 
+      users = User.all
+      
+      users.each do |first_user|
+        puts "Creating follow requests for #{first_user.username}"
+        users.each do |second_user|
+          puts "Creating follow requests for #{second_user.username}"
+          next if first_user == second_user
+          if rand < 0.75
+            follow_request = first_user.sent_follow_requests.create(
+              sender: first_user,
+              recipient: second_user,
+              status: FollowRequest.statuses.keys.sample
+            )
           end
+          if rand < 0.75
+            follow_request = second_user.sent_follow_requests.create(
+              sender: second_user,
+              recipient: first_user,
+              status: FollowRequest.statuses.keys.sample
+            )
+          end 
         end
+      end
+
+      
             
         users.each do |user|
           rand(10).times do
@@ -112,10 +117,11 @@
               longitude: Faker::Address.longitude,
               host_id: user.id
             )
+            
           end
         end
-        puts "There are now #{User.count} fake people in the database!"
-        puts "There are now #{Event.count} fake events in the database!"
-        puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
-      end
-    end
+  puts "There are now #{User.count} fake people in the database!"
+  puts "There are now #{Event.count} fake events in the database!"
+  puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
+end
+end
