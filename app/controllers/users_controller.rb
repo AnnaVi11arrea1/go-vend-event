@@ -69,6 +69,18 @@ class UsersController < ApplicationController
     redirect_to root_url, notice: "Logged out!"
   end
 
+  def privacy
+    respond_to do |format|
+      if true
+        format.html { render :privacy_policy }
+        format.json { render :privacy_policy }
+      else
+        format.html { render :privacy_policy }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
 

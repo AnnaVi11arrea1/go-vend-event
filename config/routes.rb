@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get ":username/discover" => "users#discover", as: :discover
 
   get "/logout" => "users#logout"
+  get "/privacy_policy" => "users#privacy", as: :privacy_policy
 end
