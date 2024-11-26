@@ -60,14 +60,18 @@ function initMap() {
 
     const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 41.87657590074282, lng: -87.61936464305545 },
-      zoom: 5,
+      zoom: 3,
     });
 
     const events = JSON.parse('<%= @events.to_json(only: [:latitude, :longitude, :name]).gsub("'", "\\\\'").html_safe %>');
 
     console.log("Loaded events data:", events); // Debugging: Check if events data is loaded
 
-    const markerImage= "<%= asset_path('bulb.png') %>";
+    const markerImage = {
+        url: "<%= asset_path('bulb.png') %>", // Path to the image
+        scaledSize: new google.maps.Size(40, 40), // Resize the marker (width, height in pixels)
+        anchor: new google.maps.Point(15, 15) // Optional: Adjust anchor point (center of the icon)
+    };
     console.log(markerImage);
 
     events.forEach((event) => {
