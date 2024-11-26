@@ -3,11 +3,20 @@
 <h1 class="title">Search Events</h1>
 
     <gmp-map
-      center="37.4220656,-122.0840897"
-      zoom="10"
+      center="43.4142989,-124.2301242"
+      zoom="4"
       map-id="DEMO_MAP_ID"
       style="height: 400px"
-    ></gmp-map>
+    >
+      <gmp-advanced-marker
+        position="37.4220656,-122.0840897"
+        title="Mountain View, CA"
+      ></gmp-advanced-marker>
+      <gmp-advanced-marker
+        position="47.648994,-122.3503845"
+        title="Seattle, WA"
+      ></gmp-advanced-marker>
+    </gmp-map>
 
 <div id="events" class="card">
 
@@ -58,7 +67,7 @@
   <%= paginate @events, :container => false %>
 </div>
 </div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&libraries=maps&v=beta"
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&libraries=maps,marker&v=beta"
       defer
     ></script>
