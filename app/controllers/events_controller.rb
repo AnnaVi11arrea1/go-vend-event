@@ -10,6 +10,7 @@ class EventsController < ApplicationController
     @q = Event.ransack(params[:q])
     
     @events = @q.result.page(params[:page]).per(5)
+
   end
   
   # GET /events/1 or /events/1.json
@@ -91,6 +92,6 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :latitude, :longitude)
   end
 end
