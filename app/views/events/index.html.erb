@@ -2,21 +2,8 @@
 
 <h1 class="title">Search Events</h1>
 
-    <gmp-map
-      center="43.4142989,-124.2301242"
-      zoom="4"
-      map-id="DEMO_MAP_ID"
-      style="height: 400px"
-    >
-      <gmp-advanced-marker
-        position="37.4220656,-122.0840897"
-        title="Mountain View, CA"
-      ></gmp-advanced-marker>
-      <gmp-advanced-marker
-        position="47.648994,-122.3503845"
-        title="Seattle, WA"
-      ></gmp-advanced-marker>
-    </gmp-map>
+<div id="map" style="height: 400px;"></div>
+  
 
 <div id="events" class="card">
 
@@ -67,7 +54,34 @@
   <%= paginate @events, :container => false %>
 </div>
 </div>
-<script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&libraries=maps,marker&v=beta"
+
+
+<script>
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 41.87657590074282, lng: -87.61936464305545 },
+      zoom: 5,
+    });
+
+    const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name]) %>;
+
+    console.log(events); // Debugging: Check the events data
+
+    events.forEach(event => {
+      if (event.latitude && event.longitude) {
+        console.log(`Adding marker for event: ${event.name}`); // Debugging: Check each event
+        new google.maps.Marker({
+          position: { lat: event.latitude, lng: event.longitude },
+          map: map,
+          title: event.name,
+        });
+      }
+    });
+  }
+</script>
+
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly,marker&v=beta"
       defer
     ></script>

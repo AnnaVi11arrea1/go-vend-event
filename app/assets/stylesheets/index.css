@@ -20,7 +20,9 @@ body {
   background-image: radial-gradient(circle, blue, #f9f9f9);
 }
 
-
+#map {
+  height: 100%;
+}
 
 /*==============
 

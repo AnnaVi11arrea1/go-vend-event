@@ -2,10 +2,21 @@
     desc "Import data from CSV into Users"
 
     task admin: :environment do
+      if Rails.env.development?
+        user = User.new(
+          id: 1,
+          email: 'stayfluorescent@gmail.com',
+          first_name: 'Anna',
+          last_name: 'Villarreal',
+          password: 'password',
+          username: 'everfluorescent'
+        )
+        user.save!
+        puts "Admin user created with email: #{user.email}" if user.persisted?
+      end
       if !Rails.env.development? && User.count == 0
         user = User.new(
           id: 1,  
-          role: 'admin',
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -97,6 +108,8 @@
               application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
               application_link: Faker::Internet.url,
               photo: "https://picsum.photos/200",
+              latitude: Faker::Address.latitude,
+              longitude: Faker::Address.longitude,
               host_id: user.id
             )
           end
