@@ -90,6 +90,7 @@ gem "carrierwave"
 gem "aws-sdk-s3", require: false
 gem "kaminari", "~> 1.2"
 gem "jquery-rails"
+gem 'gmaps4rails'
 
 group :development do
   gem "annotate"
@@ -115,3 +116,5 @@ group :test do
   gem "rspec-html-matchers"
   gem "webmock"
 end
+
+gem "good_job", "~> 4.5"
