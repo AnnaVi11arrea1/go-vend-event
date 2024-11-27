@@ -4,7 +4,7 @@
     task admin: :environment do
       if Rails.env.development?
         user = User.new(
-          id: 1,
+          id: 20,
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
