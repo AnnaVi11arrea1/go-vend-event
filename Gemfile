@@ -121,3 +121,4 @@ group :test do
 end
 
 gem "good_job", "~> 4.5"
+gem "pwa"
