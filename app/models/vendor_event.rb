@@ -7,12 +7,16 @@
 #  application_status :string
 #  paid               :boolean
 #  photo              :string
+#  start_time         :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  event_id           :integer
 #  user_id            :integer
 #
 class VendorEvent < ApplicationRecord
+
+  validates :start_time, presence: true
+  
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
@@ -20,7 +24,7 @@ class VendorEvent < ApplicationRecord
 
   has_one_attached :photo
   mount_uploader :photo, PhotoUploader
-
+  has_one :started_at, class_name: "Event", through: "started_at"
 
   def self.ransackable_associations(auth_object = nil)
     []
@@ -36,6 +40,12 @@ class VendorEvent < ApplicationRecord
     else
       all
     end
+  end
+
+  private
+
+  def set_starts_at_from_event
+    self.start_time ||= event&.started_at
   end
 
 end

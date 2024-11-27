@@ -2,15 +2,7 @@
 
 <h1 class="title">My events</h1>
 
-<%= month_calendar events: @vendor_events do |date, vendor_events| %>
-  <%= date.to_formatted_s(:short) %>
-
-  <% vendor_events.each do |vendor_event| %>
-  <div>
-    <%= vendor_event.name %>
-  </div>
-  <% end %>
-<% end %>
+<%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
 
 <%= search_form_for @a do |f| %>
 
