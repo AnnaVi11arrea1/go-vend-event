@@ -90,6 +90,7 @@ gem "aws-sdk-s3", require: false
 gem "kaminari", "~> 1.2"
 gem "jquery-rails"
 gem 'gmaps4rails'
+gem "simple_calendar", "~> 2.0"
 
 group :development do
   gem "annotate"

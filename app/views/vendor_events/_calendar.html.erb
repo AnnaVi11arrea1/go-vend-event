@@ -1,0 +1,17 @@
+<div class="calendar mycard">
+  <h3>Events Calendar</h3>
+  <br>
+  <%= month_calendar(events: @vendor_events, start_date_param: :start_time) do |date, vendor_events| %>
+    <div class="day">
+      <span class="date d-flex"><%= date.day %></span>
+
+      <% vendor_events.each do |vendor_event| %>
+      <% if vendor_event.start_time&.to_date == date %>
+        <div class="event">
+          <%= link_to vendor_event.event.name, vendor_event_path(vendor_event), class: "event-link" %>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

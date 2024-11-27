@@ -29,6 +29,8 @@ class Event < ApplicationRecord
   has_many :users, through: :vendor_events
   has_many :vendor_events, dependent: :destroy
 
+  after_save :update_vendor_events_start_time
+
   belongs_to :host, class_name: 'User', foreign_key: 'host_id'
   has_one_attached :photo
   mount_uploader :photo, PhotoUploader
@@ -71,6 +73,12 @@ class Event < ApplicationRecord
     else
       all
     end
+  end
+
+  private
+
+  def update_vendor_events_start_time
+    vendor_events.update_all(start_time: self.started_at)
   end
 
 

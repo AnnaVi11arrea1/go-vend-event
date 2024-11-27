@@ -1,13 +1,15 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update destroy]
+  before_action :set_vendor_event, only: %i[ show edit new update destroy calendar]
 
   # GET /vendor_events or /vendor_events.json
   def index
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
     @a = VendorEvent.ransack(params[:a])
- 
+    
+  
+    
   end
-
+  
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(10)
@@ -74,6 +76,9 @@ class VendorEventsController < ApplicationController
     end
   end
 
+  def calendar
+  end
+
   private
 
   def set_vendor_event
@@ -81,6 +86,6 @@ class VendorEventsController < ApplicationController
   end
 
   def vendor_event_params
-    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status)
+    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at)
   end
 end
