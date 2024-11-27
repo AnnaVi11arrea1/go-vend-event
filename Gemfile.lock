@@ -439,6 +439,8 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
+    simple_calendar (2.4.3)
+      rails (>= 3.0)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -556,6 +558,7 @@ DEPENDENCIES
   rufo
   selenium-webdriver
   shoulda-matchers (~> 4.0)
+  simple_calendar (~> 2.0)
   simple_form
   specs_to_readme
   sprockets-rails
