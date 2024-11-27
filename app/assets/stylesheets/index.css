@@ -224,3 +224,16 @@ MAP MARKERS
   position: relative;
   left: 10px;
 }
+
+
+/*================
+
+CALENDAR
+=================*/
+
+.calendar {
+
+  margin-top: 10vh;
+  max-width: 90vw;
+  margin: 0 auto;
+}

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  
-
+  draw(:pwa)
   root "users#index"
 
   devise_for :users
@@ -22,4 +21,6 @@ Rails.application.routes.draw do
 
   get "/logout" => "users#logout"
   get "/privacy_policy" => "users#privacy", as: :privacy_policy
+
+
 end
