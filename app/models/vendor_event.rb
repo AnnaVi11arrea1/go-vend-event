@@ -14,8 +14,6 @@
 #  user_id            :integer
 #
 class VendorEvent < ApplicationRecord
-
-  validates :start_time, presence: true
   
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
