@@ -76,9 +76,9 @@
           password: password,
         )
       end
-    end
+    
         
-      if FollowRequest.current.count == 0
+      
         users = User.all
         users.each do |first_user|
           puts "Creating follow requests for #{first_user.username}"
@@ -101,26 +101,26 @@
             end 
           end
         end
-      end
+      
 
-      if Event.count == 0    
-        users.each do |user|
-          rand(10).times do
-            user.events.create!(
-              name: Faker::Company.name, 
-              started_at: Faker::Date.between(from: 1.year.ago, to: Date.today), 
-              tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
-              address: Faker::Address.full_address, 
-              information: Faker::Company.catch_phrase, 
-              application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
-              application_link: Faker::Internet.url,
-              photo: "https://picsum.photos/200",
-              latitude: Faker::Address.latitude,
-              longitude: Faker::Address.longitude,
-              host_id: user.id
-            )
-          end
-        end
+        
+        # users.each do |user|
+        #   rand(10).times do
+        #     user.events.create!(
+        #       name: Faker::Company.name, 
+        #       started_at: ["2025-07-15", "2025-071-15", "2025-03-15"].sample, 
+        #       tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
+        #       address: Faker::Address.full_address, 
+        #       information: Faker::Company.catch_phrase, 
+        #       application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
+        #       application_link: Faker::Internet.url,
+        #       photo: "https://picsum.photos/200",
+        #       latitude: Faker::Address.latitude,
+        #       longitude: Faker::Address.longitude,
+        #       host_id: user.id,
+        #     )
+        #   end
+        # end
       end
       
   puts "There are now #{User.count} fake people in the database!"

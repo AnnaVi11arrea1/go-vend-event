@@ -26,10 +26,10 @@ class VendorEventsController < ApplicationController
 
   # POST /vendor_events or /vendor_events.json
   def create
-
     @vendor_event = VendorEvent.new(vendor_event_params)
     @vendor_event.user_id = current_user.id
     @vendor_event.event_id = params.dig("vendor_event", "event_id")
+    @vendor_event.save!
     respond_to do |format|
       if @vendor_event.save
         format.html { redirect_to vendor_events_path, notice: "Vendor event was successfully created." }
@@ -86,6 +86,6 @@ class VendorEventsController < ApplicationController
   end
 
   def vendor_event_params
-    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at)
+    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id )
   end
 end
