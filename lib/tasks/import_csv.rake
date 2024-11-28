@@ -4,7 +4,7 @@
     task admin: :environment do
       if Rails.env.development?
         user = User.new(
-          id: 20,
+          id: 1,
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -33,10 +33,8 @@
 
     task events: :environment do
       require 'csv'
-      
       csv_file = File.read(Rails.root.join('lib', 'csvs', 'events.csv')) # Adjust the path
       csv = CSV.parse(csv_file, :headers => true, :encoding => 'ISO-8859-1')
-
       csv.each do |row|
         Event.find_or_create_by!(
           id: row[:id], # assign original primary key
@@ -48,7 +46,9 @@
           started_at: row['started_at'],
           tags: row['tags'],
           address: row['address'],
-          host_id: row['host_id']
+          host_id: row['host_id'],
+          latitude: row['latitude'],
+          longitude: row['longitude'],
         ) 
       end
       puts "Import completed!"
@@ -61,6 +61,7 @@
         User.destroy_all
       end 
 
+      if User.count < 20
       10.times do 
         first_name = Faker::Name.first_name
         last_name = Faker::Name.last_name
@@ -75,33 +76,34 @@
           password: password,
         )
       end
+    end
         
-      users = User.all
-      
-      users.each do |first_user|
-        puts "Creating follow requests for #{first_user.username}"
-        users.each do |second_user|
-          puts "Creating follow requests for #{second_user.username}"
-          next if first_user == second_user
-          if rand < 0.75
-            follow_request = first_user.sent_follow_requests.create(
-              sender: first_user,
-              recipient: second_user,
-              status: FollowRequest.statuses.keys.sample
-            )
+      if FollowRequest.current.count == 0
+        users = User.all
+        users.each do |first_user|
+          puts "Creating follow requests for #{first_user.username}"
+          users.each do |second_user|
+            puts "Creating follow requests for #{second_user.username}"
+            next if first_user == second_user
+            if rand < 0.75
+              follow_request = first_user.sent_follow_requests.create(
+                sender: first_user,
+                recipient: second_user,
+                status: FollowRequest.statuses.keys.sample
+              )
+            end
+            if rand < 0.75
+              follow_request = second_user.sent_follow_requests.create(
+                sender: second_user,
+                recipient: first_user,
+                status: FollowRequest.statuses.keys.sample
+              )
+            end 
           end
-          if rand < 0.75
-            follow_request = second_user.sent_follow_requests.create(
-              sender: second_user,
-              recipient: first_user,
-              status: FollowRequest.statuses.keys.sample
-            )
-          end 
         end
       end
 
-      
-            
+      if Event.count == 0    
         users.each do |user|
           rand(10).times do
             user.events.create!(
@@ -117,9 +119,10 @@
               longitude: Faker::Address.longitude,
               host_id: user.id
             )
-            
           end
         end
+      end
+      
   puts "There are now #{User.count} fake people in the database!"
   puts "There are now #{Event.count} fake events in the database!"
   puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
