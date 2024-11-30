@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
       zoom: 3,
     });
 
-    const events = JSON.parse('<%= j @events.to_json(only: [:latitude, :longitude, :name]) %>');
+    const events = JSON.parse('<%= j @events.to_json(only: [:latitude, :longitude, :name]).gsub("'", "\\\\'").html_safe %>');
 
     console.log("Loaded events data:", events); // Debugging: Check if events data is loaded
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }); 
       }  
     });
-  };
+  }
 });
 
 
@@ -104,5 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <script 
     src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&loading=async&callback=initMap" 
     async
-    defer >
+    defer
+     >
 </script>
