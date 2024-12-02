@@ -51,7 +51,7 @@
               <p><%= @user.first_name %> has not created any events yet.</p>
             <% end %>
             <hr>
-        <h2>My Events</h2>
+          <h2>My Events</h2>
           <div class="mycard">
             <% @user.vendor_events.each do |event| %>
               <div><%= link_to event.event.name, vendor_event_path(event) %></>
@@ -60,6 +60,7 @@
             <% if @user.vendor_events.empty? %>
               <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
             <% end %>
+      </div>
       </div>
     </div>
   </div>
