@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    @hosted_events = Event.where(:host_id => @user.id)
-    @vendor_event = VendorEvent.where(:user_id => @user.id)
+    @hosted_events = Event.where(:host_id => current_user.id)
+    @vendor_event = VendorEvent.where(:user_id => current_user.id)
   end
   
   def create

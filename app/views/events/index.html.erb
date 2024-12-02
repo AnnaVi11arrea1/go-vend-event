@@ -55,14 +55,13 @@
 </div>
 </div>
 
-<script type="module" >
-
+<script type="module">
 document.addEventListener('DOMContentLoaded', function () {
-  window.initMap = function () {
-
+  function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 41.87657590074282, lng: -87.61936464305545 },
       zoom: 3,
+      mapId: "DEMO_MAP_ID", // Map ID is required for advanced markers.
     });
 
     const events = JSON.parse('<%= j @events.to_json(only: [:latitude, :longitude, :name]).gsub("'", "\\\\'").html_safe %>');
@@ -76,11 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     console.log(markerImage);
 
+
     events.forEach((event) => {
       if (event.latitude && event.longitude) { // Debugging: Verify marker data
-        const marker = new google.maps.Marker({
+        const marker = new AdvancedMarkerElement({
           position: { lat: event.latitude, lng: event.longitude },
-          map: map,
+          map,
+          content: markerImage,
           icon: markerImage,
           title: event.name,
         });
@@ -89,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
           content: `<h3>${event.name}</h3>`,
       });
 
-        marker.addListener('click', () => {
+        marker.addListener('click', ({domEvent, latLng}) => {
+          const {target} = domEvemt
           infowindow.open(map, marker);
       }); 
       }  
@@ -97,12 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-
-
 </script>
 
-<script 
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&loading=async&callback=initMap" 
-    defer
-     >
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV['GOOGLE_MAPS'] %>",
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
 </script>

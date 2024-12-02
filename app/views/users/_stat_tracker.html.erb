@@ -1,32 +1,42 @@
-<div class="container">
+<div class="container mycard">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="title">Stat Tracker</h2>
+      <h2 class="d-flex">Stat Tracker</h2>
     </div>
   </div>
-  <div class="row">
-      <h4 class="col">Event Name</h4>
-       <div class="p-1"></div>
-      <h4 class="col">Expense</h4>
-       <div class="p-1"></div>
-      <h4 class="col">Sales</h4>
-  </div>
-<% @user.vendor_events.each do |event|%>
-  <div class="row">
-    <div class="p-1"></div>
-    <div class="col">
-      <p><%= event.event.name %></p>
-    </div>
-    <div class="p-1"></div>
-    <div>
-        <label for="expense" visibility="hidden">
-        <input type="float" class="d-flex" id="expense">
-    </div>
-    <div class="p-1"></div>
-    <div class="col">
-        <label for="sales" visibility="hidden">
-        <input type="float" class="d-flex" id="sales">
-    </div>
-  </div> 
-<% end %> 
+
+<div>
+<%= form_with url: update_expenses_and_sales_vendor_events_path, method: :post do |f| %>     
+  <table>
+    <thead>
+      <tr>
+        <th>Event Name</th>
+        <th>Expense</th>
+        <th>Sales</th>
+        <th>Profit</th>
+        <th>Return</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.vendor_events.each do |event| %>
+        <tr>
+          <td><%= event.event.name %></td>
+          <td>
+            <%= number_field_tag "vendor_events[#{event.id}][expense]", event.expense, class: "form-control", id: "expense_#{event.id}" %>
+          </td>
+          <td>
+            <%= number_field_tag "vendor_events[#{event.id}][sales]", event.sales, class: "form-control", id: "sales_#{event.id}" %>
+          </td>
+          <td>
+            <%= number_field_tag "vendor_events[#{event.id}][profit]", event.profit, class: "form-control", id: "profit_#{event.id}" %>
+          </td>
+          <td>
+            <%= number_field_tag "vendor_events[#{event.id}][return]", event.return, class: "form-control", id: "return_#{event.id}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag 'Update Expenses and Sales', class: 'btn btn-primary' %>
+<% end %>
 </div>
