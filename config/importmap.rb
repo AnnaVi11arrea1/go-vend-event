@@ -9,3 +9,5 @@ pin "@rails/ujs", to: "@rails--ujs.js" # @7.0.8
 pin "jquery" # @3.7.1
 pin "bootstrap" # @5.3.0
 pin_all_from "app/javascript/helpers", under: "helpers"
+pin "application", to: "application.js"
+pin "initMap", to: "path/to/initMap.js"

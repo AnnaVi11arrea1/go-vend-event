@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :events 
   resources :vendor_events do
     get "/calendar" => "calendar#show"
+    collection do
+      post "update_expenses_and_sales" => "vendor_events#update_expenses_and_sales"
+    end
   end
   resources :users
 
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
 
   get "/logout" => "users#logout"
   get "/privacy_policy" => "users#privacy", as: :privacy_policy
+
 
 
 end

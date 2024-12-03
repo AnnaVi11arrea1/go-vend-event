@@ -1,13 +1,10 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update destroy calendar]
+  before_action :set_vendor_event, only: %i[ show edit new update destroy calendar update]
 
   # GET /vendor_events or /vendor_events.json
   def index
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
     @a = VendorEvent.ransack(params[:a])
-    
-  
-    
   end
   
   # GET /vendor_events/1 or /vendor_events/1.json
@@ -53,20 +50,6 @@ class VendorEventsController < ApplicationController
       end
     end
   end
-
-  # def add_event
-  #   @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
-  #   respond_to do |format|
-  #     if @vendor_event.save
-  #       format.html { redirect_to vendor_event_url(@vendor_event), notice: "Event was successfully added to vendor events." }
-  #       format.json { render :show, status: :created, location: @vendor_event }
-  #     else
-  #       format.html { redirect_to events_url, alert: "Failed to add event to vendor events." }
-  #       format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # DELETE /vendor_events/1 or /vendor_events/1.json
   def destroy
     @vendor_event.destroy!
@@ -79,6 +62,14 @@ class VendorEventsController < ApplicationController
   def calendar
   end
 
+  def update_expenses_and_sales
+    params[:vendor_events].each do |id, attributes|
+      vendor_event = VendorEvent.find(id)
+      vendor_event.update(attributes.permit(:expense, :sales, :return, :profit))
+    end
+    redirect_to user_path(current_user), notice: 'Expenses and sales updated successfully.'
+  end
+
   private
 
   def set_vendor_event
@@ -86,6 +77,6 @@ class VendorEventsController < ApplicationController
   end
 
   def vendor_event_params
-    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id )
+    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
   end
 end

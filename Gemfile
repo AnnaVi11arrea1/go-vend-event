@@ -91,6 +91,8 @@ gem "kaminari", "~> 1.2"
 gem "jquery-rails"
 gem 'gmaps4rails'
 gem "simple_calendar", "~> 2.0"
+gem "omniauth-github"
+gem "omniauth-rails_csrf_protection"
 
 group :development do
   gem "annotate"

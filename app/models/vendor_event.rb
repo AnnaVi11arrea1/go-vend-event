@@ -5,8 +5,12 @@
 #  id                 :bigint           not null, primary key
 #  added              :boolean
 #  application_status :string
+#  expense            :float
 #  paid               :boolean
 #  photo              :string
+#  profit             :float
+#  return             :float
+#  sales              :float
 #  start_time         :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

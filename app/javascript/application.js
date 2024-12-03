@@ -1,5 +1,5 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import { Turbo } from "@hotwired/turbo-rails"
+import { Turbo } from "@hotwired/stimulus"
 
 import "controllers"
 
@@ -10,6 +10,3 @@ window.jQuery = jquery;
 window.$ = jquery;
 import Rails from "@rails/ujs"
 Rails.start();
-
-
-//= require copy_coffee
