@@ -10,6 +10,11 @@ class EventsController < ApplicationController
     @q = Event.ransack(params[:q])
     
     @events = @q.result.page(params[:page]).per(5)
+    
+    respond_to do |format|
+      format.html # Render index.html.erb
+      format.js   # Render index.js.erb
+    end
 
   end
   
