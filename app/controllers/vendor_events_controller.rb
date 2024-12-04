@@ -5,6 +5,7 @@ class VendorEventsController < ApplicationController
   def index
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
     @a = VendorEvent.ransack(params[:a])
+    @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
   end
   
   # GET /vendor_events/1 or /vendor_events/1.json
@@ -26,6 +27,7 @@ class VendorEventsController < ApplicationController
     @vendor_event = VendorEvent.new(vendor_event_params)
     @vendor_event.user_id = current_user.id
     @vendor_event.event_id = params.dig("vendor_event", "event_id")
+    @vendor_event.reverse_geocode
     @vendor_event.save!
     respond_to do |format|
       if @vendor_event.save

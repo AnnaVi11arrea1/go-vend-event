@@ -93,6 +93,9 @@ gem 'gmaps4rails'
 gem "simple_calendar", "~> 2.0"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
+gem 'chartkick'
+gem 'groupdate'
+gem 'geocoder'
 
 group :development do
   gem "annotate"
@@ -124,3 +127,6 @@ end
 
 gem "good_job", "~> 4.5"
 gem "pwa"
+gem 'fusioncharts-rails'
+
+gem "rails-ujs", "~> 0.1.0"

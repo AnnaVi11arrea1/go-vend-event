@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/fusioncharts.js', to: 'fusioncharts#proxy'
+  
   draw(:pwa)
   root "users#index"
 
@@ -13,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :users
-
+  resources :charts, to: "charts#index"
 
 
   get ":username/feed" => "users#feed", as: :feed
