@@ -33,14 +33,14 @@
 
     task events: :environment do
       if Rails.env.production?
-        Event.destroy_all.where(:host_id => 1)
+        Event.where(:host_id => 1).destroy_all
       end
       require 'csv'
       csv_file = File.read(Rails.root.join('lib', 'csvs', 'events.csv')) # Adjust the path
       csv = CSV.parse(csv_file, :headers => true, :encoding => 'ISO-8859-1')
       csv.each do |row|
         Event.find_or_create_by!(
-          id: row[:id], # assign original primary key
+          id: row['id'], # assign original primary key
           name: row['name'],
           application_due_at: row['application_due_at'],
           application_link: row['application_link'],
