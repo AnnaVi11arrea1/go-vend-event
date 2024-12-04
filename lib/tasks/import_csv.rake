@@ -32,6 +32,9 @@
   
 
     task events: :environment do
+      if Rails.env.production?
+        Event.destroy_all.where(:host_id => 1)
+      end
       require 'csv'
       csv_file = File.read(Rails.root.join('lib', 'csvs', 'events.csv')) # Adjust the path
       csv = CSV.parse(csv_file, :headers => true, :encoding => 'ISO-8859-1')
