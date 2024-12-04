@@ -70,7 +70,7 @@
       zoom: 5,
     });
 
-    const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name]) %>;
+    const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name], methods: [:photo_url]) %>;
 
     console.log(events); // Debugging: Check the events data
 
@@ -81,6 +81,10 @@
           position: { lat: event.latitude, lng: event.longitude },
           map: map,
           title: event.name,
+          icon: {
+          url: event.photo_url ? event.photo_url : null, // URL to the custom image
+          scaledSize: new google.maps.Size(40, 40) // Size of the custom image 
+        } 
 
         });
       }
