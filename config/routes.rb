@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :users
-  resources :charts, to: "charts#index"
+  resources "/charts", => "charts#index"
 
 
   get ":username/feed" => "users#feed", as: :feed
