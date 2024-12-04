@@ -52,11 +52,7 @@ class ChartsController < ApplicationController
   "Wyoming" => "WY"
 }
 
-  def proxy
-    url = "https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"
-    response = Net::HTTP.get(URI(url))
-    render js: response
-   end
+
 
   def index
     @vendor_events = VendorEvent.includes(:event).where(user_id: current_user.id)
