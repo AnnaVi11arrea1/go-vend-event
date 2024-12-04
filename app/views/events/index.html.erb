@@ -64,49 +64,28 @@
 
 
 <script>
-  function initMap() {
-    // Create the map and attach it to the 'map' div
-    var mapDiv = document.getElementById('map');
-    var map = new google.maps.Map(mapDiv, {
-      center: { lat: 0, lng: 0 }, // Default center, will adjust to bounds
-      zoom: 2, // Default zoom
+    function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 41.87657590074282, lng: -87.61936464305545 },
+      zoom: 5,
     });
 
-    // Create a bounds object to automatically fit all markers
-    var bounds = new google.maps.LatLngBounds();
+    const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name]) %>;
 
-    // Loop through the events and create markers
-    <% @events.each do |event| %>
-      var marker = new google.maps.Marker({
-        position: { lat: <%= event.latitude %>, lng: <%= event.longitude %> }, // Latitude and longitude of the event
-        map: map,
-        title: "<%= event.name %>", // Title of the event
-        icon:  {
-          url: "<%= event.photo.url %> ", // URL to the custom image
-          scaledSize: new google.maps.Size(40, 40) // Size of the custom image 
-        } // Photo for the marker icon
-      });
+    console.log(events); // Debugging: Check the events data
 
-      // Create an info window for the marker
-      var infowindow = new google.maps.InfoWindow({
-        content: `<h4><%= event.name %></h4><br><a href="<%= event.application_link %>" target="_blank">Apply Here</a>` // Content of the info window,
-      });
+    events.forEach(event => {
+      if (event.latitude && event.longitude) {
+        console.log(`Adding marker for event: ${event.name}`); // Debugging: Check each event
+        new google.maps.Marker({
+          position: { lat: event.latitude, lng: event.longitude },
+          map: map,
+          title: event.name,
 
-      // Add a click event listener to open the info window when the marker is clicked
-      marker.addListener("click", function () {
-        infowindow.open(map, marker);
-      });
-
-      // Extend the map bounds to include this marker's position
-      bounds.extend(marker.getPosition());
-    <% end %>
-
-    // Adjust the map to fit all markers within the bounds
-    map.fitBounds(bounds);
+        });
+      }
+    });
   }
-
-  // Load the initMap function as a callback for Google Maps
-  window.initMap = initMap;
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&callback=initMap"
