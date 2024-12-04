@@ -1,0 +1,25 @@
+<%= javascript_include_tag "fusioncharts.js" %>
+
+
+<% @vendor_events.each do |vendor_event| %>
+  <p><%= vendor_event.state %><p>
+  <% end %>
+  <h1>Chart View</h1>
+  <div id="chart-container">Chart will render here</div>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      var chartData = <%= raw @chart_data.to_json %>;
+
+      FusionCharts.ready(function() {
+        var fusioncharts = new FusionCharts({
+        type: 'maps/usa',
+        renderAt: 'chart-container',
+          width: '600',
+          height: '400',
+          dataFormat: 'json',
+          dataSource: chartData
+        });
+        fusioncharts.render();
+      });
+    });
+  </script>
