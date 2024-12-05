@@ -19,7 +19,7 @@
       <% end %>
       </div>
     
-      <div class="d-flex justify-content-center pt-3">Host:
+      <div class="d-flex justify-content-center pt-3 btn">Host:
         <%= link_to user_path(@host.id), target: "_blank" do %>
           <% if @host.photo.present? %>
             <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
@@ -61,14 +61,14 @@
     </div>
   </div>
 
-      <div class="row justify-content-around">
+      <div class="row justify-content-around pt-2">
         <% if current_user.vendor_events.exists?(event_id: @event.id) %>
           <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
         <% end %>
 
         <% if @host == current_user %>
-          <%= link_to "Edit this event", edit_event_path(@event) %> 
-          <%= link_to "Destroy this event", @event, method: :delete %>
+          <%= link_to "Edit this event", edit_event_path(@event), class:"btn btn-info" %> 
+          <%= link_to "Destroy this event", @event, method: :delete, class:"btn btn-info"  %>
         <% end %>
       </div>
     </div>

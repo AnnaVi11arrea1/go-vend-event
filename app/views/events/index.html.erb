@@ -10,8 +10,7 @@
 <div id="events" class="card">
 
   <%= search_form_for @q do |f| %>
-
-    <div class="search pt-3 d-flex justify-content-center">
+    <div class="search pt-3 d-flex justify-content-center mb-0">
       <div>
         <%= f.label :name_cont %>
         <%= f.text_field :name_cont %>
@@ -20,32 +19,37 @@
         <%= f.label :started_at_gteq, "On or after " %>
         <%= f.date_field :started_at_gteq %>
       </div>
-      <div class="search px-2">
-        <%= f.submit %>
-      </div>
-      <div class="search px-2">
-        <%= link_to "Clear", events_path %>
+    </div>
+      <div class="d-flex justify-content-center">
+        <div class="search px-2">
+          <%= f.submit %>
+        </div>
+        <div class="search px-2">
+          <%= link_to "Clear", events_path, class:"btn btn-info" %>
+        </div>
       </div>
     <% end %>
-  </div>
 
   <% if @events.present? %>
     <% @events.each do |event| %>
-      <div class="d-flex ps-4 mb-2 mycard justify-content-between">
+      <div class="ps-4 mb-2 mycard">
         <div class="row">
-          <div class="col-6">
+          <div class="col">Name: 
+            <div><h4> <%= event.name %></h4></strong></div>
+          </div>
+          <div class="col d-flex">
             <% if event.photo.present?%>
               <%= image_tag event.photo.url, alt:"profile pic", class:"profile-pic" %>
+              <% else %>
+              <%= image_tag 'favicon.png', alt:"profile pic", class:"profile-pic" %>
             <% end %>
-            <strong>Name:</strong>
-            <%= event.name %>
           </div>
-          <div class="col-6">
+          <div class="col">
             <p class="card-text">
               <strong>Where:</strong>
-              <%= event.address %>
-              <br>
-              <strong>When:</strong>
+              <%= event.address %></p>
+              
+              <p class="card-text"><strong>When:</strong>
               <%= event.started_at.strftime("%B %d, %Y") %></p>
             <%= link_to "Show this event", event, class:"btn btn-primary" %>
           </div>
@@ -55,12 +59,12 @@
   <% else %>
     <p>No events found.</p>
   <% end %>
-  </div>
-
-
   <div class="d-flex justify-content-around p-3">
     <%= paginate @events, :container => false %>
   </div>
+  </div>
+
+
 
 
 <script>

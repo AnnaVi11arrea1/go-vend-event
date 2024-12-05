@@ -1,35 +1,40 @@
 <p style="color: green"><%= notice %></p>
 
-<h1 class="title">My events</h1>
-<div class="mycard">
-  <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
-
+<div class="card">
+  <div>
+    <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
+  </div>
 
   <%= search_form_for @a do |f| %>
-
-  <div class="search pt-3 d-flex justify-content-center">
-    <div>
-      <%= f.label :paid_cont, "Find" %>
-      <%= f.text_field :paid_cont %>
+    <div class="search pt-3 d-flex justify-content-center">
+      <div>
+        <%= f.label :name_cont, "Find" %>
+        <%= f.text_field :name_cont %>
+      </div>
+      <div class="search px-2">
+        <%= f.submit %>
+      </div>
+      <div class="search px-2">
+        <%= link_to "Clear", events_path %>
+      </div>
     </div>
-
-    <div class="search px-2">
-      <%= f.submit %>
-    </div>
-    <div class="search px-2">
-      <%= link_to "Clear", events_path %>
-    </div>
-    <% end %>
-  </div>
+  <% end %>
 
   <% if @vendor_events.present? %>
-  <div id="vendor_event">
-    <% @vendor_events.each do |vendor_event| %>
-      <%= render vendor_event %>
-
+    <div id="vendor_event">
+    <div class="nav d-flex justify-content-around pb-0">
+      <p>Image</p>
+      <p>Name</p>
+      <p>Status</p>
+      <p>Actions</p>
+    </div>
+      <% @vendor_events.each do |vendor_event| %>
+        <div>
+          <%= render vendor_event %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No vendor events found</p>
     <% end %>
   </div>
-  <% else %>
-    <p>No vendor events found</p>
-  <% end %>
-<div>
+</div>
