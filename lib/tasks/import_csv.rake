@@ -1,5 +1,5 @@
   namespace :csv do
-    desc "Import data from CSV into Users"
+    desc "Create sample data"
 
     task admin: :environment do
       if Rails.env.development?
@@ -15,7 +15,6 @@
         puts "Admin user created with email: #{user.email}" if user.persisted?
       end
     
-
       if !Rails.env.development? && User.count == 0
         user = User.new(
           id: 1,  
@@ -30,7 +29,6 @@
       end
     end
   
-
     task events: :environment do
       if Rails.env.production?
         Event.where(:host_id => 1).destroy_all
@@ -64,7 +62,6 @@
         User.destroy_all
       end 
 
-      if User.count < 20
       10.times do 
         first_name = Faker::Name.first_name
         last_name = Faker::Name.last_name
@@ -77,11 +74,9 @@
           username: username,
           email: email,
           password: password,
-        )
-      end
-    
+          )
+        end
         
-      
         users = User.all
         users.each do |first_user|
           puts "Creating follow requests for #{first_user.username}"
@@ -93,41 +88,38 @@
                 sender: first_user,
                 recipient: second_user,
                 status: FollowRequest.statuses.keys.sample
-              )
+                )
             end
-            if rand < 0.75
-              follow_request = second_user.sent_follow_requests.create(
-                sender: second_user,
-                recipient: first_user,
-                status: FollowRequest.statuses.keys.sample
-              )
-            end 
-          end
-        end
-      
+              if rand < 0.75
+                follow_request = second_user.sent_follow_requests.create(
+                  sender: second_user,
+                  recipient: first_user,
+                  status: FollowRequest.statuses.keys.sample
+                )
+              end
+            end
+          end    
 
-        
-        # users.each do |user|
-        #   rand(10).times do
-        #     user.events.create!(
-        #       name: Faker::Company.name, 
-        #       started_at: ["2025-07-15", "2025-071-15", "2025-03-15"].sample, 
-        #       tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
-        #       address: Faker::Address.full_address, 
-        #       information: Faker::Company.catch_phrase, 
-        #       application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
-        #       application_link: Faker::Internet.url,
-        #       photo: "https://picsum.photos/200",
-        #       latitude: Faker::Address.latitude,
-        #       longitude: Faker::Address.longitude,
-        #       host_id: user.id,
-        #     )
-        #   end
-        # end
+          users.each do |user|
+            rand(10).times do
+              user.events.create!(
+                name: Faker::Company.name, 
+                started_at: ["2025-07-15", "2025-07-15", "2025-03-15"].sample, 
+                tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
+                address: Faker::Address.full_address, 
+                information: Faker::Company.catch_phrase, 
+                application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
+                application_link: Faker::Internet.url,
+                photo: "https://picsum.photos/200",
+                latitude: Faker::Address.latitude,
+                longitude: Faker::Address.longitude,
+                host_id: user.id,
+                )
+              end
+            end
+          puts "There are now #{User.count} fake people in the database!"
+          puts "There are now #{Event.count} fake events in the database!"
+          puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
+        end
       end
-      
-  puts "There are now #{User.count} fake people in the database!"
-  puts "There are now #{Event.count} fake events in the database!"
-  puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
-end
-end
+        
