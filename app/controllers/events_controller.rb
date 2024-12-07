@@ -2,13 +2,12 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[new create edit update destroy ]
+  before_action :ensure_user_is_authorized, only: [:show]
 
   # GET /events or /events.json
   def index
     @vendor_event = VendorEvent.new
-
     @q = Event.ransack(params[:q])
-    
     @events = @q.result.page(params[:page]).per(5)
     
     respond_to do |format|
@@ -37,13 +36,11 @@ class EventsController < ApplicationController
     @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
     format html {redirect_to add_event_vendor_event_path, notice: "Event Updated successfully"}
   end
-
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)
     @event.host_id = current_user.id
     respond_to do |format|
-    
       if @event.save
         format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
@@ -98,5 +95,11 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :latitude, :longitude)
+  end
+
+  def ensure_user_is_authorized
+    if !EventPolicy.new(current_user, @event).show?
+      redirect_back fallback_location: events_path, alert: "You are not authorized to view this event"
+    end
   end
 end
