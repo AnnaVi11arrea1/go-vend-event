@@ -45,8 +45,9 @@ class VendorEvent < ApplicationRecord
   after_validation :reverse_geocode
   attr_accessor :state
 
-  has_one :started_at, class_name: "Event", through: "started_at"
+  has_one :started_at,  :through => :started_at, :source => :events
 
+  before_save :set_starts_at_from_event
   def self.ransackable_associations(auth_object = nil)
     []
   end

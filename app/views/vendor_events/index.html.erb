@@ -1,24 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
 <div class="card">
   <div>
     <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
   </div>
-
-  <%= search_form_for @a do |f| %>
-    <div class="search pt-3 d-flex justify-content-center">
-      <div>
-        <%= f.label :name_cont, "Find" %>
-        <%= f.text_field :name_cont %>
-      </div>
-      <div class="search px-2">
-        <%= f.submit %>
-      </div>
-      <div class="search px-2">
-        <%= link_to "Clear", events_path %>
-      </div>
-    </div>
-  <% end %>
 
   <% if @vendor_events.present? %>
     <div id="vendor_event">
@@ -35,6 +18,6 @@
       <% end %>
     <% else %>
       <p>No vendor events found</p>
-    <% end %>
   </div>
+    <% end %>
 </div>

@@ -1,25 +1,18 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update calendar update destroy ]
-
+  before_action :set_vendor_event, only: %i[  show edit new update calendar update destroy ]
   # GET /vendor_events or /vendor_events.json
   def index
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(10)
+    
+    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
+    @a = VendorEvent.ransack(params[:a])
     @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
-    @a = Event.ransack(params[:a])
-      if @a.started_at
-        @events = @a.result.order(started_at: :asc).page(params[:page]).per(5)
-      else if @a.name_cont
-        @events = @a.result.order(name: :asc).page(params[:page]).per(5)
-      else
-        @events = @a.result.page(params[:page]).per(5)
-      end
-    end
+
   end
   
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
-    @vendor_events = VendorEvent.all.where(:host_id => current_user.id)
     @vendor_event = VendorEvent.find(params[:id])
+    
   end
   # GET /vendor_events/new
 
@@ -74,6 +67,7 @@ class VendorEventsController < ApplicationController
   end
 
   def calendar
+    @vendor_events = VendorEvent.where(user_id: current_user.id).where.not(start_time: nil)
   end
 
   def update_expenses_and_sales
@@ -93,7 +87,4 @@ class VendorEventsController < ApplicationController
   def vendor_event_params
     params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
   end
-
-
-
 end

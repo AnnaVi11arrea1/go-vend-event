@@ -254,3 +254,32 @@ BUTTONS
       transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 }
+
+
+/*=================
+
+
+ANIMATIONS
+=================*/
+
+.cat {
+  animation: orbit 3s infinite linear;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(15px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(15px) rotate(-360deg);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

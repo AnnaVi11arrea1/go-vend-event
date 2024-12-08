@@ -1,20 +1,7 @@
-<div >
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="title"><%= @user.username %>'s Profile</h1>
-    </div>
-  </div>
-  <div class="row mycard d-flex">
-    <div class="col d-flex justify-content-center">
-      <div class="d-flex align-self-center">
-        <% if @user.photo.present?%>
-          <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"rounded mb-5" %>
-        <% else %>
-          <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col">
+<div class="d-flex">
+  <div class="mycard">
+    <h2><%= @user.username %>'s Profile</h2>
+    <div class="col ">
       <h2>Info</h2>
       <p><strong>First Name:</strong> <%= @user.first_name %></p>
       <p><strong>Last Name:</strong> <%= @user.last_name %></p>
@@ -22,13 +9,12 @@
       <p><strong>Social:</strong> <%= @user.social_media %></p>
       <p><strong>About:</strong> <%= @user.about %></p>
       <div>
-        <div>
+        <div class="d-flex">
           <% if @user.photo.present? %>
             <%= image_tag @user.photo.url, alt:"profile pic", width:"30px" %>
           <% else %>
             <%= image_tag "favicon.png", alt: "profile pic", width:"30px" %>
           <% end %>
-
           <% if current_user != @user %>
             <% if current_user.leaders.include?(@user) %>
               <p>You are following <%= @user.name %></p>
@@ -42,31 +28,33 @@
             <% end %>
           <% end %>
         </div>
-
-        <div>
-          <% if @user == current_user %>
-            <div class="m-2">
-              <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-primary" %>
-            </div>
-            <div class="m-2">
-              <%= link_to "Follow Requests", follow_requests_path, class:"btn btn-success" %>
-            <% end %>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-    <div class="card">
-      <% if @user.followers.count > 0 %>
-        <p>Followers: 
-        <%= @user.accepted_receieved_follow_requests.count %></p>
-      <% end %>
-
-    <% if @user == current_user %>
-    <div class="d-flex">
-      <%= render "users/stat_tracker" %>
-    </div>
+  <div class="d-flex mycard align-self-center">
+    <% if @user.photo.present?%>
+      <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"rounded mb-5" %>
+    <% else %>
+      <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
     <% end %>
+    <div>
+      <% if @user == current_user %>
+        <div class="m-2">
+          <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-primary" %>
+        </div>
+        <div class="m-2">
+          <%= link_to "Follow Requests", follow_requests_path, class:"btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mycard">
+  <% if @user == current_user %>
+    <%= render "users/stat_tracker" %>
+  <% end %>
+</div>
 
     <% @user.followers.each do |list| %>
       <div>

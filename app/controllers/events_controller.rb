@@ -5,6 +5,7 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @vendor_event = VendorEvent.new
+    @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(5)
     @q = Event.ransack(params[:q])
     if @q.started_at
       @events = @q.result.order(started_at: :asc).page(params[:page]).per(5)

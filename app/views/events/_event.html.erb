@@ -35,12 +35,12 @@
 
       <div class="col">
         <p class="card-text">
-          <strong>Application due at:</strong>
-          <%= @event.application_due_at %></p>
+          <strong>Applications due:</strong>
+          <%= @event.application_due_at.strftime("%B %d, %Y") %></p>
 
         <p class="card-text">
-          <strong>Started at:</strong>
-          <%= @event.started_at %></p>
+          <strong>Event Begins:</strong>
+          <%= @event.started_at.strftime("%B %d, %Y") %></p>
 
         <p class="card-text">
           <strong>Information:</strong>

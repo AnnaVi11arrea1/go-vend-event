@@ -4,7 +4,6 @@
   <%= month_calendar(events: @vendor_events, start_date_param: :start_time) do |date, vendor_events| %>
     <div class="day">
       <span class="date"><%= date.day %></span>
-
       <% vendor_events.each do |vendor_event| %>
         <% if vendor_event.start_time&.to_date == date %>
           <div class="event">
