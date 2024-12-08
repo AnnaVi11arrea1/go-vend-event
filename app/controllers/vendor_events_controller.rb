@@ -1,10 +1,10 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[ show edit new update calendar update destroy ]
-  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update, :destroy]
+  before_action :ensure_user_is_authorized, only: [ :show, :create, :update, :destroy]
 
   # GET /vendor_events or /vendor_events.json
   def index
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
+    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(10)
     @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
     @a = Event.ransack(params[:a])
       if @a.started_at
@@ -19,7 +19,7 @@ class VendorEventsController < ApplicationController
   
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(10)
+    @vendor_events = VendorEvent.all.where(:host_id => current_user.id)
   end
   # GET /vendor_events/new
 
@@ -40,8 +40,8 @@ class VendorEventsController < ApplicationController
     @vendor_event.save!
     respond_to do |format|
       if @vendor_event.save
-        format.html { redirect_to vendor_events_path, notice: "Vendor event was successfully created." }
-        format.json { render :show, status: :created, location: @vendor_event }
+        format.html { redirect_to vendor_event_path(@vendor_event), notice: "Vendor event was successfully created." }
+        format.json { render :index, status: :created, location: @vendor_event }
       else
         format.html { render :new, status: :unprocessable_entity } #ODO: HANDLE Edge case
         format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
@@ -92,8 +92,7 @@ class VendorEventsController < ApplicationController
   end
 
   def ensure_user_is_authorized
-    if !VendorEventPolicy.new(current_user, @vendor_event)
-      redirect_back fallback_location: events_path, alert: "You are not authorized to view this page."
-    end
+    authorize @vendor_event
   end
+  
 end

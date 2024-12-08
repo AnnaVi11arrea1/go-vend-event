@@ -2,7 +2,7 @@ class VendorEventPolicy
   attr_reader :user, :vendor_event
 
   def initialize(user, vendor_event)
-    @user = user
+    @current_user = user
     @vendor_event = vendor_event
   end
 
@@ -12,8 +12,8 @@ class VendorEventPolicy
 
   def index?
     user == vendor_event.user_id ||
-    !vendor_event.user_id.private? ||
-    vendor_event.user_id.followers.include?(user)
+    !vendor_event.user.private? ||
+    vendor_event.user.followers.include?(user)
   end
 
   def create?
@@ -30,7 +30,7 @@ class VendorEventPolicy
 
   def show?
     user == vendor_event.user_id ||
-      !vendor_event.user_id.private? ||
-      vendor_event.user_id.followers.include?(user)
+      !vendor_event.user.private? ||
+      vendor_event.user.followers.include?(user)
   end
 end
