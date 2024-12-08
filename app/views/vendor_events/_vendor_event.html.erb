@@ -5,6 +5,8 @@
       <p class="px-2">
         <% if vendor_event.photo.present? %>
           <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+        <% else %>
+        <%= image_tag 'favicon.png', alt:"profile pic", width:"200px", class:"rounded-circle" %>
         <% end %>
       </p>
     </div>
@@ -27,6 +29,9 @@
       <% else %>
         <p>DUE</p>
       <% end %>
+      <p><strong> Starts on:</strong>
+      <%= vendor_event.event.started_at.strftime("%B %d, %Y") %>
+      </p>
     </div>
     <div class="col-3 justify-content-between">
       <p>
@@ -42,8 +47,6 @@
         <%= button_to "Destroy this event", vendor_event, method: :delete, class: "btn btn-danger",  data: { confirm: "Are you sure you want to delete this event?", 
             data: { turbo: false } } %>
       </p>
-  
     </div>
   </div>
 </div>
-
