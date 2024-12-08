@@ -1,6 +1,6 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update calendar update]
-  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update]
+  before_action :set_vendor_event, only: %i[ show edit new update calendar update destroy ]
+  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update, :destroy]
 
   # GET /vendor_events or /vendor_events.json
   def index
@@ -55,7 +55,7 @@ class VendorEventsController < ApplicationController
   end
   # DELETE /vendor_events/1 or /vendor_events/1.json
   def destroy
-    @vendor_event.destroy!
+    @vendor_event.destroy
     respond_to do |format|
       format.html { redirect_to vendor_events_url, notice: "Vendor event was successfully destroyed." }
       format.json { head :no_content }

@@ -8,7 +8,7 @@ import Charts from "fusioncharts.charts";
 import ExcelExport from "fusioncharts.excelexport";
 import FusionTheme from "fusioncharts.theme.fusion";
 import jquery from "jquery";
-
+import "./controllers"
 
 // Add charts and themes and export module as dependency
 Charts(FusionCharts);

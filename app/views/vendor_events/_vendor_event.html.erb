@@ -36,10 +36,12 @@
       <p>
         <%= link_to "Edit Status", edit_vendor_event_path(vendor_event), class:"btn btn-primary" %>
       </p>
+      <p>
+      <%= link_to "Remove event", vendor_event.destroy, method: :delete, data: { confirm: "Are you sure you want to delete this event?" }, class: "btn btn-danger" %>
+      </p>
     </div>
   </div>
   <div class="row justify-content-around p-3">
-    <%= link_to "Back", vendor_events_path(@vendor_event) %>
-    <%= link_to "Remove event", @vendor_event.destroy, method: :delete %>
+    <%= link_to "Back", vendor_events_path %>
   </div>
 </div>
