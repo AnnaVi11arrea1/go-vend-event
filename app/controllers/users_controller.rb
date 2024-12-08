@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   def show
     if @user == current_user || !@user.private? || @user.followers.include?(current_user)
     
-      @hosted_events = Event.where(:host_id => current_user.id)
-      @vendor_event = VendorEvent.where(:user_id => current_user.id)
+      @hosted_events = Event.where(:host_id => @user.id)
+      @vendor_event = VendorEvent.where(:user_id => @user.id)
     else
       @vendor_event = nil
       @hosted_events = nil
