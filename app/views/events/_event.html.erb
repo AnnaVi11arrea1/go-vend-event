@@ -20,7 +20,7 @@
       </div>
     
       <div class="d-flex justify-content-center pt-3 btn">Host:
-        <%= link_to user_path(@host.id), target: "_blank" do %>
+        <%= link_to user_path(@host.id) do %>
           <% if @host.photo.present? %>
             <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
             <%= @host.username %>

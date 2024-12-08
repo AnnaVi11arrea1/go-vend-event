@@ -1,5 +1,6 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[ show edit new update destroy calendar update]
+  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update, :destroy]
 
   # GET /vendor_events or /vendor_events.json
   def index
@@ -80,5 +81,11 @@ class VendorEventsController < ApplicationController
 
   def vendor_event_params
     params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
+  end
+
+  def ensure_user_is_authorized
+    if !VendorEventPolicy.new(current_user, @vendor_event)
+      redirect_back fallback_location: events_path, alert: "You are not authorized to view this page."
+    end
   end
 end

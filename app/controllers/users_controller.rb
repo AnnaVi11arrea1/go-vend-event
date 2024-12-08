@@ -1,16 +1,28 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show edit update update_photo followers following feed ]
-  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed ]
+  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed private  ]
   
   def index
     @users = User.all
   end
   
   def show
-    @hosted_events = Event.where(:host_id => current_user.id)
-    @vendor_event = VendorEvent.where(:user_id => current_user.id)
+    if @user == current_user || !@user.private? || @user.followers.include?(current_user)
+    
+      @hosted_events = Event.where(:host_id => current_user.id)
+      @vendor_event = VendorEvent.where(:user_id => current_user.id)
+    else
+      @vendor_event = nil
+      @hosted_events = nil
+      respond_to do |format|
+        format.html { render "users/private", notice: "You are not authorized to view this page." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
+
+
   
   def create
     @user = User.new(user_params)
@@ -81,6 +93,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def private
+  @recipient = params[:user]
+
+  end
 
   private
 
@@ -90,6 +106,6 @@ class UsersController < ApplicationController
     
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo)
+    params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :social_media, :about, :photo, :id)
   end
 end

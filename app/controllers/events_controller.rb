@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[new create edit update destroy ]
-  before_action :ensure_user_is_authorized, only: [:show]
+
 
   # GET /events or /events.json
   def index
@@ -14,7 +14,10 @@ class EventsController < ApplicationController
       format.html # Render index.html.erb
       format.js   # Render index.js.erb
     end
+  end
 
+  def host
+    @host = @user.where(:id => @event.host_id).first
   end
   
   # GET /events/1 or /events/1.json
@@ -98,8 +101,11 @@ class EventsController < ApplicationController
   end
 
   def ensure_user_is_authorized
-    if !EventPolicy.new(current_user, @event).show?
-      redirect_back fallback_location: events_path, alert: "You are not authorized to view this event"
+    if !EventPolicy.new(current_user, @event)
+      raise Pundit::NotAuthorizedError, "not allowed"
+      end
     end
-  end
+
+
+  
 end
