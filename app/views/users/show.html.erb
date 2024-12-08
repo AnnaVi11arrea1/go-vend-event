@@ -1,4 +1,4 @@
-<div class="mycard">
+<div >
   <div class="row">
     <div class="col-md-12">
       <h1 class="title"><%= @user.username %>'s Profile</h1>
@@ -55,34 +55,37 @@
         </div>
       </div>
     </div>
-    <div class="d-flex">
-      <% if @user == current_user %>
-        <%= render "users/stat_tracker" %>
-
-        <% if @user.followers.count > 0 %>
-          <p>Followers: </p>
-          <%= @user.accepted_receieved_follow_requests.count %></p>
-      <% end %>
-
-      <% @user.followers.each do |list| %>
-        <div>
-          <%= list.username %>
-          <% if list.photo.attached? %>
-            <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
-          <% else %>
-            <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
   </div>
+    <div class="card">
+      <% if @user.followers.count > 0 %>
+        <p>Followers: 
+        <%= @user.accepted_receieved_follow_requests.count %></p>
+      <% end %>
+
+    <% if @user == current_user %>
+    <div class="d-flex">
+      <%= render "users/stat_tracker" %>
+    </div>
+    <% end %>
+
+    <% @user.followers.each do |list| %>
+      <div>
+        <%= list.username %>
+        <% if list.photo.attached? %>
+          <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
+        <% else %>
+          <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
+        <% end %>
+      </div>
+    <% end %>
 </div>
+
 
 <div class="mycard">
   <div class="col">
     <h2>Hosted Events</h2>
-    <% @hosted_events.each do |event| %>
-      <div><%= link_to event.name, event_path(event) %></div>
+    <% @hosted_events.order(name: :asc).each do |event| %>
+      <div class="event_btn"><%= link_to event.name, event_path(event) %></div>
     <% end %>
   </div>
   <% if @hosted_events.empty? %>
@@ -93,15 +96,12 @@
 <div class="mycard">
   <div class="col">
     <h2>My Events</h2>
-    <% @user.vendor_events.each do |event| %>
-      <div><%= link_to event.event.name, vendor_event_path(event) %></div>
+    <% @user.vendor_events.joins(:event).order('events.name ASC').each do |vendor_event| %>
+      <div class="event_btn"><%= link_to vendor_event.event.name, vendor_event_path(vendor_event) %></div>
     <% end %>
     <% if @user.vendor_events.empty? %>
       <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
     <% end %>
   </div>
 </div>
-
-</div>
-
 </div>
