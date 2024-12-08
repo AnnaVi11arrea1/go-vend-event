@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   draw(:pwa)
   root "users#index"
 
-  devise_for :users
+
+  devise_for :users, controllers: { registrations: "registrations" }
 
   resources :follow_requests
   resources :events 
