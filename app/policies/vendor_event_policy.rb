@@ -1,36 +1,32 @@
 class VendorEventPolicy
-  attr_reader :user, :vendor_event
+  attr_reader :current_user, :vendor_event
 
-  def initialize(user, vendor_event)
-    @current_user = user
+  def initialize(current_user, vendor_event)
+    @current_user = current_user
     @vendor_event = vendor_event
   end
 
-  # Our policy is that an event should only be seen by the owner or followers
-  #   of the owner, unless the owner is not private in which case anyone can
-  #   see it
-
   def index?
-    user == vendor_event.user_id ||
+    current_user == vendor_event.user ||
     !vendor_event.user.private? ||
-    vendor_event.user.followers.include?(user)
+    vendor_event.user.followers.include?(current_user)
   end
 
   def create?
-    user == vendor_event.user_id
+    current_user == vendor_event.user
   end
 
   def update?
-    user == vendor_event.user_id
+    current_user == vendor_event.user
   end
 
   def destroy?
-    user == vendor_event.user_id
+    current_user == vendor_event.user
   end
 
   def show?
-    user == vendor_event.user_id ||
+    current_user == vendor_event.user ||
       !vendor_event.user.private? ||
-      vendor_event.user.followers.include?(user)
+      vendor_event.user.followers.include?(current_user)
   end
 end

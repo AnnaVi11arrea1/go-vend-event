@@ -1,6 +1,5 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[ show edit new update calendar update destroy ]
-  before_action :ensure_user_is_authorized, only: [ :show, :create, :update, :destroy]
 
   # GET /vendor_events or /vendor_events.json
   def index
@@ -20,6 +19,7 @@ class VendorEventsController < ApplicationController
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
     @vendor_events = VendorEvent.all.where(:host_id => current_user.id)
+    @vendor_event = VendorEvent.find(params[:id])
   end
   # GET /vendor_events/new
 
@@ -63,10 +63,13 @@ class VendorEventsController < ApplicationController
   end
   # DELETE /vendor_events/1 or /vendor_events/1.json
   def destroy
-    @vendor_event.destroy
-    respond_to do |format|
-      format.html { redirect_to vendor_events_url, notice: "Vendor event was successfully destroyed." }
-      format.json { head :no_content }
+    @vendor_event = VendorEvent.find(params[:id])
+    if @vendor_event.destroy
+      flash[:notice] = "Vendor event deleted successfully."
+      redirect_to vendor_events_path
+    else
+      flash[:alert] = "Unable to delete vendor event."
+      redirect_back(fallback_location: vendor_events_path)
     end
   end
 
@@ -91,8 +94,6 @@ class VendorEventsController < ApplicationController
     params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
   end
 
-  def ensure_user_is_authorized
-    authorize @vendor_event
-  end
-  
+
+
 end

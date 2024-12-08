@@ -2,7 +2,7 @@ class EventPolicy
   attr_reader :user, :event
 
   def initialize(user, event)
-    @user = user
+    @current_user = user
     @event = event
   end
 
