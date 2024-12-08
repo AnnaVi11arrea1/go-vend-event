@@ -1,6 +1,6 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update destroy calendar update]
-  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update, :destroy]
+  before_action :set_vendor_event, only: %i[ show edit new update calendar update]
+  before_action :ensure_user_is_authorized, only: [:index, :show, :create, :update]
 
   # GET /vendor_events or /vendor_events.json
   def index

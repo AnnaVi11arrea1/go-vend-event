@@ -38,4 +38,8 @@
       </p>
     </div>
   </div>
+  <div class="row justify-content-around p-3">
+    <%= link_to "Back", vendor_events_path(@vendor_event) %>
+    <%= link_to "Remove event", @vendor_event.destroy, method: :delete %>
+  </div>
 </div>

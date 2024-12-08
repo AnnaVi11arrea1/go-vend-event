@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-
-resources :follow_requests
-
+  resources :follow_requests
   resources :events 
 
   resources :vendor_events do
@@ -19,8 +17,6 @@ resources :follow_requests
   resources :users do
     resources :follow_requests
   end
-
-
 
   get ":username/feed" => "users#feed", as: :feed
   get ":username/followers" => "users#followers", as: :followers
