@@ -1,13 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
-
-<h1 class="title">Search Events</h1>
+<h1 class="title">Seek and Conquer</h1>
 
 <div>
   <div id="map" style='height: 400px;'></div>
 </div>
 
 <div id="events" class="card">
+  <h4 class="p-3">Try searching for "art", "festivals", and use a date to refine search.</h4>
 
   <%= search_form_for @q do |f| %>
     <div class="search pt-3 d-flex justify-content-center mb-0">
@@ -51,7 +49,7 @@
               
               <p class="card-text"><strong>When:</strong>
               <%= event.started_at.strftime("%B %d, %Y") %></p>
-            <%= link_to "Show this event", event, class:"btn btn-primary" %>
+            <%= link_to "Show this event", event, class:"event_btn" %>
           </div>
         </div>
       </div>

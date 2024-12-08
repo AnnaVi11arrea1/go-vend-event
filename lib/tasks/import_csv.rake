@@ -1,5 +1,5 @@
   namespace :csv do
-    desc "Import data from CSV into Users"
+    desc "Create sample data"
 
     task admin: :environment do
       if Rails.env.development?
@@ -15,10 +15,9 @@
         puts "Admin user created with email: #{user.email}" if user.persisted?
       end
     
-
       if !Rails.env.development? && User.count == 0
         user = User.new(
-          id: 1,  
+          id: 11,  
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -30,7 +29,6 @@
       end
     end
   
-
     task events: :environment do
       if Rails.env.production?
         Event.where(:host_id => 1).destroy_all
@@ -64,70 +62,68 @@
         User.destroy_all
       end 
 
-      if User.count < 20
-      10.times do 
+      NUM_USERS = 10
+      PASSWORD = "password"
+      EVENT_TAGS = ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"]
+      EVENT_DATES = ["2025-07-15", "2025-07-15", "2025-03-15"]
+
+      users = NUM_USERS.times.map do
         first_name = Faker::Name.first_name
         last_name = Faker::Name.last_name
         username = Faker::Internet.username(specifier: "#{first_name} #{last_name}", separators: %w())
         email = Faker::Internet.email(name: "#{first_name} #{last_name}", separators: %w())
-        password = "password"
-        User.create(
+        
+        User.create!(
           first_name: first_name,
           last_name: last_name,
           username: username,
           email: email,
-          password: password,
-        )
-      end
-    
-        
-      
-        users = User.all
-        users.each do |first_user|
-          puts "Creating follow requests for #{first_user.username}"
-          users.each do |second_user|
-            puts "Creating follow requests for #{second_user.username}"
-            next if first_user == second_user
-            if rand < 0.75
-              follow_request = first_user.sent_follow_requests.create(
-                sender: first_user,
-                recipient: second_user,
-                status: FollowRequest.statuses.keys.sample
-              )
-            end
-            if rand < 0.75
-              follow_request = second_user.sent_follow_requests.create(
-                sender: second_user,
-                recipient: first_user,
-                status: FollowRequest.statuses.keys.sample
-              )
-            end 
-          end
+          password: PASSWORD,
+          private: [true, false].sample
+          )
         end
-      
-
         
-        # users.each do |user|
-        #   rand(10).times do
-        #     user.events.create!(
-        #       name: Faker::Company.name, 
-        #       started_at: ["2025-07-15", "2025-071-15", "2025-03-15"].sample, 
-        #       tags: ["art", "music", "food", "fashion", "tech", "festival", "camping", "market"].sample, 
-        #       address: Faker::Address.full_address, 
-        #       information: Faker::Company.catch_phrase, 
-        #       application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
-        #       application_link: Faker::Internet.url,
-        #       photo: "https://picsum.photos/200",
-        #       latitude: Faker::Address.latitude,
-        #       longitude: Faker::Address.longitude,
-        #       host_id: user.id,
-        #     )
-        #   end
-        # end
+        # TODO: the fake people have yet to follow eachother
+        users = User.all
+        users.to_a.combination(2).each do |user1, user2|
+          puts "Creating follow requests for #{user1.username}"
+          puts "Creating follow requests for #{user2.username}"
+          next if user1 = user2
+            if rand < 0.75 
+              user1.sent_follow_request.create!(
+                recipient: user2,
+                status: FollowRequest.statuses.keys.sample
+                )
+              if rand < 0.75
+                user2.sent_follow_request.create(
+                  recipient: user1,
+                  status: FollowRequest.statuses.keys.sample
+                )
+              end
+            end
+          end    
+
+          users.each do |user|
+            rand(1..10).times do
+              user.events.create!(
+                name: Faker::Company.name, 
+                started_at: EVENT_DATES.sample, 
+                tags: EVENT_TAGS.sample, 
+                address: Faker::Address.full_address, 
+                information: Faker::Company.catch_phrase, 
+                application_due_at: Faker::Date.between(from: Date.today, to: 1.year.from_now), 
+                application_link: Faker::Internet.url,
+                photo: "https://picsum.photos/200",
+                latitude: Faker::Address.latitude,
+                longitude: Faker::Address.longitude,
+                host_id: user.id
+                )
+              
+            end
+          end
+          puts "There are now #{User.count} fake people in the database!"
+          puts "There are now #{Event.count} fake events in the database!"
+          puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
+        end
       end
-      
-  puts "There are now #{User.count} fake people in the database!"
-  puts "There are now #{Event.count} fake events in the database!"
-  puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
-end
-end
+        

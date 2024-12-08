@@ -1,94 +1,95 @@
+<div class="d-flex">
   <div class="mycard">
-    <div class="row">
-      <div class="col-md-12">
-        <h1 class="title"><%= @user.username %>'s Profile</h1>
-      </div>
-    </div>
-    <div class="row mycard d-flex">
-      <div class="col d-flex justify-content-center">
-        <div class="d-flex align-self-center">
-          <% if @user.photo.present?%>
-          <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"rounded mb-5" %>
-          <% else %>
-          <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
-          <% end %>
-        </div>
-      </div>
-      <div class="col">
-        <h2>Info</h2>
-        <p><strong>First Name:</strong> <%= @user.first_name %></p>
-        <p><strong>Last Name:</strong> <%= @user.last_name %></p>
-        <p><strong>Email:</strong> <%= @user.email %></p>
-        <p><strong>Social:</strong> <%= @user.social_media %></p>
-        <p><strong>About:</strong> <%= @user.about %></p>
-        <div>
-          <div>
+    <h2><%= @user.username %>'s Profile</h2>
+    <div class="col ">
+      <h2>Info</h2>
+      <p><strong>First Name:</strong> <%= @user.first_name %></p>
+      <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+      <p><strong>Email:</strong> <%= @user.email %></p>
+      <p><strong>Social:</strong> <%= @user.social_media %></p>
+      <p><strong>About:</strong> <%= @user.about %></p>
+      <div>
+        <div class="d-flex">
           <% if @user.photo.present? %>
             <%= image_tag @user.photo.url, alt:"profile pic", width:"30px" %>
           <% else %>
             <%= image_tag "favicon.png", alt: "profile pic", width:"30px" %>
           <% end %>
-          <%= link_to "Follow #{@user.username}", new_follow_request_path(recipient_id: @user.id), class:"btn btn-info" %>
-          </div>
-          <div>
-            <% if @user == current_user %>
-            <div class="m-2">
-              <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-primary" %>
-            </div>
-            <div class="m-2">
-              <%= link_to "Follow Requests", follow_request_path, class:"btn btn-success" %>
+          <% if current_user != @user %>
+            <% if current_user.leaders.include?(@user) %>
+              <p>You are following <%= @user.name %></p>
+            <% elsif current_user.sent_follow_requests.pending.exists?(recipient: @user) %>
+              <p>Follow request sent.</p>
+            <% elsif current_user.received_follow_requests.pending.exists?(sender: @user) %>
+              <%= button_to 'Accept Follow Request', accept_follow_request_path(current_user.received_follow_requests.pending.find_by(sender: @user)), method: :patch %>
+              <%= button_to 'Reject Follow Request', reject_follow_request_path(current_user.received_follow_requests.pending.find_by(sender: @user)), method: :patch %>
+            <% else %>
+              <%= button_to 'Send Follow Request', user_follow_requests_path(@user), method: :post %>
             <% end %>
-            </div>
-          </div>
-          </div>
+          <% end %>
+        </div>
       </div>
     </div>
-    <div class="d-flex">
-    <% if @user == current_user %>
-      <%= render "users/stat_tracker" %>
-
-      <% if @user.followers.count > 0 %>
-        <p>Followers: </p>
-      <%= @user.accepted_receieved_follow_requests.count %></p>
-      <% end %>
-
-      <% @user.followers.each do |list| %>
-        <div>
-          <%= list.username %>
-          <% if list.photo.attached? %>
-            <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
-            <% else %>
-            <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
-            <% end %>
-        </div>
-      <% end %>
+  </div>
+  <div class="d-flex mycard align-self-center">
+    <% if @user.photo.present?%>
+      <%= image_tag @user.photo.url, alt: "profile pic", width:"100%",  class:"rounded mb-5" %>
+    <% else %>
+      <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
     <% end %>
-
-  </div>
-    </div>
-  
-  <div class="mycard">
-    <div class="col">
-      <h2>Hosted Events</h2>
-        <% @hosted_events.each do |event| %>
-          <div><%= link_to event.name, event_path(event) %></div>
+    <div>
+      <% if @user == current_user %>
+        <div class="m-2">
+          <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-primary" %>
+        </div>
+        <div class="m-2">
+          <%= link_to "Follow Requests", follow_requests_path, class:"btn btn-success" %>
         <% end %>
-    </div>
-        <% if @hosted_events.empty? %>
-          <p><%= @user.first_name %> has not created any events yet.</p>
-        <% end %>
-  </div>
-
-  <div class="mycard">
-    <div class="col">
-      <h2>My Events</h2>
-        <% @user.vendor_events.each do |event| %>
-          <div><%= link_to event.event.name, vendor_event_path(event) %></div>
-        <% end %>
-        <% if @user.vendor_events.empty? %>
-          <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
-        <% end %>
+      </div>
     </div>
   </div>
+</div>
 
+<div class="mycard">
+  <% if @user == current_user %>
+    <%= render "users/stat_tracker" %>
+  <% end %>
+</div>
+
+    <% @user.followers.each do |list| %>
+      <div>
+        <%= list.username %>
+        <% if list.photo.attached? %>
+          <%= image_tag url_for(list.photo), alt:"profile pic", width:"100px" %>
+        <% else %>
+          <%= image_tag 'favicon.png', alt:"default profile pic", width:"100px" %>
+        <% end %>
+      </div>
+    <% end %>
+</div>
+
+
+<div class="mycard">
+  <div class="col">
+    <h2>Hosted Events</h2>
+    <% @hosted_events.order(name: :asc).each do |event| %>
+      <div class="event_btn"><%= link_to event.name, event_path(event) %></div>
+    <% end %>
   </div>
+  <% if @hosted_events.empty? %>
+    <p><%= @user.first_name %> has not created any events yet.</p>
+  <% end %>
+</div>
+
+<div class="mycard">
+  <div class="col">
+    <h2>My Events</h2>
+    <% @user.vendor_events.joins(:event).order('events.name ASC').each do |vendor_event| %>
+      <div class="event_btn"><%= link_to vendor_event.event.name, vendor_event_path(vendor_event) %></div>
+    <% end %>
+    <% if @user.vendor_events.empty? %>
+      <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
+    <% end %>
+  </div>
+</div>
+</div>

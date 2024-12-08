@@ -24,6 +24,15 @@ body {
   height: 100%;
 }
 
+.notice {
+  background-color: black;
+  color: blue;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  display: inline-block;
+  border-radius: 30px;
+}
 /*==============
 
 FONT
@@ -218,5 +227,59 @@ word-break: break-word !important;
 
 /*================
 
-calendar
+BUTTONS
 =================*/
+
+.event_btn {
+  background-color: #250d50;
+  color: white;
+  padding: 5px 9px;
+  margin: 3px;
+  font-size: 20px;
+  display: inline-block;
+  border-radius: 20px;
+  border: 2px solid transparent;
+    &:hover {
+      background-color: white;
+      cursor: pointer;
+      border: 2px solid #0e0420;
+    }
+  }
+
+  .event_btn > a {
+    color: white;
+    &:hover {
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+}
+
+
+/*=================
+
+
+ANIMATIONS
+=================*/
+
+.cat {
+  animation: orbit 3s infinite linear;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(15px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(15px) rotate(-360deg);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

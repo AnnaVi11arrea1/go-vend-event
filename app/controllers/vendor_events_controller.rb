@@ -1,16 +1,18 @@
 class VendorEventsController < ApplicationController
-  before_action :set_vendor_event, only: %i[ show edit new update destroy calendar update]
-
+  before_action :set_vendor_event, only: %i[  show edit new update calendar update destroy ]
   # GET /vendor_events or /vendor_events.json
   def index
+    
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
     @a = VendorEvent.ransack(params[:a])
     @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
+
   end
   
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(10)
+    @vendor_event = VendorEvent.find(params[:id])
+    
   end
   # GET /vendor_events/new
 
@@ -31,8 +33,8 @@ class VendorEventsController < ApplicationController
     @vendor_event.save!
     respond_to do |format|
       if @vendor_event.save
-        format.html { redirect_to vendor_events_path, notice: "Vendor event was successfully created." }
-        format.json { render :show, status: :created, location: @vendor_event }
+        format.html { redirect_to vendor_event_path(@vendor_event), notice: "Vendor event was successfully created." }
+        format.json { render :index, status: :created, location: @vendor_event }
       else
         format.html { render :new, status: :unprocessable_entity } #ODO: HANDLE Edge case
         format.json { render json: @vendor_event.errors, status: :unprocessable_entity }
@@ -54,14 +56,18 @@ class VendorEventsController < ApplicationController
   end
   # DELETE /vendor_events/1 or /vendor_events/1.json
   def destroy
-    @vendor_event.destroy!
-    respond_to do |format|
-      format.html { redirect_to vendor_events_url, notice: "Vendor event was successfully destroyed." }
-      format.json { head :no_content }
+    @vendor_event = VendorEvent.find(params[:id])
+    if @vendor_event.destroy
+      flash[:notice] = "Vendor event deleted successfully."
+      redirect_to vendor_events_path
+    else
+      flash[:alert] = "Unable to delete vendor event."
+      redirect_back(fallback_location: vendor_events_path)
     end
   end
 
   def calendar
+    @vendor_events = VendorEvent.where(user_id: current_user.id).where.not(start_time: nil)
   end
 
   def update_expenses_and_sales

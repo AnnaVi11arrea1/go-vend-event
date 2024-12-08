@@ -1,5 +1,5 @@
 class CalendarsController < ApplicationController
   def show
-    @vendor_event = VendorEvent.find(params[:vendor_event_id])
+    @vendor_events = VendorEvent.all
   end
 end

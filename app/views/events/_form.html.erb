@@ -1,10 +1,9 @@
-
 <%= simple_form_for(@event) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs mycard">
-    <h1 class="title">New event</h1>
+    <h1 class="title">Editing <%= @event.name %></h1>
 
     <%= f.input :name %>
     <%= f.input :application_due_at, as: :date %>
@@ -17,13 +16,14 @@
     <%= f.input :longitude, as: :string %>
     <br>
     <%= f.input :photo, as: :file %>
-  <br>
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <br>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
   <% end %>
   <br>
   <div>
+    <%= link_to "Show this event", @event %> |
     <%= link_to "Back to events", events_path %>
   </div>
 </div>

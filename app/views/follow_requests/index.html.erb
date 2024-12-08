@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <table>
   <thead>
     <tr>
@@ -11,6 +9,7 @@
   </thead>
 
   <tbody>
+    <% if @follow_requests.present? %>
     <% @follow_requests.each do |follow_request| %>
       <tr>
         <td><%= follow_request.recipient_id %></td>
@@ -21,8 +20,10 @@
         <td><%= link_to 'Destroy', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+    <% else %>
+    <tr>
+      <td colspan="6">No follow requests available.</td>
+    </tr>
   </tbody>
 </table>
-
-<br>
-<%= link_to "New follow request", new_follow_request_path %>
+<% end %>
