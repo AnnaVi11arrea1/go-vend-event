@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :set_user, only: %i[ edit update destroy ]
 
   def new
-    @user = User.new(user_params)
+    @user = User.new
   end
 
   def create
