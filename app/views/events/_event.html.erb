@@ -48,11 +48,11 @@
 
         <p class="card-text">
           <strong>Application link:</strong>
-          <%= @event.application_link %>
+          <%= link_to  @event.application_link, @event.application_link, target: "_blank" %></p>
 
           <p class="card-text">
             <strong>Tags:</strong>
-            <%= @event.tags %>
+            <%= @event.tags %></p>
 
             <p class="card-text">
               <strong>Address:</strong>
