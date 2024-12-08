@@ -1,12 +1,8 @@
 
-<%= form_with url: user_follow_requests_path(@recipient)), method: :post do |form| %>
+<%= form_with url: user_follow_requests_path(user_id: @user.id), method: :post do |form| %>
+  <%= form.hidden_field :recipient_id, value: @user&.id %>
+  <%= form.hidden_field :sender_id, value: current_user.id %>
 
-
-  <!-- Pass the recipient ID -->
-  <%= form.hidden_field :recipient_id, value: recipient.id %>
-    <%= form.hidden_field :sender_id, value: current_user.id %>
-
-  <!-- Sender ID is inferred from current_user in the controller -->
   
   <div class="actions">
     <%= form.submit "Follow", class: "btn btn-outline-secondary btn-block" %>

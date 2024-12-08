@@ -17,7 +17,7 @@ resources :follow_requests
   end
 
   resources :users do
-    resources :follow_requests, only: [:new, :create]
+    resources :follow_requests
   end
 
 

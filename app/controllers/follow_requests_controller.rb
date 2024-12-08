@@ -15,9 +15,8 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/new
   def new
-    @follow_request = FollowRequest.new(follow_request_params)
-    @recipient = User.find(params[:user_id])
-  @follow_request = FollowRequest.new(recipient_id: @recipient.id, sender_id: current_user.id)
+    @user = User.find(params[:user_id])
+    @follow_request = FollowRequest.new
   end
 
   # GET /follow_requests/1/edit
@@ -27,15 +26,15 @@ class FollowRequestsController < ApplicationController
   # POST /follow_requests or /follow_requests.json
   def create
     @follow_request = FollowRequest.new(follow_request_params)
+    @user = User.find(params[:user_id])
+
+    @follow_request.save
 
     respond_to do |format|
-      if @follow_request.save
-        format.html { redirect_to follow_requests_path(@follow_request), notice: "Follow request was successfully created." }
+
+        format.html { redirect_to user_follow_requests_path(@follow_request.recipient.id), notice: "Follow request was successfully created." }
         format.json { render :show, status: :created, location: @follow_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @follow_request.errors, status: :unprocessable_entity }
-      end
+
     end
   end
 
@@ -63,7 +62,6 @@ class FollowRequestsController < ApplicationController
 
   def accept
     @follow_request = FollowRequest.find(params[:id])
-  
     if @follow_request.update(status: :accepted)
       redirect_to user_path(@follow_request.sender), notice: 'Follow request accepted.'
     else
@@ -73,7 +71,6 @@ class FollowRequestsController < ApplicationController
   
   def reject
     @follow_request = FollowRequest.find(params[:id])
-  
     if @follow_request.update(status: :rejected)
       redirect_to follow_requests_path, notice: 'Follow request rejected.'
     else
@@ -92,6 +89,10 @@ class FollowRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def follow_request_params
-      { recipient_id: params[:user_id], sender_id: current_user.id }
+      if params[:follow_request].present?
+        params.require(:follow_request).permit(:recipient_id, :sender_id)
+      else
+        { recipient_id: params[:user_id], sender_id: current_user.id }
+      end
     end
 end
