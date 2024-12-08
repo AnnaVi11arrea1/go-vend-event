@@ -8,7 +8,16 @@ class EventsController < ApplicationController
   def index
     @vendor_event = VendorEvent.new
     @q = Event.ransack(params[:q])
-    @events = @q.result.page(params[:page]).per(5)
+    if @q.started_at
+      @events = @q.result.order(started_at: :asc).page(params[:page]).per(5)
+    else if @q.name_cont
+      @events = @q.result.order(name: :asc).page(params[:page]).per(5)
+    else
+      @events = @q.result.page(params[:page]).per(5)
+    end
+  end
+    
+
     
     respond_to do |format|
       format.html # Render index.html.erb
@@ -92,12 +101,12 @@ class EventsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.where(id: params[:id]).first
+    @event = Event.where(id: params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :latitude, :longitude)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :latitude, :longitude, :started_at)
   end
 
   def ensure_user_is_authorized
