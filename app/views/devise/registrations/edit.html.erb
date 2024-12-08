@@ -3,6 +3,19 @@
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
+ 
+    <% if resource.errors.any? %>
+    <div class="error-messages">
+      <h4><%= pluralize(resource.errors.count, "error") %> prohibited from being saved:</h4>
+      <ul>
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
 
   <div class="form-inputs">
     <%= f.hidden_field :email, required: true, autofocus: true %>
@@ -10,15 +23,17 @@
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
-
     
+    <h2>Change Password</h2>
+    <p>Enter new password in both boxes to chnage, or enter current password in both boxes to confirm changes below.</p>
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
-    <%= f.hidden_field :password,
+    <%= f.input :password,
                 hint: "Current password required to confirm your changes",
-                required: false,
+                required: true,
                 input_html: { autocomplete: "current-password", class:"m-2" } %>
+  <h2>Modify Attributes</h2>
     <%= f.input :username,
                 hint: "",
                 required: true,
