@@ -1,9 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
-  before_action :authenticate_user!, only: %i[new create edit update destroy ]
-
-
+  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
   # GET /events or /events.json
   def index
     @vendor_event = VendorEvent.new
@@ -16,8 +14,6 @@ class EventsController < ApplicationController
       @events = @q.result.page(params[:page]).per(5)
     end
   end
-    
-
     
     respond_to do |format|
       format.html # Render index.html.erb
@@ -42,6 +38,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @event = Event.find(params[:id])
   end
 
   def add_event
