@@ -11,16 +11,13 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.hidden_field :current_password,
-                hint: "new password",
-                required: false,
-                input_html: { autocomplete: "confirm new-password" } %>
-    <%= f.hidden_field :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password,
-                hint: "Current password required to confirm your changes",
+    
+    <%= f.input :password_confirmation,
                 required: true,
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.hidden_field :password,
+                hint: "Current password required to confirm your changes",
+                required: false,
                 input_html: { autocomplete: "current-password", class:"m-2" } %>
     <%= f.input :username,
                 hint: "",
