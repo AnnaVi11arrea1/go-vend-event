@@ -1,75 +1,75 @@
-
 <div class="d-flex p-3 mb-2">
   <div class="mycard">
     <h1 class="title"><strong>Event Name:</strong><%= @event.name %> </h1>
     <div class="row justify-content-center">
-      
-    <div class="col">
-      <div class="d-flex justify-content-center"> 
-      <% if @event.photo.present? %>
-        <%= image_tag @event.photo.url, alt:"profile pic", width:"80%", class:"mycard" %>
-      <% else %>
-        <%= image_tag "favicon.png", alt:"profile pic", width:"200px", class:"rounded-circle" %>
-      <% end %>
-      </div>
-      <div class="d-flex justify-content-center pt-3">
-      <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
-        <%= form.hidden_field :event_id, value: @event.id %>
-        <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
-      <% end %>
-      </div>
-    
-      <div class="d-flex justify-content-center pt-3 btn">Host:
-        <%= link_to user_path(@host.id) do %>
-          <% if @host.photo.present? %>
-            <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
-            <%= @host.username %>
+
+      <div class="col">
+        <div class="d-flex justify-content-center">
+          <% if @event.photo.present? %>
+            <%= image_tag @event.photo.url, alt:"profile pic", width:"80%", class:"mycard" %>
           <% else %>
-            <%= image_tag "favicon.png", alt: "profile pic", width: "30px" %>
-            <%= @host.username %>
+            <%= image_tag "favicon.png", alt:"profile pic", width:"200px", class:"rounded-circle" %>
           <% end %>
-        <% end %>
+        </div>
+        <div class="d-flex justify-content-center pt-3">
+          <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
+            <%= form.hidden_field :event_id, value: @event.id %>
+            <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+
+        <div class="d-flex justify-content-center pt-3 btn">Host:
+          <%= link_to user_path(@host.id) do %>
+            <% if @host.photo.present? %>
+              <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
+              <%= @host.username %>
+            <% else %>
+              <%= image_tag "favicon.png", alt: "profile pic", width: "30px" %>
+              <%= @host.username %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <br>
       </div>
 
-      <br>
-    </div>
+      <div class="col">
+        <p class="card-text">
+          <strong>Application due at:</strong>
+          <%= @event.application_due_at %></p>
 
-    <div class="col">
-      <p class="card-text"> 
-      <strong>Application due at:</strong>
-      <%= @event.application_due_at %></p>
+        <p class="card-text">
+          <strong>Started at:</strong>
+          <%= @event.started_at %></p>
 
-      <p class="card-text"> 
-      <strong>Started at:</strong>
-      <%= @event.started_at %></p>
+        <p class="card-text">
+          <strong>Information:</strong>
+          <%= @event.information %></p>
 
-      <p class="card-text"> 
-      <strong>Information:</strong>
-      <%= @event.information %></p>
+        <p class="card-text">
+          <strong>Application link:</strong>
+          <%= @event.application_link %>
 
-      <p class="card-text"> 
-      <strong>Application link:</strong>
-      <%= @event.application_link %>
+          <p class="card-text">
+            <strong>Tags:</strong>
+            <%= @event.tags %>
 
-      <p class="card-text"> 
-      <strong>Tags:</strong>
-      <%= @event.tags %>
+            <p class="card-text">
+              <strong>Address:</strong>
+              <%= @event.address %></p>
+          </div>
+        </div>
 
-      <p class="card-text"> 
-      <strong>Address:</strong>
-      <%= @event.address %></p>
-    </div>
-  </div>
+        <div class="row justify-content-around pt-2">
+          <% if current_user.vendor_events.exists?(event_id: @event.id) %>
+            <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
+          <% end %>
 
-      <div class="row justify-content-around pt-2">
-        <% if current_user.vendor_events.exists?(event_id: @event.id) %>
-          <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
-        <% end %>
-
-        <% if @host == current_user %>
-          <%= link_to "Edit this event", edit_event_path(@event), class:"btn btn-info" %> 
-          <%= link_to "Destroy this event", @event, method: :delete, class:"btn btn-info"  %>
-        <% end %>
+          <% if @host == current_user %>
+            <%= link_to "Edit this event", edit_event_path(@event), class:"btn btn-info" %>
+            <%= link_to "Destroy this event", @event, method: :delete, class:"btn btn-info"  %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

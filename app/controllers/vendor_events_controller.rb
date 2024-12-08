@@ -5,8 +5,16 @@ class VendorEventsController < ApplicationController
   # GET /vendor_events or /vendor_events.json
   def index
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
-    @a = VendorEvent.ransack(params[:a])
     @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
+    @a = Event.ransack(params[:a])
+      if @a.started_at
+        @events = @a.result.order(started_at: :asc).page(params[:page]).per(5)
+      else if @a.name_cont
+        @events = @a.result.order(name: :asc).page(params[:page]).per(5)
+      else
+        @events = @a.result.page(params[:page]).per(5)
+      end
+    end
   end
   
   # GET /vendor_events/1 or /vendor_events/1.json

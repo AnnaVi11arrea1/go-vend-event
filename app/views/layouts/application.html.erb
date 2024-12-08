@@ -20,20 +20,23 @@
     <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"/>
     <link rel="stylesheet" href="assets/stylesheets/index.css" type="css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    
-
- <!-- only if you need custom infoboxes -->
- </head>
+  </head>
 
   <body data-bs-theme="dark">
     <%= render "layouts/navbar"%>
-   
     <div class="container">
-    <%= yield %>
+      <% if notice %>
+        <p style="color: green"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p style="color: red"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
     </div>
   </body>
 
-    <footer>
+  <footer>
     <%= render "layouts/footer"%>
-    </footer>
+  </footer>
 </html>
