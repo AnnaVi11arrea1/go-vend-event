@@ -33,11 +33,10 @@ class VendorEventsController < ApplicationController
   end
 
   def update
-      if @vendor_event.update(vendor_event_params)
-        redirect_to @vendor_event, notice: "Vendor event was successfully updated." 
-      else
-        render :edit, status: :unprocessable_entity 
-      end
+    if @vendor_event.update(vendor_event_params)
+      redirect_to @vendor_event, notice: "Vendor event was successfully updated." 
+    else
+      render :edit, status: :unprocessable_entity 
     end
   end
 
