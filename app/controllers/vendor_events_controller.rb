@@ -1,8 +1,10 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[  show edit new update calendar update destroy ]
   # GET /vendor_events or /vendor_events.json
+  add_breadcrumb "Home", :root_path
+
   def index
-    
+    add_breadcrumb "Home", :root_path
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
     @a = VendorEvent.ransack(params[:a])
     @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
@@ -11,17 +13,24 @@ class VendorEventsController < ApplicationController
   
   # GET /vendor_events/1 or /vendor_events/1.json
   def show
+    add_breadcrumb "Events", vendor_events_path, title: "My Events"
+    add_breadcrumb "Show", vendor_event_path(@vendor_event), title: @vendor_event.event.name
     @vendor_event = VendorEvent.find(params[:id])
     
   end
   # GET /vendor_events/new
 
   def new
+    add_breadcrumb "New", new_vendor_event_path, title: "New Event"
     @vendor_event = VendorEvent.new
   end
 
   # GET /vendor_events/1/edit
   def edit
+    add_breadcrumb "Events", vendor_events_path, title: "My Events"
+    add_breadcrumb "Show", vendor_event_path(@vendor_event), title: @vendor_event.event.name
+    add_breadcrumb "Edit", edit_vendor_event_path(@vendor_event), title: "Edit Event"
+    @event = Event.find(params[:id])
   end
 
   # POST /vendor_events or /vendor_events.json

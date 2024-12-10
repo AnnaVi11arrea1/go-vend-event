@@ -275,11 +275,29 @@ ANIMATIONS
   }
 }
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+/*================
+BREADCRUMBS
+================*/
+
+
+.breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 10px;
+  background-color: black;
+}
+
+.breadcrumb > li {
+  background-image: radial-gradient(circle, black, blue, purple);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin: 0 2px;
+  clip-path: polygon(0 0, 100% 31%, 100% 76%, 0% 100%);
+    && > a {
+      color: white;
+      text-decoration: none;
+    }
 }

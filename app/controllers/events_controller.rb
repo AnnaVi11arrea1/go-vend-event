@@ -2,8 +2,13 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+
+  add_breadcrumb "Home", :root_path
+
+
   # GET /events or /events.json
   def index
+    add_breadcrumb "Home", :root_path
     @vendor_event = VendorEvent.new
     @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(5)
     @q = Event.ransack(params[:q])
@@ -28,6 +33,8 @@ class EventsController < ApplicationController
   
   # GET /events/1 or /events/1.json
   def show
+    add_breadcrumb "Events", events_path, title: "Search"
+    add_breadcrumb "Show", event_path(@event), title: @event.name
     @event = Event.find(params[:id])
     @host = @event.host
 
@@ -35,11 +42,15 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
+    add_breadcrumb "New", new_event_path, title: "New Event"
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
+    add_breadcrumb "Events", events_path, title: "Search"
+    add_breadcrumb "Show", event_path(@event), title: @event.name
+    add_breadcrumb "Edit", edit_event_path(@event), title: "Edit Event"
     @event = Event.find(params[:id])
   end
 

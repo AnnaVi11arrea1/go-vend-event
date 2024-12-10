@@ -26,6 +26,10 @@
 
   <body data-bs-theme="dark">
     <%= render "layouts/navbar"%>
+
+    <ol class="breadcrumb">
+    <%= render_breadcrumbs :tag => :li, :separator => " " %>
+    </ol>
     <div class="container">
       <% if notice %>
         <p style="color: green" class="notice"><%= notice %></p>
