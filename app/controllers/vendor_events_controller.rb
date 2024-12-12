@@ -24,7 +24,6 @@ class VendorEventsController < ApplicationController
   def create
     @vendor_event = current_user.vendor_events.build(vendor_event_params.merge(event_id: params.dig("vendor_event", "event_id")))
     @vendor_event.reverse_geocode
-    
       if @vendor_event.save
         redirect_to @vendor_event, notice: "Vendor event was successfully created." 
       else

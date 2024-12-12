@@ -2,25 +2,22 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ index show new edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :set_breadcrumbs, only: %i[ index show edit new ]
 
-  add_breadcrumb "Home", :root_path
 
-
-  # GET /events or /events.json
   def index
-    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Events", events_path, title: "Events"
     @vendor_event = VendorEvent.new
     @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(5)
     @q = Event.ransack(params[:q])
-    if @q.started_at
-      @events = @q.result.order(started_at: :asc).page(params[:page]).per(5)
-    else if @q.name_cont
-      @events = @q.result.order(name: :asc).page(params[:page]).per(5)
-    else
-      @events = @q.result.page(params[:page]).per(5)
+      if @q.started_at
+        @events = @q.result.order(started_at: :asc).page(params[:page]).per(5)
+      else if @q.name_cont
+        @events = @q.result.order(name: :asc).page(params[:page]).per(5)
+      else
+        @events = @q.result.page(params[:page]).per(5)
+      end
     end
-  end
-    
     respond_to do |format|
       format.html # Render index.html.erb
       format.js   # Render index.js.erb
@@ -33,11 +30,10 @@ class EventsController < ApplicationController
   
   # GET /events/1 or /events/1.json
   def show
-    add_breadcrumb "Events", events_path, title: "Search"
+    add_breadcrumb "Events", events_path, title: "Events" 
     add_breadcrumb "Show", event_path(@event), title: @event.name
     @event = Event.find(params[:id])
     @host = @event.host
-
   end
 
   # GET /events/new
@@ -48,7 +44,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    add_breadcrumb "Events", events_path, title: "Search"
     add_breadcrumb "Show", event_path(@event), title: @event.name
     add_breadcrumb "Edit", edit_event_path(@event), title: "Edit Event"
     @event = Event.find(params[:id])
@@ -125,6 +120,8 @@ class EventsController < ApplicationController
       end
     end
 
+  def set_breadcrumbs
+    add_breadcrumb "Home", :root_path
+  end
 
-  
 end

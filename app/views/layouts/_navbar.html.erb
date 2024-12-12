@@ -1,24 +1,39 @@
-<nav class="navbar sticky-top navbar-expand-lg nav justify-content-between">
-  <%= link_to "goVend", root_url, class:"p-3 text-white iceberg-regular" %>
-  
-  <div class="dropdown">
-    <button class="dropbtn iceberg-regular">Menu</button>
-    <div class="dropdown-content">
+<nav class="navbar sticky-top navbar-expand-lg nav justify-content-between pt-3">
+  <div class="col align-items-center">
+    <div class="d-flex">
+      <%= image_tag "favicon.png", alt:"vendor booth", width:"5%", height:"5%" %> 
+      <h2><%= link_to "goVend", root_url, class:"p-3 text-white iceberg-regular" %></h2>
+    </div>
+    <div>
+      <em class="subtitle">Connecting Vendors and Events</em>
+    </div>
+  </div>
+</nav>
 
-      <% if current_user.present? %>
-      
-        <%= link_to "Search", events_path %>
+<div class="topnav" id="myTopnav">
+    <% if current_user.present? %>
+        <%= link_to "Search", events_path, class:"active" %>
         <%= link_to "My Events", vendor_events_path  %>
         <%= link_to "Profile", user_path(current_user)%>
         <%= link_to "Host", new_event_path %>
         <%= link_to "Sign Out", logout_path(current_user) %>
-        
       <% else %>
-
         <%= link_to "Sign In", new_user_session_path %>
         <%= link_to "Sign Up", new_user_registration_path %>
-      
       <% end %>
-    </div>
-  </div>
-</nav>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+<script>
+  /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
