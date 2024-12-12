@@ -118,6 +118,8 @@ GEM
       debug_inspector (>= 1.2.0)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
+    breadcrumbs_on_rails (4.1.0)
+      railties (>= 5.0)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -577,6 +579,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
+  breadcrumbs_on_rails
   capybara
   carrierwave
   chartkick
