@@ -73,7 +73,7 @@ FONT
   margin: 10px;
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
-  border: 1px solid #333;
+  border: .5px solid lime;
   line-height: 175%;
 }
 
@@ -93,6 +93,7 @@ FONT
   margin-bottom: 2vh;
   font-size: .75em;
   font-weight: 100;
+  letter-spacing: 3px;
 }
 .search {
   display: flex;
@@ -130,7 +131,7 @@ NAVBAR
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #333;
+  background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 35%, #4bfd33 70%,yellow 85%, orange 100%) border-box;
   overflow: hidden;
 }
 
@@ -138,23 +139,18 @@ NAVBAR
 .topnav a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: #0a2324;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  font-weight: bold;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #ddd;
   color: black;
-}
-
-/* Add an active class to highlight the current page */
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
 }
 
 /* Hide the link that should open and close the topnav on small screens */
@@ -343,4 +339,101 @@ mask-composite: exclude;
 .page {
   background-color: #212441;
   border-radius: 50px;
+}
+
+/*===========
+rotating cube
+==============*/
+
+.cube-container {
+  width: 30vw;
+  height: 40vh;
+  text-align: center;
+  perspective: 100em;    
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition-duration: 2s;
+  border: 5px solid transparent;  
+  margin-top:100px; 
+  display: block;
+}
+
+.cube-side {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-color: rgb(64, 0, 148);
+  border: 1px solid white;
+  background-position: center;
+  background-size: cover;
+  border: 4px solid lime;
+}
+
+.cube-side:nth-child(1){
+  transform: rotateY(0deg) translateZ(10em);
+}
+
+.cube-side:nth-child(2){
+  transform: rotateY(90deg) translateZ(10em);
+}
+
+.cube-side:nth-child(3){
+  transform: rotateY(180deg) translateZ(10em);
+}
+
+.cube-side:nth-child(4){
+  transform: rotateY(-90deg) translateZ(10em);
+}
+
+.cube-side:nth-child(5){
+  transform: rotateX(90deg) translateZ(9.75em);
+  border-top: 8px solid lime;
+  border-bottom: 8px solid lime;
+}
+
+.cube-side:nth-child(6){
+  transform: rotateX(-90deg) translateZ(9.3em);
+  border-top: 8px solid lime;
+  border-bottom: 8px solid lime;
+}
+
+
+/* cube radio buttons */
+
+.radio-button {
+  transform: translateX(-50px);
+}
+
+.radio-button:checked ~ .cube{
+  transition-duration: 3s;
+  transition-timing-function: cubic-bezier(0.19. 1, 0.22, 1);
+}
+
+.radio-button:nth-child(1):checked ~ .cube {
+  transform: rotateX(-15deg) rotateY(20deg);
+}
+
+.radio-button:nth-child(2):checked ~ .cube {
+  transform: rotateX(-15deg) rotateY(180deg);
+}
+
+.radio-button:nth-child(3):checked ~ .cube {
+  transform: rotateX(-15deg) rotateY(90deg);
+}
+
+.radio-button:nth-child(4):checked ~ .cube {
+  transform: rotateX(-15deg) rotateY(-90deg);
+}
+
+.radio-button:nth-child(5):checked ~ .cube {
+  transform: rotateX(-105deg) rotateY(0deg);
+}
+
+.radio-button:nth-child(6):checked ~ .cube {
+  transform: rotateX(75deg) rotateY(0deg);
 }
