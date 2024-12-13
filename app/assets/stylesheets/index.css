@@ -262,40 +262,49 @@ BUTTONS
   .event_btn > a {
     color: black;
     &:hover {
-      
       color: black;
       transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
 }
 
-.btn-danger {
-  background-image: linear-gradient(red, rgb(255, 131, 65));
+.btn-dang {
+  background-image: linear-gradient(red, rgb(255, 131, 65), red);
   color: black;
-  padding: 5px 10px;
-}
-
-.btn-primary {
-  background-image: linear-gradient(rgb(44, 252, 186),rgb(51, 236, 253), rgb(44, 252, 186));
-  color: black;
-  padding: 5px 10px;
   border-radius: 20px;
 }
 
-.btn-info {
-  background-image: linear-gradient(rgb(51, 236, 253), #2c90fc,rgb(51, 236, 253));
+.btn-pri {
+  background-image: linear-gradient(rgb(26, 220, 238),rgb(44, 252, 186), rgb(26, 220, 238));
   color: black;
-  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.btn-in {
+  background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), #2c90fc);
+  color: black;
   border-radius: 20px;
 }
 
 .btn {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Make the button square */
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
-
+  justify-content: center;
+  margin: 2px; /* Add some spacing between buttons */
 }
 
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.btn-container .btn {
+  flex: 1 1 calc(50% - 1px); /* 2 buttons per row with spacing */
+  box-sizing: border-box;
+}
 /*=================
 
 ANIMATIONS
@@ -519,9 +528,11 @@ CALEDAR
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 20px;
   font-size: 24px;
-  color: #333;
+  color: #ffffff;
+  background-color:rgb(0, 0, 0);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .calendar-title {
@@ -534,6 +545,11 @@ CALEDAR
   border: 3px solid #333;
 }
 
+thead {
+  padding: 10px;
+  background-color: #000000;
+  color: #ffffff;
+}
 .line {
   border-right: 1px solid #333;
 }
