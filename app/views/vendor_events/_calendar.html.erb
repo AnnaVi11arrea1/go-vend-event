@@ -7,6 +7,10 @@
         <% if vendor_event.start_time&.to_date == date %>
           <div class="event">
             <%= link_to vendor_event.event.name, vendor_event_path(vendor_event), class: "event-link" %>
+            <div class="info-box">
+              <strong>Event:</strong> <%= vendor_event.event.name %><br><hr>
+              <strong>Starts on:</strong> <%= vendor_event.event.started_at.strftime("%B %d, %Y") %><br>
+            </div>
           </div>
         <% end %>
       <% end %>
