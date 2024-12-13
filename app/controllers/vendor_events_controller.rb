@@ -41,7 +41,6 @@ class VendorEventsController < ApplicationController
   end
 
   def destroy
-    
     if @vendor_event.destroy
       flash[:notice] = "Vendor event deleted successfully."
     else

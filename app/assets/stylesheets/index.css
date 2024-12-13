@@ -268,6 +268,34 @@ BUTTONS
   }
 }
 
+.btn-danger {
+  background-image: linear-gradient(red, rgb(255, 131, 65));
+  color: black;
+  padding: 5px 10px;
+}
+
+.btn-primary {
+  background-image: linear-gradient(rgb(44, 252, 186),rgb(51, 236, 253), rgb(44, 252, 186));
+  color: black;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.btn-info {
+  background-image: linear-gradient(rgb(51, 236, 253), #2c90fc,rgb(51, 236, 253));
+  color: black;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+}
+
 /*=================
 
 ANIMATIONS
