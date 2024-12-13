@@ -243,25 +243,26 @@ BUTTONS
 =================*/
 
 .event_btn {
-  background-color: #250d50;
-  color: white;
-  padding: 5px 9px;
+  background-image: linear-gradient(rgb(51, 0, 154),  #b827fc , #2c90fc,rgb(51, 236, 253), #2c90fc, #b827fc, rgb(51, 0, 154));
+  color: black;
+  padding: 9px 13px;
   margin: 3px;
   font-size: 20px;
   display: inline-block;
   border-radius: 20px;
+  font-family: "Iceberg", sans-serif;
   border: 2px solid transparent;
     &:hover {
-      background-color: white;
       cursor: pointer;
-      border: 2px solid #0e0420;
+      border: 5px solidrgb(98, 48, 190);
+      background-image: linear-gradient(rgb(209, 0, 236),rgb(255, 131, 65) ,rgb(235, 252, 44),rgb(51, 253, 118),rgb(235, 252, 44),rgb(255, 131, 65) , rgb(209, 0, 236));
     }
   }
 
   .event_btn > a {
-    color: white;
+    color: black;
     &:hover {
-      background-color: white;
+      
       color: black;
       transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }

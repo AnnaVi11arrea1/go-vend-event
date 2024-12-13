@@ -1,8 +1,11 @@
+
+<div id="events" class="darkcard">
+
 <div>
   <div id="map" style='height: 400px;'></div>
 </div>
 
-<div id="events" class="card">
+
   <h4 class="p-3">Try searching for "art", "festivals", and use a date to refine search.</h4>
 
   <%= search_form_for @q do |f| %>
@@ -28,12 +31,13 @@
 
   <% if @events.present? %>
     <% @events.each do |event| %>
-      <div class="ps-4 mb-2 darkcard">
+      <div class="ps-4 mb-2 darkcard intro">
         <div class="row">
-          <div class="col">Name: 
+          <div class="d-flex flex-column justify-content-center m-4"> 
+            <p>Event Name:</p>
             <div><h4> <%= event.name %></h4></strong></div>
           </div>
-          <div class="col d-flex">
+          <div class="col d-flex justify-content-center mt-4">
             <% if event.photo.present?%>
               <%= image_tag event.photo.url, alt:"profile pic", class:"profile-pic" %>
               <% else %>
