@@ -438,3 +438,94 @@ rotating cube
 .radio-button:nth-child(6):checked ~ .cube {
   transform: rotateX(75deg) rotateY(0deg);
 }
+
+
+/*=================
+
+CALEDAR
+=================*/
+
+
+/* Define color variables */
+:root {
+  --color-monday:rgb(254, 160, 238);
+  --color-tuesday:rgb(255, 219, 172);
+  --color-wednesday:rgb(236, 252, 152);
+  --color-thursday:rgb(148, 253, 164);
+  --color-friday:rgb(142, 252, 244);
+  --color-saturday:rgb(158, 193, 255);
+  --color-sunday:rgb(211, 145, 252);
+}
+
+.day {
+  padding: 2px;
+  border: 1px solid #333;
+}
+
+.date {
+  font-size: 20px;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.month-name {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.previous-link, .next-link {
+  font-size: 18px;
+  color: blue;
+  cursor: pointer;
+}
+
+.previous-link:hover, .next-link:hover {
+  text-decoration: underline;
+}
+
+.calendar-heading {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.calendar-title {
+  text-transform: uppercase;
+  font-family: "Iceberg", sans-serif;
+  
+}
+
+.calendar {
+  border: 3px solid #333;
+}
+
+.line {
+  border-right: 1px solid #333;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.explode {
+  position: relative;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.explode.exploding {
+  animation: explode 0.3s forwards;
+}

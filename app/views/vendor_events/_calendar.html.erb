@@ -1,7 +1,6 @@
-<div class="calendar">
-<h3 class="title">Calendar of Excitement</h3>
+<div class="calendar pt-4">
   
-  <%= month_calendar(events: @vendor_events, start_date_param: :start_time) do |date, vendor_events| %>
+  <%= month_calendar(events: @vendor_events,  start_date_param: :start_time) do |date, vendor_events| %>
     <div class="day">
       <span class="date"><%= date.day %></span>
       <% vendor_events.each do |vendor_event| %>
@@ -14,3 +13,23 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const days = document.querySelectorAll('.day');
+  const colors = [
+    'var(--color-monday)',
+    'var(--color-tuesday)',
+    'var(--color-wednesday)',
+    'var(--color-thursday)',
+    'var(--color-friday)',
+    'var(--color-saturday)',
+    'var(--color-sunday)'
+  ];
+
+  days.forEach((day, index) => {
+    day.style.backgroundColor = colors[index % colors.length];
+  });
+});
+
+</script>

@@ -1,7 +1,7 @@
 
 <div class="card pt-3 border border-dark">
   <div class="row">
-    <div class="col-3 d-flex justify-content-center">
+    <div class="col-3 d-flex justify-content-center line">
       <p class="px-2">
         <% if vendor_event.photo.present? %>
           <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
@@ -16,7 +16,7 @@
         <%= vendor_event.event.name %>
       </p>
     </div>
-    <div class="col-3">
+    <div class="col-3 line">
       <strong>Application status:</strong>
       <% if vendor_event.application_status? %>
         <p><%= vendor_event.application_status %></p>
@@ -44,9 +44,28 @@
         <%= link_to "Edit Status", edit_vendor_event_path(vendor_event), class:"btn btn-primary" %>
       </p>
       <p>
-        <%= button_to "Destroy this event", vendor_event, method: :delete, class: "btn btn-danger",  data: { confirm: "Are you sure you want to delete this event?", 
+        <%= button_to "Destroy this event", vendor_event, method: :delete, class: "btn btn-danger explode",  data: { confirm: "Are you sure you want to delete this event?", 
             data: { turbo: false } } %>
       </p>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.explode').forEach(button => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const button = event.target;
+      const confirmMessage = button.getAttribute('data-confirm');
+      if (confirm(confirmMessage)) {
+        button.classList.add('exploding');
+        setTimeout(() => {
+          button.closest('form').submit();
+        }, 300); // Match the duration of the animation
+      }
+    });
+  });
+});
+
+</script>
