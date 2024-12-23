@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  helper :all
   
   skip_forgery_protection
 

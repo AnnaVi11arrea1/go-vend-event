@@ -1,7 +1,7 @@
 <div class="card">
-  <div>
+  
     <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
-  </div>
+  
 
   <% if @vendor_events.present? %>
     <div id="vendor_event">
@@ -9,7 +9,7 @@
       <p>Image</p>
       <p>Name</p>
       <p>Status</p>
-      <p>Actions</p>
+      <p>Controls</p>
     </div>
       <% @vendor_events.each do |vendor_event| %>
         <div>

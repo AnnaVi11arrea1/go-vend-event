@@ -1,6 +1,7 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[ show edit calendar update destroy ]
   before_action :set_breadcrumbs, only: %i[show edit new]
+  helper CalendarHelper
 
   def index
     @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)

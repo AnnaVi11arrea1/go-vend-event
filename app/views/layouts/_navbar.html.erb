@@ -10,7 +10,7 @@
   </div>
 </nav>
 
-<div class="topnav" id="myTopnav">
+<div class="topnav sticky-top" id="myTopnav">
     <% if current_user.present? %>
         <%= link_to "Search", events_path %>
         <%= link_to "My Events", vendor_events_path  %>
