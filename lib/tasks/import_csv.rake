@@ -26,6 +26,7 @@
         )
         admin_user.save!
         puts "Admin user created with email: #{admin_user.email}" if admin_user.persisted?
+      end
     end
   
     task events: :environment do
@@ -50,7 +51,6 @@
           latitude: row['latitude'],
           longitude: row['longitude'],
         ) 
-      end
       end
       puts "Import completed!"
     end
@@ -120,6 +120,7 @@
                 )
               end
             end
+          end
             if admin_user.present?
               users.each do |user|
                 FollowRequest.create!(
@@ -129,10 +130,6 @@
                   )
                 end
               end
-            end
-          end
-          
-        
 
     puts "There are now #{User.count} fake people in the database!"
     puts "There are now #{Event.count} fake events in the database!"
