@@ -33,6 +33,10 @@ body {
   display: inline-block;
   border-radius: 30px;
 }
+
+.hidden {
+  display: none;
+}
 /*==============
 
 FONT

@@ -1,33 +1,50 @@
-<h2>Discover through people you follow!</h2>
-<% current_user.feed.each do |event| %>
-  <div class="col-md-6 offset-3 card justify-content-center">
-    <% if event.photo.present? %>
-      <%= image_tag event.photo, class: "card-img-top" %>
-    <% else %>
-      <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
-    <% end %>
-    <div class="card-body">
-      <h5 class="card-title"><%= event.name %></h5>
-      <h5 class="card-title"><%= event.host.username %></h5>
-      <p class="card-text"><%= event.information %></p>
-      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(event.created_at) %> ago</small></p>
-    </div>
+<div
+  data-controller="tabs"
+  data-tabs-active-class="bg-gray-900 text-gray-100"
+  data-tabs-default-tab-value="tab1"
+>
+  <!-- buttons to toggle between tabs -->
+  <div class="flex">
+    <button id="tab1" data-tabs-target="btn" data-action="click->tabs#select">Feed</button>
+    <button id="tab2" data-tabs-target="btn" data-action="click->tabs#select">Discover</button>
   </div>
-<% end %>
 
-<h2>Discover new events!</h2>
-
-<% current_user.discovered.each do |newevent| %>
-  <div class="col-md-6 offset-3 card justify-content-center">
-    <% if newevent.photo.present? %>
-      <%= image_tag newevent.photo, class: "card-img-top" %>
-    <% else %>
-      <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
+  <!-- the tabs -->
+  <div data-tabs-target="tab" id="tab1">
+    <h2>Discover through people you follow!</h2>
+    <% current_user.feed.each do |event| %>
+      <div class="col-md-6 offset-3 card justify-content-center">
+        <% if event.photo.present? %>
+          <%= image_tag event.photo, class: "card-img-top" %>
+        <% else %>
+          <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= event.name %></h5>
+          <h5 class="card-title"><%= event.host.username %></h5>
+          <p class="card-text"><%= event.information %></p>
+          <p class="card-text"><small class="text-muted"><%= time_ago_in_words(event.created_at) %> ago</small></p>
+        </div>
+      </div>
     <% end %>
-    <div class="card-body">
-      <h5 class="card-title"><%= newevent.name %></h5>
-      <p class="card-text"><%= newevent.information %></p>
-      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(newevent.created_at) %> ago</small></p>
-    </div>
   </div>
-<% end %>
+  <!-- tab 2 is hidden by default, to prevent 'flashing in' -->
+  <div data-tabs-target="tab" id="tab2" class='hidden'>
+
+    <h2>Discover new events!</h2>
+    <% current_user.discovered.each do |newevent| %>
+      <div class="col-md-6 offset-3 card justify-content-center">
+        <% if newevent.photo.present? %>
+          <%= image_tag newevent.photo, class: "card-img-top" %>
+        <% else %>
+          <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= newevent.name %></h5>
+          <p class="card-text"><%= newevent.information %></p>
+          <p class="card-text"><small class="text-muted"><%= time_ago_in_words(newevent.created_at) %> ago</small></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
