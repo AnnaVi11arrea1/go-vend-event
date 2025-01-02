@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show edit update update_photo followers following  ]
-  before_action :set_user, only: %i[ show edit update destroy update_photo followers following private  ]
+  before_action :set_user, only: %i[ feed show edit update destroy update_photo followers following private  ]
   
   def index
     @users = User.all
@@ -38,6 +38,7 @@ class UsersController < ApplicationController
 
   def feed
     @username = params[:username]
+
   end
 
   def discover
