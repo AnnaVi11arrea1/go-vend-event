@@ -37,6 +37,8 @@ body {
 .hidden {
   display: none;
 }
+
+
 /*==============
 
 FONT
@@ -72,7 +74,7 @@ FONT
 
 .darkcard {
   background-color: #150435;
-  color: #fcfcfa;
+  color:rgb(158, 255, 207);
   padding: 20px;
   margin: 10px;
   border-radius: 50px;
@@ -80,6 +82,16 @@ FONT
   border: .5px solid lime;
   line-height: 175%;
 }
+
+.darktitle {
+  color:rgb(158, 255, 207);
+  font-weight: 600;
+  font-family: "Iceberg", sans-serif;
+  text-align: center;
+  border-bottom: .5px solid lime;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  }
 
 .title {
   display: flex;
@@ -253,7 +265,7 @@ BUTTONS
   margin: 3px;
   font-size: 20px;
   display: inline-block;
-  border-radius: 20px;
+  border-radius: 10px;
   font-family: "Iceberg", sans-serif;
   border: 2px solid transparent;
     &:hover {
@@ -274,19 +286,25 @@ BUTTONS
 .btn-dang {
   background-image: linear-gradient(red, rgb(255, 131, 65), red);
   color: black;
-  border-radius: 20px;
+  border-radius: 10px;
+  padding: 9px 13px;
+  margin: 3px;
+  font-size: 20px;
 }
 
 .btn-pri {
   background-image: linear-gradient(rgb(26, 220, 238),rgb(44, 252, 186), rgb(26, 220, 238));
   color: black;
-  border-radius: 20px;
+  border-radius: 10px;
+  padding: 9px 13px;
+  margin: 3px;
+  font-size: 20px;
 }
 
 .btn-in {
   background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), #2c90fc);
   color: black;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -612,3 +630,21 @@ VENDOR EVENTS SHOW
 .explode.exploding {
   animation: explode 0.3s forwards;
 }
+
+
+/*=================
+FEED
+=================*/
+
+.discover {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  align-items: center;
+  }
+
+  .card-img {
+  width: 50%;
+  height: 50%;
+  }

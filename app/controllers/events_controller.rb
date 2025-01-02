@@ -34,6 +34,7 @@ class EventsController < ApplicationController
     add_breadcrumb "Show", event_path(@event), title: @event.name
     @event = Event.find(params[:id])
     @host = @event.host
+
   end
 
   # GET /events/new
