@@ -1,1 +1,33 @@
-<% leaders.each do |post|%>
+<h2>Discover through people you follow!</h2>
+<% current_user.feed.each do |event| %>
+  <div class="col-md-6 offset-3 card justify-content-center">
+    <% if event.photo.present? %>
+      <%= image_tag event.photo, class: "card-img-top" %>
+    <% else %>
+      <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
+    <% end %>
+    <div class="card-body">
+      <h5 class="card-title"><%= event.name %></h5>
+      <h5 class="card-title"><%= event.host.username %></h5>
+      <p class="card-text"><%= event.information %></p>
+      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(event.created_at) %> ago</small></p>
+    </div>
+  </div>
+<% end %>
+
+<h2>Discover new events!</h2>
+
+<% current_user.discovered.each do |newevent| %>
+  <div class="col-md-6 offset-3 card justify-content-center">
+    <% if newevent.photo.present? %>
+      <%= image_tag newevent.photo, class: "card-img-top" %>
+    <% else %>
+      <%= image_tag "bulb.png", class: "card-img-top",  style: "width: 200px;" %>
+    <% end %>
+    <div class="card-body">
+      <h5 class="card-title"><%= newevent.name %></h5>
+      <p class="card-text"><%= newevent.information %></p>
+      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(newevent.created_at) %> ago</small></p>
+    </div>
+  </div>
+<% end %>
