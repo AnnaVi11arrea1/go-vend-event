@@ -4,6 +4,7 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests or /follow_requests.json
   def index
+    # this querying should be moved into the follow_requests model
     @follow_requests = FollowRequest.all.where(recipient_id: current_user.id)
     @pending_requests = current_user.received_follow_requests.pending
     @accepted_requests = current_user.received_follow_requests.accepted
@@ -61,6 +62,7 @@ class FollowRequestsController < ApplicationController
   end
 
   def accept
+    # this querying should be moved into the follow_requests model
     @follow_request = FollowRequest.find(params[:id])
     if @follow_request.update(status: :accepted)
       redirect_to user_path(@follow_request.sender), notice: 'Follow request accepted.'
@@ -70,6 +72,7 @@ class FollowRequestsController < ApplicationController
   end
   
   def reject
+    # this querying should be moved into the follow_requests model
     @follow_request = FollowRequest.find(params[:id])
     if @follow_request.update(status: :rejected)
       redirect_to follow_requests_path, notice: 'Follow request rejected.'

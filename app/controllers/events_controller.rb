@@ -49,10 +49,12 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  # this logic for creating events can be moved to the events model
   def add_event
     @vendor_event = VendorEvent.new(event_id: @event.id, user_id: current_user.id)
     format html {redirect_to add_event_vendor_event_path, notice: "Event Updated successfully"}
   end
+
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)

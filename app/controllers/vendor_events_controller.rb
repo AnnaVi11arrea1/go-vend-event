@@ -50,9 +50,11 @@ class VendorEventsController < ApplicationController
   end
 
   def calendar
+    # this query is already doing this in the index
     @vendor_events = VendorEvent.where(user_id: current_user.id).where.not(start_time: nil)
   end
 
+  # this relies on model level logic, instead move it to a service or keep it in the vendor events model
   def update_expenses_and_sales
     if VendorEvent.update_expenses_and_sales(params[:vendor_events])
     redirect_to user_path(current_user), notice: 'Expenses and sales updated successfully.'

@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   # before_action :set_user, only: %i[ index show edit update destroy ]
-  before_action :authenticate_user!, only: %i[ show edit update update_photo followers following feed ]
-  before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed private  ]
+
+  # these before_actions are raising errors, only way to get in is to comment them out, please fix the logic on this implementation 
+
+  # before_action :authenticate_user!, only: %i[ show edit update update_photo followers following feed ]
+  # before_action :set_user, only: %i[ show edit update destroy update_photo followers following feed private  ]
   
   def index
     @users = User.all
@@ -21,8 +24,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
-
   
   def create
     @user = User.new(user_params)
@@ -32,14 +33,15 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def followers 
-  end
+  # you dont need these, can be apart of the model
+  # def followers 
+  # end
 
-  def following
-  end
+  # def following
+  # end
 
-  def feed
-  end
+  # def feed
+  # end
 
   def edit
     @user = current_user

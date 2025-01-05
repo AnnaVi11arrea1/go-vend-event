@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :vendor_events do
     get "/calendar" => "calendar#show"
     collection do
+      # dont put action verbs in the routes
       post "update_expenses_and_sales" => "vendor_events#update_expenses_and_sales"
     end
   end
