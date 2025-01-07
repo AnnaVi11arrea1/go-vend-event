@@ -31,7 +31,7 @@
 
   <% if @events.present? %>
     <% @events.each do |event| %>
-      <div class="ps-4 mb-2 darkcard intro">
+      <div class="ps-4 mb-2 darkcard intro animate__animated animate__flipInX">
         <div class="row">
           <div class="d-flex flex-column justify-content-center m-4"> 
             <p>Event Name:</p>
@@ -63,9 +63,6 @@
     <%= paginate @events, :container => false %>
   </div>
   </div>
-
-
-
 
 <script>
     function initMap() {
