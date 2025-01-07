@@ -5,10 +5,17 @@ export default class extends Controller {
   static targets = ["btn", "tab"]
   static values = { activeClass: String, defaultTab: String };
   connect() {
+    console.log("Connected to tabs controller");
     this.selectById(this.defaultTabValue || this.tabTargets[0]?.id);
   }
 
   select(event) {
+    const selectedTab = event.target.id;
+
+    this.tabTargets.forEach((tab) => {
+      tab.classList.toggle("active", tab.id === selectedTab);
+    });
+
     const tabId = event.target.id;
     this.selectById(tabId);
   }

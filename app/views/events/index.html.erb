@@ -6,8 +6,9 @@
 </div>
 
 
-  <h4 class="p-3">Try searching for "art", "festivals", and use a date to refine search.</h4>
 
+<div class="intro">
+  <h4 class="p-3 iceberg-regular">Try searching for "art", "festivals", and use a date to refine search.</h4>
   <%= search_form_for @q do |f| %>
     <div class="search pt-3 d-flex justify-content-center mb-0">
       <div>
@@ -18,7 +19,6 @@
         <%= f.label :started_at_gteq, "On or after " %>
         <%= f.date_field :started_at_gteq %>
       </div>
-    </div>
       <div class="d-flex justify-content-center">
         <div class="search px-2">
           <%= f.submit %>
@@ -28,6 +28,8 @@
         </div>
       </div>
     <% end %>
+    </div>
+    </div>
 
   <% if @events.present? %>
     <% @events.each do |event| %>
