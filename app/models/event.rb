@@ -18,6 +18,9 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
+  geocoded_by :address
+  after_validation :geocode
+
   validates :name, presence: true
   validates :application_due_at, presence: true
   validates :started_at, presence: true
