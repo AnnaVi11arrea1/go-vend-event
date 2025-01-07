@@ -14,7 +14,7 @@
     <!-- partial this out to a partial -->
     <h2 class="d-flex justify-content-center">Discover events through people you follow!</h2>
     <% current_user.feed.each do |event| %>
-      <div class="darkcard discover animate__animated animate__flipInX">
+      <div class="darkcard discover intro animate__animated animate__flipInX">
           <% if event.photo.present? %>
             <%= image_tag event.photo, class: "card-img" %>
           <% else %>
@@ -37,7 +37,7 @@
     <!-- partial this out to a partial -->
     <h2 class="d-flex justify-content-center">Discover new events!</h2>
     <% current_user.discovered.each do |newevent| %>
-      <div class="darkcard discover animate__animated animate__flipInX">
+      <div class="darkcard discover intro animate__animated animate__flipInX">
         <% if newevent.photo.present? %>
           <%= image_tag newevent.photo, class: "card-img" %>
         <% else %>

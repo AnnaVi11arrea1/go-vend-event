@@ -259,15 +259,8 @@ BUTTONS
 =================*/
 
 .event_btn {
-  background-image: linear-gradient(rgb(51, 0, 154),  #b827fc , #2c90fc,rgb(51, 236, 253), #2c90fc, #b827fc, rgb(51, 0, 154));
-  color: black;
-  padding: 9px 13px;
-  margin: 3px;
-  font-size: 20px;
-  display: inline-block;
-  border-radius: 10px;
-  font-family: "Iceberg", sans-serif;
-  border: 2px solid transparent;
+  background-image: linear-gradient(rgb(94, 44, 194),rgb(214, 132, 252) ,rgb(163, 205, 250),rgb(118, 241, 252),rgb(109, 173, 241), #b827fc, rgb(51, 0, 154));
+
     &:hover {
       cursor: pointer;
       border: 5px solidrgb(98, 48, 190);
@@ -275,7 +268,7 @@ BUTTONS
     }
   }
 
-  .event_btn > a {
+.event_btn > a {
     color: black;
     &:hover {
       color: black;
@@ -283,28 +276,29 @@ BUTTONS
   }
 }
 
-.btn-dang {
-  background-image: linear-gradient(red, rgb(255, 131, 65), red);
+.btn-dang, .btn-pri, .btn-in, .event_btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: "Iceberg", sans-serif;
+  border: 2px solid transparent;
   color: black;
   border-radius: 10px;
   padding: 9px 13px;
   margin: 3px;
   font-size: 20px;
+}
+
+.btn-dang {
+  background-image: linear-gradient(red, rgb(255, 131, 65), red);
 }
 
 .btn-pri {
   background-image: linear-gradient(rgb(26, 220, 238),rgb(44, 252, 186), rgb(26, 220, 238));
-  color: black;
-  border-radius: 10px;
-  padding: 9px 13px;
-  margin: 3px;
-  font-size: 20px;
 }
 
 .btn-in {
   background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), #2c90fc);
-  color: black;
-  border-radius: 10px;
 }
 
 .btn {
