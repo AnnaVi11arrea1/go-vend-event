@@ -645,6 +645,7 @@ FEED
   }
 
   .card-img {
-  width: 50%;
-  height: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: #FFFFFF;
   }
