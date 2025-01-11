@@ -1,6 +1,6 @@
-<div class="d-flex p-3 mb-2">
-  <div class="mycard">
-    <h1 class="title"><strong>Event Name:</strong><%= @event.name %> </h1>
+<div class="d-flex p-3 mb-2 justify-content-center">
+  <div class="darkcard">
+    <h1 class="darktitle"><strong>Event Name:</strong><%= @event.name %> </h1>
     <div class="row justify-content-center">
 
       <div class="col">
@@ -14,11 +14,11 @@
         <div class="d-flex justify-content-center pt-3">
           <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
             <%= form.hidden_field :event_id, value: @event.id %>
-            <%= form.submit 'Add to My Events', class: 'btn btn-primary' %>
+            <%= form.submit 'Add to My Events', class: 'btn-pri' %>
           <% end %>
         </div>
 
-        <div class="d-flex justify-content-center pt-3 btn">Host:
+        <div class="d-flex justify-content-center pt-3">Host:
           <%= link_to user_path(@host.id) do %>
             <% if @host.photo.present? %>
               <%= image_tag @host.photo.url, alt: "profile pic", width: "20px" %>
@@ -66,8 +66,8 @@
           <% end %>
 
           <% if @host == current_user %>
-            <%= link_to "Edit this event", edit_event_path(@event), class:"btn btn-info" %>
-            <%= link_to "Destroy this event", @event, method: :delete, class:"btn btn-info"  %>
+            <%= link_to "Edit this event", edit_event_path(@event), class:"btn-in" %>
+            <%= link_to "Destroy this event", @event, method: :delete, class:"btn-in"  %>
           <% end %>
         </div>
       </div>

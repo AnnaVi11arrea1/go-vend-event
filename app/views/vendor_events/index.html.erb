@@ -1,16 +1,15 @@
-<div class="card">
-  
-    <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
-  
+<div>
+  <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
+</div>
 
   <% if @vendor_events.present? %>
     <div id="vendor_event">
-    <div class="nav d-flex justify-content-around pb-0">
-      <p>Image</p>
-      <p>Name</p>
-      <p>Status</p>
-      <p>Controls</p>
-    </div>
+      <div class="nav d-flex justify-content-around pb-0">
+        <p>Image</p>
+        <p>Name</p>
+        <p>Status</p>
+        <p>Controls</p>
+      </div>
       <% @vendor_events.each do |vendor_event| %>
         <div>
           <%= render vendor_event %>
@@ -18,6 +17,6 @@
       <% end %>
     <% else %>
       <p>No vendor events found</p>
-  </div>
-    <% end %>
+    </div>
+  <% end %>
 </div>

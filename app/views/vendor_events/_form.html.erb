@@ -1,22 +1,24 @@
-<h1 class="title">Update "<%= @vendor_event.event.name %>" Status</h1>
+<div class="darkcard intro">
+  <%= simple_form_for(@vendor_event) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-<%= simple_form_for(@vendor_event) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <div class="form-inputs">
+      <h1 class="darktitle">Update "<%= @vendor_event.event.name %>"Status </h1>
+      <%= f.hidden_field :event_id %>
+      <%= f.input :application_status, input_html: { id: 'application-status-input' } %>
+      <%= f.input :paid, input_html: { id: 'paid-checkbox' } %>
+      <%= f.hidden_field :user_id %>
 
-  <div class="form-inputs mycard">
-    <%= f.hidden_field :event_id %>
-    <%= f.input :application_status, input_html: { id: 'application-status-input' } %>
-    <%= f.input :paid, input_html: { id: 'paid-checkbox' } %>
-    <%= f.hidden_field :user_id %>
-
-    <div class="form-actions">
-      <%= f.button :submit %>
-    </div>
-      <% end %>
-      <br>
+      <div class="form-actions">
+        <%= f.button :submit, class:"btn-pri" %>
+      </div>
+    <% end %>
+  </div>
+    <br>
     <div>
       <%= link_to "Show Event", @vendor_event %> |
       <%= link_to "Back to My Events", vendor_events_path %>
     </div>
   </div>
+</div>

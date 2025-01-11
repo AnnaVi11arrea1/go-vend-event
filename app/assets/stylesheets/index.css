@@ -33,6 +33,36 @@ body {
   display: inline-block;
   border-radius: 30px;
 }
+
+.hidden {
+  visibility: hidden; /* Makes the content invisible but still interactive */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*==============
+MANAGE HIDDEN LINKS 
+===============*/
+
+[data-tabs-target="tab"] {
+  position: absolute;
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+[data-tabs-target="tab"].active {
+  position: relative;
+  z-index: 1;
+  visibility: visible;
+  opacity: 1;
+}
+
+
 /*==============
 
 FONT
@@ -68,7 +98,7 @@ FONT
 
 .darkcard {
   background-color: #150435;
-  color: #fcfcfa;
+  color:rgb(158, 255, 207);
   padding: 20px;
   margin: 10px;
   border-radius: 50px;
@@ -76,6 +106,16 @@ FONT
   border: .5px solid lime;
   line-height: 175%;
 }
+
+.darktitle {
+  color:rgb(158, 255, 207);
+  font-weight: 600;
+  font-family: "Iceberg", sans-serif;
+  text-align: center;
+  border-bottom: .5px solid lime;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  }
 
 .title {
   display: flex;
@@ -106,6 +146,13 @@ FONT
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #333;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
 }
 
 .profile-pic {
@@ -242,24 +289,16 @@ word-break: break-word !important;
 BUTTONS
 =================*/
 
+.box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .event_btn {
-  background-image: linear-gradient(rgb(51, 0, 154),  #b827fc , #2c90fc,rgb(51, 236, 253), #2c90fc, #b827fc, rgb(51, 0, 154));
-  color: black;
-  padding: 9px 13px;
-  margin: 3px;
-  font-size: 20px;
-  display: inline-block;
-  border-radius: 20px;
-  font-family: "Iceberg", sans-serif;
-  border: 2px solid transparent;
-    &:hover {
-      cursor: pointer;
-      border: 5px solidrgb(98, 48, 190);
-      background-image: linear-gradient(rgb(209, 0, 236),rgb(255, 131, 65) ,rgb(235, 252, 44),rgb(51, 253, 118),rgb(235, 252, 44),rgb(255, 131, 65) , rgb(209, 0, 236));
-    }
+  background-image: linear-gradient(rgb(94, 44, 194),rgb(214, 132, 252) ,rgb(163, 205, 250),rgb(118, 241, 252),rgb(109, 173, 241),rgb(148, 27, 204), rgb(51, 0, 154));
   }
 
-  .event_btn > a {
+.event_btn > a {
     color: black;
     &:hover {
       color: black;
@@ -267,22 +306,34 @@ BUTTONS
   }
 }
 
+.btn-dang, .btn-pri, .btn-in, .event_btn {
+  display: flex;
+  flex-shrink: 1;
+  justify-content: center;
+  font-family: "Iceberg", sans-serif;
+  border: 2px solid transparent;
+  color: black;
+  border-radius: 10px;
+  padding: 9px 13px;
+  margin: 3px;
+  font-size: 20px;
+  &:hover {
+    cursor: pointer;
+    border: 5px solidrgb(98, 48, 190);
+    background-image: linear-gradient(rgb(209, 0, 236),rgb(255, 131, 65) ,rgb(235, 252, 44),rgb(51, 253, 118),rgb(235, 252, 44),rgb(255, 131, 65) , rgb(209, 0, 236));
+  }
+}
+
 .btn-dang {
   background-image: linear-gradient(red, rgb(255, 131, 65), red);
-  color: black;
-  border-radius: 20px;
 }
 
 .btn-pri {
-  background-image: linear-gradient(rgb(26, 220, 238),rgb(44, 252, 186), rgb(26, 220, 238));
-  color: black;
-  border-radius: 20px;
+  background-image: linear-gradient(rgb(26, 220, 238),rgb(122, 247, 207), rgb(183, 248, 228), rgb(29, 201, 146), rgb(12, 146, 158));
 }
 
 .btn-in {
-  background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), #2c90fc);
-  color: black;
-  border-radius: 20px;
+  background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), rgb(134, 231, 240), rgb(7, 191, 207),rgb(16, 92, 173));
 }
 
 .btn {
@@ -371,7 +422,7 @@ Landing Page
   mask: 
   linear-gradient(#000 0 0) content-box, 
   linear-gradient(#000 0 0);
-mask-composite: exclude; 
+  mask-composite: exclude; 
 }
 
 .page {
@@ -542,7 +593,7 @@ CALEDAR
 }
 
 .calendar {
-  border: 3px solid #333;
+  background: #000000;
 }
 
 thead {
@@ -608,3 +659,22 @@ VENDOR EVENTS SHOW
 .explode.exploding {
   animation: explode 0.3s forwards;
 }
+
+
+/*=================
+FEED
+=================*/
+
+.discover {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  align-items: center;
+  }
+
+  .card-img {
+  width: 200px;
+  height: 200px;
+  background-color: #FFFFFF;
+  }

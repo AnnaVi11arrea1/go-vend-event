@@ -53,6 +53,7 @@ class User < ApplicationRecord
 
   has_many :feed, through: :leaders, source: :events
   has_many :discover, through: :leaders, source: :followers # events of the leaders followers 
+  has_many :discovered, through: :discover, source: :events # events of the leaders followers followers
 
   has_one_attached :photo 
 
