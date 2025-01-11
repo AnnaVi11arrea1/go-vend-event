@@ -2,7 +2,7 @@
 #
 # Table name: vendor_events
 #
-#  id                 :bigint           not null, primary key
+#  id                 :integer          not null, primary key
 #  added              :boolean
 #  application_status :string
 #  expense            :float

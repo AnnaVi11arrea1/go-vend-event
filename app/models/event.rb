@@ -2,7 +2,7 @@
 #
 # Table name: events
 #
-#  id                 :bigint           not null, primary key
+#  id                 :integer          not null, primary key
 #  address            :string
 #  application_due_at :date
 #  application_link   :string

@@ -4,7 +4,7 @@
     task admin: :environment do
       if Rails.env.development?
         admin_user = User.new(
-          id: 1,
+          id: 11,
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -17,7 +17,7 @@
     
       if !Rails.env.development? && User.count == 0
         admin_user = User.new(
-          id: 1,  
+          id: 11,  
           email: 'stayfluorescent@gmail.com',
           first_name: 'Anna',
           last_name: 'Villarreal',
@@ -130,14 +130,14 @@
                 end
               end
             end
+            puts "There are now #{User.count} fake people in the database!"
+            puts "There are now #{Event.count} fake events in the database!"
+            puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
+            puts "#{FollowRequest.count} follow requests generated for admin #{admin_user.username}."
           end
           
         
 
-    puts "There are now #{User.count} fake people in the database!"
-    puts "There are now #{Event.count} fake events in the database!"
-    puts "There are now #{FollowRequest.count} fake people trying to follow other fake people in the database!"
-    puts "#{FollowRequest.count} follow requests generated for admin #{admin_user.username}."
   end
-end
+
   
