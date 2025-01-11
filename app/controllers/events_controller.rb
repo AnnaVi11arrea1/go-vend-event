@@ -36,6 +36,15 @@ class EventsController < ApplicationController
     @host = @event.host
   end
 
+
+  def geocode_address
+    result = Geocoder.search(params[:address])
+    if result.first
+      render json: {latitude: result.first.latitude, longitude: result.first.longitude}
+    else
+      render json: {latitude: nil, longitude: nil}
+    end
+  end
   # GET /events/new
   def new
     add_breadcrumb "New", new_event_path, title: "New Event"

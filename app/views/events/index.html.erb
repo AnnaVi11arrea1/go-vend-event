@@ -6,8 +6,9 @@
 </div>
 
 
-  <h4 class="p-3">Try searching for "art", "festivals", and use a date to refine search.</h4>
 
+<div class="intro">
+  <h4 class="p-3 iceberg-regular">Try searching for "art", "festivals", and use a date to refine search.</h4>
   <%= search_form_for @q do |f| %>
     <div class="search pt-3 d-flex justify-content-center mb-0">
       <div>
@@ -18,7 +19,6 @@
         <%= f.label :started_at_gteq, "On or after " %>
         <%= f.date_field :started_at_gteq %>
       </div>
-    </div>
       <div class="d-flex justify-content-center">
         <div class="search px-2">
           <%= f.submit %>
@@ -28,10 +28,12 @@
         </div>
       </div>
     <% end %>
+    </div>
+    </div>
 
   <% if @events.present? %>
     <% @events.each do |event| %>
-      <div class="ps-4 mb-2 darkcard intro">
+      <div class="ps-4 mb-2 darkcard intro animate__animated animate__flipInX">
         <div class="row">
           <div class="d-flex flex-column justify-content-center m-4"> 
             <p>Event Name:</p>
@@ -64,16 +66,15 @@
   </div>
   </div>
 
-
-
-
 <script>
     function initMap() {
+
     const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 41.87657590074282, lng: -87.61936464305545 },
       zoom: 5,
     });
 
+    // load preprocessed geocoded data from rails
     const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name], methods: [:photo_url]) %>;
 
     console.log(events); // Debugging: Check the events data
@@ -86,7 +87,7 @@
           map: map,
           title: event.name,
           icon: {
-          url: event.photo_url ? event.photo_url : null, // URL to the custom image
+          url: event.photo || '<%= asset_path("bulb.png") %>', // URL to the custom image
           scaledSize: new google.maps.Size(40, 40) // Size of the custom image 
         } 
 
@@ -94,6 +95,23 @@
       }
     });
   }
+
+  function fetchCoordinates(address, callback) {
+  fetch(`/geocode_address?address=${encodeURIComponent(address)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.latitude && data.longitude) {
+        callback({ lat: data.latitude, lng: data.longitude });
+      } else {
+        console.error('Geocoding failed:', data.error);
+      }
+    })
+    .catch(error => console.error('Error fetching geocoding data:', error));
+}
+
+
+
+
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS'] %>&callback=initMap"

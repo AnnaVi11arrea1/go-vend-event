@@ -5,9 +5,11 @@ Rails.start();
 import { Turbo } from "@hotwired/turbo-rails";
 import "chartkick";
 import "Chart.bundle";
-import jquery from "jquery";
-import "./controllers";
 
-window.$ = window.jQuery = jquery;
+import "./controllers";
+import * as $ from "jquery";
+window.$ = $; // Make jQuery globally accessible, if necessary.
+window.jQuery = $;
+
 
 Turbo.session.drive = false;
