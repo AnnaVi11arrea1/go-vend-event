@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   draw(:pwa)
   draw(:custom)
   root "users#index"
