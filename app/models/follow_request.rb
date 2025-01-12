@@ -2,12 +2,12 @@
 #
 # Table name: follow_requests
 #
-#  id           :bigint           not null, primary key
+#  id           :integer          not null, primary key
 #  status       :string           default("pending")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  recipient_id :bigint           not null
-#  sender_id    :bigint           not null
+#  recipient_id :integer          not null
+#  sender_id    :integer          not null
 #
 # Indexes
 #
@@ -16,8 +16,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (recipient_id => users.id)
-#  fk_rails_...  (sender_id => users.id)
+#  recipient_id  (recipient_id => users.id)
+#  sender_id     (sender_id => users.id)
 #
 class FollowRequest < ApplicationRecord
   belongs_to :recipient, class_name: 'User' 

@@ -1,16 +1,4 @@
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100vw;
-  min-height: 100vh;
-  background-image: url("booth.jpeg");
-  background-attachment: fixed;
-  background-size: cover;
-  opacity: 0.3; /* Adjust the opacity value as needed */
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-}
+
 
 body {
   display: flex;
@@ -142,17 +130,48 @@ FONT
   margin-bottom: 5vh;
 }
 
+
 .form-inputs {
   display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5vh;
+  align-items: baseline;
 }
 
-.form-actions {
+.input {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+  flex-direction: column;
+  border-top: 1px solid white;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
 
+label {
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+label > * {
+  font-family: "Iceberg", sans-serif;
+  font-weight: 600;
+}
+
+* > label {
+  font-family: "Iceberg", sans-serif;
+  font-weight: 400;
+}
+
+* > input {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid lime;
+  border-radius: 10px;
+  box-shadow: inset 10px 5px 5px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s;
 }
 
 .profile-pic {
@@ -174,7 +193,6 @@ FONT
 
 NAVBAR
 ===============*/
-
 
 /* Add a black background color to the top navigation */
 .topnav {
@@ -245,12 +263,10 @@ FOOTER
   margin-top: 10vh;
 }
 
-
 /*===================
 
 PRIVACY POLICY
 ===================*/
-
 
 [data-custom-class='title'], [data-custom-class='title'] * {
   font-family: Arial !important;
@@ -296,6 +312,7 @@ BUTTONS
 
 .event_btn {
   background-image: linear-gradient(rgb(94, 44, 194),rgb(214, 132, 252) ,rgb(163, 205, 250),rgb(118, 241, 252),rgb(109, 173, 241),rgb(148, 27, 204), rgb(51, 0, 154));
+
   }
 
 .event_btn > a {
@@ -336,13 +353,23 @@ BUTTONS
   background-image: linear-gradient( #2c90fc,rgb(51, 236, 253), rgb(134, 231, 240), rgb(7, 191, 207),rgb(16, 92, 173));
 }
 
-.btn {
-  width: 100px; /* Adjust the size as needed */
-  height: 100px; /* Make the button square */
+.sign_up_btn {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 2px; /* Add some spacing between buttons */
+  justify-self: center;
+  font-family: "Iceberg", sans-serif;
+  font-weight: 600;
+  width: 80%;
+  height: 10vw;
+  margin: 5%;
+  padding: 10px;
+  font-size: 5vw;
+  background-image: linear-gradient(rgb(26, 220, 238), rgb(122, 247, 207), rgb(183, 248, 228), rgb(29, 201, 146), rgb(12, 146, 158));
+}
+
+.sign_up_btn:hover { 
+  box-shadow: 0 0 10px white;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn-container {
@@ -423,6 +450,7 @@ Landing Page
   linear-gradient(#000 0 0) content-box, 
   linear-gradient(#000 0 0);
   mask-composite: exclude; 
+  z-index: -1;
 }
 
 .page {
@@ -554,8 +582,21 @@ CALEDAR
   font-size: 20px;
   padding: 5px;
   margin-bottom: 5px;
-  background-color: #000000;
+  background-color:rgb(0, 0, 0);
   color: #ffffff;
+}
+
+.event_started_at, .event_application_due_at {
+  background-color: transparent;
+}
+
+#event_started_at_1i, 
+#event_started_at_2i,
+#event_started_at_3i,
+#event_application_due_at_1i,
+#event_application_due_at_2i,
+#event_apllication_due_at_3i {
+  background-color: transparent;
 }
 
 .month-name {
@@ -635,7 +676,6 @@ thead {
   display: block;
 }
 
-
 /*=================
 
 VENDOR EVENTS SHOW
@@ -660,7 +700,6 @@ VENDOR EVENTS SHOW
   animation: explode 0.3s forwards;
 }
 
-
 /*=================
 FEED
 =================*/
@@ -673,7 +712,7 @@ FEED
   align-items: center;
   }
 
-  .card-img {
+.card-img {
   width: 200px;
   height: 200px;
   background-color: #FFFFFF;

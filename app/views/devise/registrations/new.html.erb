@@ -1,5 +1,6 @@
-<div class="mycard">
-<h2>Sign up</h2>
+<div class="darkcard intro">
+<h2 class="darktitle">Sign up</h2>
+<p>Fields with * are required.</p>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
@@ -31,15 +32,15 @@
                 required: true,
                 input_html: { autocomplete: "user-name" } %>    
     <%= f.input :first_name,
-                hint: "Add your first name",
+                hint: "optional",
                 required: false,
                 input_html: { autocomplete: "first-name" } %>            
     <%= f.input :last_name,
-                hint: "Add your last name",
+                hint: "optional",
                 required: false,
                 input_html: { autocomplete: "last-name" } %>   
     <%= f.input :social_media,
-                hint: "Add a link to a relevent social media page",
+                hint: "Add a link",
                 required: false,
                 input_html: { autocomplete: "social-media" } %>   
     <%= f.input :about,
@@ -47,13 +48,13 @@
                 required: false,
                 input_html: { autocomplete: "about" } %>   
     <%= f.input :photo, as: :file,
-                hint: "upload a photo",
+                hint: "",
                 required: false,
-                input_html: { autocomplete: "photo" } %>   
+                input_html: { autocomplete: "photo", class:"btn" } %>   
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "DO MAGIC!", class:"sign_up_btn" %>
   </div>
 <% end %>
 
