@@ -717,3 +717,19 @@ FEED
   height: 200px;
   background-color: #FFFFFF;
   }
+
+  /*=================
+  COMMENTS
+=================*/
+
+.comment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 75%) border-box;
+  overflow: hidden;
+  padding: 10px 5px;
+
+}
