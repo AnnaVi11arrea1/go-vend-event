@@ -1,4 +1,4 @@
-class ApplicationMailer < ActionMailer::Base
+class UserMailer < ApplicationMailer
   default from: "annavillarreal@govend.ing"
   layout "mailer"
 
