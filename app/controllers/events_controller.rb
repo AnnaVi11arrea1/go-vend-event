@@ -34,6 +34,12 @@ class EventsController < ApplicationController
     add_breadcrumb "Show", event_path(@event), title: @event.name
     @event = Event.find(params[:id])
     @host = @event.host
+    @comments = @event.comments.order(created_at: :desc)
+    @comment = Comment.new
+    @author = @comment.author
+    @event = Event.find(params[:id])
+    session[:event_id] = @event.id
+  
   end
 
 

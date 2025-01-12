@@ -50,27 +50,50 @@
           <strong>Application link:</strong>
           <%= link_to  @event.application_link, @event.application_link, target: "_blank" %></p>
 
-          <p class="card-text">
-            <strong>Tags:</strong>
-            <%= @event.tags %></p>
+        <p class="card-text">
+          <strong>Tags:</strong>
+          <%= @event.tags %></p>
 
-            <p class="card-text">
-              <strong>Address:</strong>
-              <%= @event.address %></p>
-          </div>
-        </div>
-
-        <div class="row justify-content-around pt-2">
-          <% if current_user.vendor_events.exists?(event_id: @event.id) %>
-            <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
-          <% end %>
-
-          <% if @host == current_user %>
-            <%= link_to "Edit this event", edit_event_path(@event), class:"btn-in" %>
-            <%= link_to "Destroy this event", @event, method: :delete, class:"btn-in"  %>
-          <% end %>
-        </div>
+        <p class="card-text">
+          <strong>Address:</strong>
+          <%= @event.address %></p>
       </div>
     </div>
+
+    <div class="row justify-content-around pt-2">
+      <% if current_user.vendor_events.exists?(event_id: @event.id) %>
+        <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)) %>
+      <% end %>
+
+      <% if @host == current_user %>
+        <%= link_to "Edit this event", edit_event_path(@event), class:"btn-in" %>
+        <%= link_to "Destroy this event", @event, method: :delete, class:"btn-in"  %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="darkcard">
+  <ul class="list-group list-group-flush">
+    <% @event.comments.each do |comment| %>
+      <li class="list-group-item topnav">
+        <div class="d-flex">
+          <div class="flex-shrink-0">
+            <%= image_tag "bulb.png", alt: "profile pic", width: "20px" %>
+          </div>
+          <div">
+            <h5 class="mt-0"><%= comment.author_id %></h5>
+            <p><%= comment.body %></p>
+          </div>
+          <% if current_user.id = comment.author_id %>
+            <%= link_to "Delete", comment, method: :delete, class:"btn-in" %>
+            <%= link_to "Edit", edit_comment_path(comment), class:"btn-in" %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <div class="card-body">
+    <%= render "comments/form", comment: @event.comments.build %>
   </div>
 </div>

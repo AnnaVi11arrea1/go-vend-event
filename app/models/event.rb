@@ -38,6 +38,8 @@ class Event < ApplicationRecord
   has_one_attached :photo
   mount_uploader :photo, PhotoUploader
 
+  has_many :comments, dependent: :destroy
+
   scope :past_week, -> {where(created_at: 1.week.ago...) }
   scope :past_month, -> {where(created_at: 1.month.ago...) }
   scope :past_three_months, -> {where(created_at: 3.months.ago...) }
