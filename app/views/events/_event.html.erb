@@ -76,20 +76,22 @@
 <div class="darkcard">
   <ul class="list-group list-group-flush">
     <% @event.comments.each do |comment| %>
-      <li class="list-group-item topnav">
-        <div class="d-flex">
-          <div class="flex-shrink-0">
-            <%= image_tag "bulb.png", alt: "profile pic", width: "20px" %>
+      <li class="comment-container">
+          <div class="d-flex">
+            <%= image_tag "bulb.png", alt: "profile pic", width: "50px", height: "50px" %>
           </div>
-          <div">
-            <h5 class="mt-0"><%= comment.author_id %></h5>
+            
+          <div class="col">
+            <h6 class="mt-0">Commentor <%= comment.author_id %> </h6>
             <p><%= comment.body %></p>
           </div>
+
           <% if current_user.id = comment.author_id %>
+          <div class="d-flex flex-row">
             <%= link_to "Delete", comment, method: :delete, class:"btn-in" %>
             <%= link_to "Edit", edit_comment_path(comment), class:"btn-in" %>
+          </div>
           <% end %>
-        </div>
       </li>
     <% end %>
   </ul>
