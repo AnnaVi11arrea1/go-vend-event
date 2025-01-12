@@ -1,29 +1,25 @@
+<div class="darkcard intro">
 <%= simple_form_for(@event) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs mycard">
-    <h1 class="title">Editing <%= @event.name %></h1>
-
-    <%= f.input :name %>
+  <h1 class="darktitle">Editing <%= @event.name %></h1>
+  <div class="form-inputs">
     <%= f.input :application_due_at, as: :date %>
     <%= f.input :started_at, as: :date %>
+    <%= f.input :name %>
     <%= f.input :information, as: :text %>
     <%= f.input :application_link, as: :string %>
     <%= f.input :tags %>
     <%= f.input :address, as: :string %>
-    <%= f.input :latitude, as: :string %>
-    <%= f.input :longitude, as: :string %>
-    <br>
+
     <%= f.input :photo, as: :file %>
-    <br>
     <div class="form-actions">
-      <%= f.button :submit %>
+      <%= f.button :submit, class:"event_btn" %>
     </div>
   <% end %>
-  <br>
-  <div>
+
+</div>
     <%= link_to "Show this event", @event %> |
     <%= link_to "Back to events", events_path %>
-  </div>
 </div>

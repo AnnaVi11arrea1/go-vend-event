@@ -1,8 +1,8 @@
 
-<div class="row container pt-5 mycard">
+<div class="row container pt-5 intro darkcard">
   <div class="col">
   </div>
-  <div class="col shadow-lg">
+  <div class="col shadow-lg" >
     <h2>Log in</h2>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
@@ -16,10 +16,12 @@
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>
       <div class="form-actions">
-        <%= f.button :submit, "Log in" %>
+        <%= f.button :submit, "Log in", class:"btn-pri" %>
       </div>
     <% end %>
-    <%= render "devise/shared/links" %>
+    <div>
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
   <div class="col">
   </div>

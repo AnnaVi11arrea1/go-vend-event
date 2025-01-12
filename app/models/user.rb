@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
+#  id                     :integer          not null, primary key
 #  about                  :text
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
