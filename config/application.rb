@@ -36,6 +36,9 @@ module RailsTemplate
     end
 
     config.action_controller.default_protect_from_forgery = false
+    config.action_mailer.default_url_options = { :host => "govend.ing" }
+    config.action_mailer.delivery_method = :letter_opener
+    config.action_mailer.perform_deliveries = true
 
     # Don't generate system test files.
     config.generators.system_tests = nil

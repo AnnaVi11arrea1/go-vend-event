@@ -1,7 +1,8 @@
-
+<div style="background-color:black; color:rgb(158, 255, 207); padding: 20px; margin: 10px; border-radius: 50px; box-shadow: 0 0 10px rgba(10, 50, 50, 0.5); border: .5px solid lime; line-height: 175%;">
 <p>Welcome <%= @email %>!</p>
 <p>Thank you for signing up to use govend!<p>
 
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+</div>
