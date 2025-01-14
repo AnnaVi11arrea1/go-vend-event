@@ -525,12 +525,11 @@ rotating cube
   justify-content: center; 
   align-items: center;
   margin: 0 auto;
-  margin-bottom: 60%;
 }
 
 .cube {
   width: 100%;
-  height: 100%;
+  height: 100px;
   position: relative;
   transform-style: preserve-3d;
   transiform-origin: center;
@@ -538,7 +537,8 @@ rotating cube
   margin-top: 130px; 
   display: flex;
   align-self: center;
-  padding-bottom: 100px;
+  padding-bottom: 400px;
+
 }
 
 .cube-side {
@@ -568,6 +568,10 @@ rotating cube
   100% {
     border-image: linear-gradient(45deg, lime, cyan, white) 1;
   }
+}
+
+.animate-border{
+  animation: animate-shadow 3s linear infinite;
 }
 
 
@@ -616,7 +620,9 @@ rotating cube
   transform: rotateX(-90deg) translateZ(9.3em);
 }
 
-
+.below-cube {
+  margin-top: 550px;
+}
 /* cube radio buttons */
 
 .radio-button {
