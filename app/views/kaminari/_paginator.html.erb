@@ -1,0 +1,24 @@
+<nav class="custom-pagination">
+  <%# Render the "Previous" link if there's a previous page %>
+  <% if @events.prev_page %>
+    <%= link_to "Previous", url_for(page: @events.prev_page), class: "prev-page" %>
+  <% else %>
+    <span class="prev-page disabled">Previous</span>
+  <% end %>
+
+  <%# Render each page link %>
+  <% paginator.each_page do |page| %>
+    <% if page.current? %>
+      <span class="current-page"><%= page %></span>
+    <% else %>
+      <%= link_to page, url_for(page: page), class: "page-link" %>
+    <% end %>
+  <% end %>
+
+  <%# Render the "Next" link if there's a next page %>
+  <% if @events.next_page %>
+    <%= link_to "Next", url_for(page: @events.next_page), class: "next-page" %>
+  <% else %>
+    <span class="next-page disabled">Next</span>
+  <% end %>
+</nav>
