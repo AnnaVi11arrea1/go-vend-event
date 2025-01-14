@@ -246,6 +246,59 @@ NAVBAR
     text-align: left;
   }
 }
+
+/*================
+
+PAGINATION
+===============*/
+
+.custom-pagination {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 10px 5px;
+  background-color: black;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 35%, #4bfd33 70%,yellow 85%, orange 100%) border-box;
+}
+
+.page-link, .current-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 50px;
+  height: 30px;
+  width: 100%;
+  padding: 5px 10px;
+  margin: 1px;
+  max-width: 50px;
+}
+
+.page-link {
+  background-image: radial-gradient(circle,rgb(245, 98, 243) 20%,rgb(81, 0, 255), rgb(0, 0, 0));
+  border: 1px solid #333;
+  color: black;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
+}
+
+.current-page {
+  background-color:rgb(0, 255, 72);
+  color: black;
+  border: 1px solid rgb(0, 89, 255);
+  box-shadow: 0px 0px 8px white;
+}
+
+.prev-page, .next-page{
+  margin: 2px 12px;
+  background-color:rgb(98, 0, 144);
+  padding: 2px 8px;
+  color: lime;
+  border-radius: 50%;
+}
+
 /*================
 
 FOOTER
@@ -389,7 +442,11 @@ ANIMATIONS
 =================*/
 
 .cat {
+  display: flex;
+  justify-self: center;
   animation: orbit 3s infinite linear;
+  max-width: 200px;
+  margin: 50px;
 }
 
 @keyframes orbit {
@@ -432,7 +489,7 @@ Landing Page
 
 .intro {
   position: relative;
-  padding: 30px;
+
 }
 
 .intro::before {
@@ -442,10 +499,8 @@ Landing Page
   inset: 0;
   display: flex;
   border-radius: 50px;
-  border: 5px solid transparent;
-  padding: 0px 0px 5px 3px;
-  margin: 10px;
-  background: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #4bfd33 50%,transparent 100%) border-box;
+  border: 50px solid transparent;
+  background: linear-gradient(to bottom right,transparent 20%, #b827fc 40%, #2c90fc 60%, transparent 80%) border-box;
   mask: 
   linear-gradient(#000 0 0) content-box, 
   linear-gradient(#000 0 0);
@@ -453,42 +508,92 @@ Landing Page
   z-index: -1;
 }
 
-.page {
-  background-color: #212441;
-  border-radius: 50px;
-}
-
 /*===========
 rotating cube
 ==============*/
 
-.cube-container {
-  width: 30vw;
-  height: 40vh;
+.cube-text {
+  font: "Iceberg", sans-serif;
+  color: white;
+}
+
+.cube-container { /* do not touch! you will distort the cube!!!!! */
+  width: 70%;
+  height: 200px;
   text-align: center;
-  perspective: 100em;    
+  perspective: 100em;
+  justify-content: center; 
+  align-items: center;
+  margin: 0 auto;
 }
 
 .cube {
   width: 100%;
-  height: 100%;
+  height: 100px;
   position: relative;
   transform-style: preserve-3d;
+  transiform-origin: center;
   transition-duration: 2s;
-  border: 5px solid transparent;  
-  margin-top:100px; 
-  display: block;
+  margin-top: 130px; 
+  display: flex;
+  align-self: center;
+  padding-bottom: 400px;
+
 }
 
 .cube-side {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 317px;
+  height: 317px;
   background-color: rgb(64, 0, 148);
-  border: 1px solid white;
   background-position: center;
   background-size: cover;
-  border: 4px solid lime;
+  border: 15px solid;
+  border-image: linear-gradient(45deg, lime, cyan, white) 1 ;
+  box-shadow: 0px 0px 20px 10px rgb(79, 255, 240);
+  border-radius: 10px;
+  animation: animate-border 3s linear infinite, animate-shadow 3s linear infinite;
+}
+
+@keyframes animate-border {
+  0% {
+    border-image: linear-gradient(45deg, lime, cyan, white) 1;
+  }
+  33% {
+    border-image: linear-gradient(45deg, cyan, white, lime) 1;
+  }
+  66% {
+    border-image: linear-gradient(45deg, white, lime, cyan) 1;
+  }
+  100% {
+    border-image: linear-gradient(45deg, lime, cyan, white) 1;
+  }
+}
+
+.animate-border{
+  animation: animate-shadow 3s linear infinite;
+}
+
+
+@keyframes animate-shadow {
+  0% {
+    box-shadow: 0px 0px 20px 15px rgb(247, 0, 255);
+  }
+  20% {
+    box-shadow: 0px 0px 25px 15px rgb(153, 0, 255);
+  }
+  40% {
+    box-shadow: 0px 0px 30px 20px rgb(82, 79, 255);
+  }
+  60% {
+    box-shadow: 0px 0px 30px 17px rgb(0, 255, 234);
+  }
+  80% {
+    box-shadow: 0px 0px 25px 15px rgb(79, 255, 117);
+  }
+  100% {
+  box-shadow: 0px 0px 20px 15px rgb(255, 214, 79);
+  }
 }
 
 .cube-side:nth-child(1){
@@ -508,23 +613,69 @@ rotating cube
 }
 
 .cube-side:nth-child(5){
-  transform: rotateX(90deg) translateZ(9.75em);
-  border-top: 8px solid lime;
-  border-bottom: 8px solid lime;
+  transform: rotateX(90deg) translateZ(10em);
 }
 
 .cube-side:nth-child(6){
   transform: rotateX(-90deg) translateZ(9.3em);
-  border-top: 8px solid lime;
-  border-bottom: 8px solid lime;
 }
 
-
+.below-cube {
+  margin-top: 550px;
+}
 /* cube radio buttons */
 
 .radio-button {
-  transform: translateX(-50px);
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  flex-direction: row;
+  cursor: pointer;
+  padding: 2px;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  background-color: white;
+  color: black;
+  position: relative;
+  border: 3px solid black;
+  border-radius: 50%;
 }
+
+.radio-button:checked::after {
+  content: "";
+  position: absolute;
+  appearance: visible;
+  animation: growingButton 1s infinite;
+  background: #FF00F0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  justify-self: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.61);
+}
+
+
+@keyframes growingButton {
+    0% { transform: scale(1);
+        background:rgb(255, 57, 242);
+        }
+    20% { transform: scale(1.1);
+        background:  rgb(189, 75, 255);
+        }
+    40% { transform: scale(1.2);
+        background:rgb(63, 146, 255);;
+        }
+    60% { transform: scale(1.1);
+    background:#00FFD8;
+        }
+    80% { transform: scale(1);
+    background:rgb(0, 255, 128);
+        }
+}
+
+
 
 .radio-button:checked ~ .cube{
   transition-duration: 3s;
