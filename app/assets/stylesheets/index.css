@@ -442,7 +442,11 @@ ANIMATIONS
 =================*/
 
 .cat {
+  display: flex;
+  justify-self: center;
   animation: orbit 3s infinite linear;
+  max-width: 200px;
+  margin: 50px;
 }
 
 @keyframes orbit {
@@ -515,11 +519,14 @@ Landing Page
 rotating cube
 ==============*/
 
-.cube-container {
-  width: 30vw;
-  height: 40vh;
+.cube-container { /* do not touch! you will distort the cube!!!!! */
+  width: 70%;
+  height: 200px;
   text-align: center;
-  perspective: 100em;    
+  perspective: 100em;
+  justify-content: center; 
+  align-items: center;
+  margin: 0 auto;
 }
 
 .cube {
@@ -527,10 +534,12 @@ rotating cube
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
+  transiform-origin: center;
   transition-duration: 2s;
   border: 5px solid transparent;  
   margin-top:100px; 
-  display: block;
+  display: flex;
+  align-self: center;
 }
 
 .cube-side {
@@ -576,8 +585,56 @@ rotating cube
 /* cube radio buttons */
 
 .radio-button {
-  transform: translateX(-50px);
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  flex-direction: row;
+  cursor: pointer;
+  padding: 2px;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  background-color: white;
+  color: black;
+  position: relative;
+  border: 3px solid black;
+  border-radius: 50%;
 }
+
+.radio-button:checked::after {
+  content: "";
+  position: absolute;
+  appearance: visible;
+  animation: growingButton 1s infinite;
+  background: #FF00F0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  justify-self: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.61);
+}
+
+
+@keyframes growingButton {
+    0% { transform: scale(1);
+        background:rgb(255, 57, 242);
+        }
+    20% { transform: scale(1.1);
+        background:  rgb(189, 75, 255);
+        }
+    40% { transform: scale(1.2);
+        background:rgb(63, 146, 255);;
+        }
+    60% { transform: scale(1.1);
+    background:#00FFD8;
+        }
+    80% { transform: scale(1);
+    background:rgb(0, 255, 128);
+        }
+}
+
+
 
 .radio-button:checked ~ .cube{
   transition-duration: 3s;
