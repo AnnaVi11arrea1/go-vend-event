@@ -1,27 +1,63 @@
 <div class=" intro">
   <div >
     <div class="p-3">
-      <div class="darkcard pl-4">
+      <div class="darkcard pl-4 animate-border">
         <%= image_tag "favicon.png", alt:"vendor booth", width:"40%", height:"40%", class:"cat" %>
-        <h3 class="iceberg-regular text-white"> Hello, Welcome to goVend! </h3>
+        <h3 class="iceberg-regular text-white d-flex justify-content-center"> Hello, Welcome to goVend! </h3>
         <br>
-        <p> It is a big task to find events to sell your products at, stay organized, keep track of the events, check payment status, worrying if you applied to them, and most embarassingly of all, double booking. Sound familier? Let's fix that.</p>
-        <p> Made with love by a vendor, for vendors and events.
+        <p style="font-size: 20px;"> It is a big task to find events to sell your products at, stay organized, keep track of the events, check payment status, worrying if you applied to them, and most embarassingly of all, double booking. Sound familier? Let's fix that.</p>
+        <p style="font-size: 20px;"> Made with love by a vendor, for vendors and events.
           Click the menu to get started.</p>
       </div>
     </div>
 
-    <div class="row darkcard">
+    <div class="cube-container">
+      <h2 class="iceberg-regular text-white d-flex justify-content-center">Log in to activate the event cube!</h2>
+      <input class="radio-button" type="radio" name="cube-gallery" checked/>
+      <input class="radio-button" type="radio" name="cube-gallery"/>
+      <input class="radio-button" type="radio" name="cube-gallery"/>
+      <input class="radio-button" type="radio" name="cube-gallery"/>
+      <input class="radio-button" type="radio" name="cube-gallery"/>
+      <input class="radio-button" type="radio" name="cube-gallery"/>
+      <div class="cube">
+        <% upcoming_events = Event.where('started_at > ?', Date.today).order(:started_at).limit(6) %>
+        <% upcoming_events.each do |event| %>
+          <div class="cube-side intro col">
+            <p><% if event.photo.present? %>
+                <%= image_tag url_for(event.photo), width: "75px", height: "75px", alt: "default photo" %>
+              <% else %>
+                <%= image_tag "bulb.png", width: "75px", height: "75px", alt: "default photo" %>
+              <% end %>
+            </p>
+            <div>
+              <h2>
+                <% if current_user.present? %>
+                  <%= link_to event.name, event_path(event.id) %>
+                <% else %>
+                  <%= event.name %>
+                <% end %>
+              </h2>
+              <h4 class="cube-text"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
+                  <p><small style="color: white;">Create an account to activate the cube links!</small></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="row darkcard below-cube">
       <div class="col pr-5">
-        <p><strong>VENDORS:</strong> Allow me to simplify your life. goVend is a platform that connects vendors to events. It allows you to search for events, apply to them, and keep track of the events you have attended. It also allows you to create events and search for vendors. </p>
-        <p><strong>EVENT COORDINATORS:</strong> Allow me to simplify your life as well. Here, you share your events and find vendors. Find new exciting vendors and the latest trends through ambiutious businesses to keep your patrons happy.  </p>
+        <h2 class="iceberg-regular text-white d-flex justify-content-center">About</h2>
+        <p style="font-size: 20px;"><strong>VENDORS:</strong> Allow me to simplify your life. goVend is a platform that connects vendors to events. It allows you to search for events, apply to them, and keep track of the events you have attended. It also allows you to create events and search for vendors. </p>
+        <p style="font-size: 20px;"><strong>EVENT COORDINATORS:</strong> Allow me to simplify your life as well. Here, you share your events and find vendors. Find new exciting vendors and the latest trends through ambiutious businesses to keep your patrons happy.  </p>
         <p>Setup in less than 5 muntes!</p>
-        <h3 class="d-flex justify-content-center">Fast Account Setup</h3>
+        <h3 class="iceberg-regular text-white d-flex justify-content-center">Fast Account Setup</h3>
         <ol>
           <li> Sign up and start finding events in less than 5 minutes.</li>
           <li> Create a profile to showcase your business.</li>
         </ol>
-        <h3 class="d-flex justify-content-center">So many perks</h3>
+        <h3 class="iceberg-regular text-white d-flex justify-content-center">So many perks</h3>
         <ul>
           <li> Easily host events you want to share with a simple setup.</li>
           <li> Once you have created an event, it becomes searchable to all users.</li>
@@ -33,31 +69,6 @@
       </div>
     </div>
 
-
-      <div class="cube-container">
-        <input class="radio-button" type="radio" name="cube-gallery" checked/>
-        <input class="radio-button" type="radio" name="cube-gallery"/>
-        <input class="radio-button" type="radio" name="cube-gallery"/>
-        <input class="radio-button" type="radio" name="cube-gallery"/>
-        <input class="radio-button" type="radio" name="cube-gallery"/>
-        <input class="radio-button" type="radio" name="cube-gallery"/>
-        <div class="cube">
-          <% upcoming_events = Event.where('started_at > ?', Date.today).order(:started_at).limit(6) %>
-          <% upcoming_events.each do |event| %>
-            <div class="cube-side intro col">
-              <p><% if event.photo.present? %>
-                  <%= image_tag url_for(event.photo), width: "75px", height: "75px", alt: "default photo" %>
-                <% else %>
-                  <%= image_tag "bulb.png", width: "75px", height: "75px", alt: "default photo" %>
-                <% end %>
-              </p>
-              <div>
-                <h2><%= link_to event.name, event_path(event.id) %></h2>
-                <h4 class="cube-text"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
     
+
   </div>
