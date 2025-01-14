@@ -51,8 +51,8 @@
                   <%= image_tag "bulb.png", width: "75px", height: "75px", alt: "default photo" %>
                 <% end %>
               </p>
-              <p><%= link_to event.name, event_path(event.id) %></p>
-              <p><%= event.started_at.strftime("%A, %B %d, %Y") %></p>
+              <h2><%= link_to event.name, event_path(event.id) %></h2>
+              <h4><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
             </div>
           <% end %>
         </div>
