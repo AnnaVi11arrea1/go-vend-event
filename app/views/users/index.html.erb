@@ -1,4 +1,4 @@
-<div class="row-5 intro page">
+<div class=" intro">
   <div >
     <div class="p-3">
       <div class="darkcard pl-4">
@@ -51,8 +51,10 @@
                   <%= image_tag "bulb.png", width: "75px", height: "75px", alt: "default photo" %>
                 <% end %>
               </p>
-              <h2><%= link_to event.name, event_path(event.id) %></h2>
-              <h4><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
+              <div>
+                <h2><%= link_to event.name, event_path(event.id) %></h2>
+                <h4 class="cube-text"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
+              </div>
             </div>
           <% end %>
         </div>

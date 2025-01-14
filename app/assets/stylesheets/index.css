@@ -489,7 +489,7 @@ Landing Page
 
 .intro {
   position: relative;
-  padding: 30px;
+
 }
 
 .intro::before {
@@ -499,9 +499,7 @@ Landing Page
   inset: 0;
   display: flex;
   border-radius: 50px;
-  border: 5px solid transparent;
-  padding: 0px 0px 5px 3px;
-  margin: 10px;
+  border: 50px solid transparent;
   background: linear-gradient(to bottom right,transparent 20%, #b827fc 40%, #2c90fc 60%, transparent 80%) border-box;
   mask: 
   linear-gradient(#000 0 0) content-box, 
@@ -510,14 +508,14 @@ Landing Page
   z-index: -1;
 }
 
-.page {
-  background-color: #212441;
-  border-radius: 50px;
-}
-
 /*===========
 rotating cube
 ==============*/
+
+.cube-text {
+  font: "Iceberg", sans-serif;
+  color: white;
+}
 
 .cube-container { /* do not touch! you will distort the cube!!!!! */
   width: 70%;
@@ -527,6 +525,7 @@ rotating cube
   justify-content: center; 
   align-items: center;
   margin: 0 auto;
+  margin-bottom: 60%;
 }
 
 .cube {
@@ -536,9 +535,10 @@ rotating cube
   transform-style: preserve-3d;
   transiform-origin: center;
   transition-duration: 2s;
-  margin-top:100px; 
+  margin-top: 130px; 
   display: flex;
   align-self: center;
+  padding-bottom: 100px;
 }
 
 .cube-side {
