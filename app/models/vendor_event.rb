@@ -4,6 +4,7 @@
 #
 #  id                 :integer          not null, primary key
 #  added              :boolean
+#  address            :string
 #  application_status :string
 #  expense            :float
 #  paid               :boolean
@@ -26,8 +27,13 @@ class VendorEvent < ApplicationRecord
   delegate :name, :latitude, :longitude, to: :event, prefix: true
 
   has_one_attached :photo
+  has_one :address, :through => :address, :source => :events
+  has_many :comments, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
+  geocoded_by :address
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+
   reverse_geocoded_by :event_latitude, :event_longitude, address: :location do |obj, results|
       if geo = results.first
         obj.state    = geo.state
@@ -43,6 +49,7 @@ class VendorEvent < ApplicationRecord
     end
     
   after_validation :reverse_geocode
+
   attr_accessor :state
 
   has_one :started_at,  :through => :started_at, :source => :events
