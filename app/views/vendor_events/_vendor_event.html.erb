@@ -4,9 +4,9 @@
     <div class="col-3 d-flex justify-content-center line">
       <p class="px-2">
         <% if vendor_event.photo.present? %>
-          <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+          <%= image_tag vendor_event.event.photo.url, alt:"event photo", width:"150px", class:"profile-pic" %>
         <% else %>
-        <%= image_tag 'favicon.png', alt:"profile pic", width:"200px", class:"rounded-circle" %>
+        <%= image_tag 'favicon.png', alt:"profile pic", width:"150px", class:"rounded-circle" %>
         <% end %>
       </p>
     </div>
