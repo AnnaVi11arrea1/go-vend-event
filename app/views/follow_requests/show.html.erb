@@ -18,9 +18,10 @@
     </div>
 
       <div>
-        <%= link_to "Edit this follow request", edit_follow_request_path(@follow_request), class:"btn-in" %> 
         <%= link_to "Back to follow requests", follow_requests_path, class:"btn-pri" %>
 
-        <%= button_to "Delete follow request", @follow_request, method: :delete, class:"btn-dang" %>
+        <%= button_to "Accept", accept_follow_request_path(@follow_request), method: :patch, class:"btn-in" %>
+        <%= button_to "Reject", reject_follow_request_path(@follow_request), method: :patch, class:"btn-dang" %>
+
       </div>
     </div>

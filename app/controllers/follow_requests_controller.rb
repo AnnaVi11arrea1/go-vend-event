@@ -1,6 +1,7 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ new create update ]
 
   # GET /follow_requests or /follow_requests.json
   def index
@@ -11,6 +12,7 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/1 or /follow_requests/1.json
   def show
+    
   end
 
   # GET /follow_requests/new
@@ -94,5 +96,9 @@ class FollowRequestsController < ApplicationController
       else
         { recipient_id: params[:user_id], sender_id: current_user.id }
       end
+    end
+
+    def set_user
+      @user = User.where(user_id: params[:user_id])
     end
 end
