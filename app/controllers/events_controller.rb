@@ -8,14 +8,14 @@ class EventsController < ApplicationController
   def index
     add_breadcrumb "Events", events_path, title: "Events"
     @vendor_event = VendorEvent.new
-    @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(5)
+    @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(6)
     @q = Event.ransack(params[:q])
       if @q.started_at
-        @events = @q.result.order(started_at: :asc).page(params[:page]).per(5)
+        @events = @q.result.order(started_at: :asc).page(params[:page]).per(6)
       else if @q.name_cont
-        @events = @q.result.order(name: :asc).page(params[:page]).per(5)
+        @events = @q.result.order(name: :asc).page(params[:page]).per(6)
       else
-        @events = @q.result.page(params[:page]).per(5)
+        @events = @q.result.page(params[:page]).per(6)
       end
     end
     respond_to do |format|
@@ -126,7 +126,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :information, :application_link, :tags, :address, :latitude, :longitude, :started_at)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :latitude, :longitude)
   end
 
   def ensure_user_is_authorized

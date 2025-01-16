@@ -1,5 +1,5 @@
-<%= form_with url: user_follow_requests_path(user_id: @user.id), method: :post do |form| %>
-  <%= form.hidden_field :recipient_id, value: @user&.id %>
+<%= form_with url: user_follow_request_path(follow_request.id), method: :post do |form| %>
+  <%= form.hidden_field :recipient_id, value: @user_id %>
   <%= form.hidden_field :sender_id, value: current_user.id %>
   <div class="actions">
     <%= form.submit "Follow", class: "btn btn-outline-secondary btn-block" %>

@@ -1,43 +1,24 @@
-
 <div class="darkcard pt-3 intro border border-dark">
-  <div class="row">
+  <div class="row d-flex justify-content-around">
     <div class="col-3 d-flex justify-content-center line">
       <p class="px-2">
         <% if vendor_event.photo.present? %>
-          <%= image_tag vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+          <%= image_tag vendor_event.event.photo.url, alt:"event photo", width:"150px", class:"profile-pic" %>
         <% else %>
-        <%= image_tag 'favicon.png', alt:"profile pic", width:"200px", class:"rounded-circle" %>
+        <%= image_tag 'favicon.png', alt:"profile pic", width:"150px", class:"rounded-circle" %>
         <% end %>
       </p>
     </div>
-    <div class="col-3 align-self-center">
-      <p>
-        <strong>Event:</strong>
-        <%= vendor_event.event.name %>
-      </p>
-    </div>
-    <div class="col-3 line">
-      <strong>Application status:</strong>
-      <% if vendor_event.application_status? %>
-        <p><%= vendor_event.application_status %></p>
-      <% else %>
-        <p>Not applied</p>
-      <% end %>
-      <strong>Paid:</strong>
-      <% if vendor_event.paid? %>
-        <p>PAID</p>
-      <% else %>
-        <p>DUE</p>
-      <% end %>
-      <p><strong> Starts on:</strong>
-      <%= vendor_event.event.started_at.strftime("%B %d, %Y") %>
-      </p>
+    <div class="col-3">
+      <p>Event:</p>
+      <h4><%= vendor_event.event.name %></h4>
+      <p>Starts on:</p>
+      <h4><%= vendor_event.event.started_at.strftime("%B %d, %Y") %></h4>
     </div>
     <div class="col-3">
       <div class="btn-container">
         <%= link_to "See Main", event_path(vendor_event.event), class:"event_btn" %>
         <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
-        <%= link_to "Edit Status", edit_vendor_event_path(vendor_event), class:"btn-pri" %>
       </div>
     </div>
   </div>
