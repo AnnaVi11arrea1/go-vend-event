@@ -1,3 +1,4 @@
+<div>
 <table>
   <thead>
     <tr>
@@ -9,21 +10,22 @@
   </thead>
 
   <tbody>
-    <% if @follow_requests.present? %>
-    <% @follow_requests.each do |follow_request| %>
-      <tr>
-        <td><%= follow_request.recipient_id %></td>
-        <td><%= follow_request.sender_id %></td>
-        <td><%= follow_request.status %></td>
-        <td><%= link_to 'Show', follow_request %></td>
-        <td><%= link_to 'Edit', edit_follow_request_path(follow_request) %></td>
-        <td><%= link_to 'Destroy', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <% if @sent_follow_requests.any? %>
+      <% @sent_follow_requests.each do |follow_request| %>
+        <tr>
+          <td><%= follow_request.recipient.username %></td>
+          <td><%= follow_request.sender.username %></td>
+          <td><%= follow_request.status %></td>
+          <td><%= link_to 'Show', follow_request %></td>
+          <td><%= link_to 'Edit', edit_follow_request_path(follow_request) %></td>
+          <td><%= link_to 'Destroy', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% else %>
     <tr>
       <td colspan="6">No follow requests available.</td>
     </tr>
+<% end %>
   </tbody>
 </table>
-<% end %>
+</div>

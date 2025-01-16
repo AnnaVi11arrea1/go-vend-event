@@ -43,6 +43,7 @@ class User < ApplicationRecord
   has_many :vendor_events
   has_many :hosted_events, class_name: 'Event', foreign_key: 'host_id'
   has_many :events, through: :vendor_events
+  has_many :follow_requests, class_name: 'FollowRequest', foreign_key: 'sender_id'
   has_many :sent_follow_requests, foreign_key: :sender_id, class_name: 'FollowRequest'
   has_many :received_follow_requests, foreign_key: :recipient_id, class_name: 'FollowRequest'
   has_many :accepted_sent_follow_requests, -> { accepted }, foreign_key: :sender_id, class_name: "FollowRequest"

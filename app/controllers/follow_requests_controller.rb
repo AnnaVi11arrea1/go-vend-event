@@ -1,12 +1,12 @@
 class FollowRequestsController < ApplicationController
-  before_action :set_follow_request, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: %i[show edit update destroy ]
+  before_action :set_follow_request, only: %i[ edit update destroy ]
+  before_action :authenticate_user!, only: %i[ show edit update destroy ]
 
   # GET /follow_requests or /follow_requests.json
   def index
-    @follow_requests = FollowRequest.all.where(recipient_id: current_user.id)
-    @pending_requests = current_user.received_follow_requests.pending
-    @accepted_requests = current_user.received_follow_requests.accepted
+    @received_follow_requests = FollowRequest.all.where(recipient_id: current_user.id)
+    @sent_follow_requests = FollowRequest.all.where(sender_id: current_user.id)
+  
   end
 
   # GET /follow_requests/1 or /follow_requests/1.json
@@ -81,16 +81,17 @@ class FollowRequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_follow_request
-      @follow_request = FollowRequest.find_by(id: params[:id])
-      unless @follow_request
-        redirect_to follow_requests_path, alert: "Follow request not found."
+      @follow_request = FollowRequest.all
+      if @follow_request.nil?
+        redirect_to root_url, alert: "Follow request not found."
+        return
       end
     end
 
     # Only allow a list of trusted parameters through.
     def follow_request_params
       if params[:follow_request].present?
-        params.require(:follow_request).permit(:recipient_id, :sender_id)
+        params.require(:follow_request).permit(:recipient_id, :sender_id, :status)
       else
         { recipient_id: params[:user_id], sender_id: current_user.id }
       end

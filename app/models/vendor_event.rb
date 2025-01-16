@@ -6,6 +6,7 @@
 #  added              :boolean
 #  address            :string
 #  application_status :string
+#  description        :text
 #  expense            :float
 #  paid               :boolean
 #  photo              :string
@@ -53,6 +54,8 @@ class VendorEvent < ApplicationRecord
   attr_accessor :state
 
   has_one :started_at,  :through => :started_at, :source => :events
+  has_one :ends_at,     :through => :ends_at, :source => :events
+  has_one :description, :through => :information, :source => :events
 
   before_save :set_starts_at_from_event
   def self.ransackable_associations(auth_object = nil)
@@ -73,6 +76,11 @@ class VendorEvent < ApplicationRecord
 
   def combined_location
     "#{event_latitude},#{event_longitude}"
+  end
+
+  def duration
+    return nil unless started_at && ends_at
+    ends_at - started_at
   end
 
 
