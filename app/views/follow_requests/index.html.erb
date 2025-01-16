@@ -1,29 +1,72 @@
-<table>
-  <thead>
-    <tr>
-      <th>Recipient</th>
-      <th>Sender</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @follow_requests.present? %>
-    <% @follow_requests.each do |follow_request| %>
+<div>
+  <table>
+    <thead>
       <tr>
-        <td><%= follow_request.recipient_id %></td>
-        <td><%= follow_request.sender_id %></td>
-        <td><%= follow_request.status %></td>
-        <td><%= link_to 'Show', follow_request %></td>
-        <td><%= link_to 'Edit', edit_follow_request_path(follow_request) %></td>
-        <td><%= link_to 'Destroy', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
+        <th class="follows">Recipient</th>
+        <th class="follows">Sender</th>
+        <th class="follows">Status</th>
+        <th colspan="3" class="follows"></th>
       </tr>
-    <% end %>
-    <% else %>
-    <tr>
-      <td colspan="6">No follow requests available.</td>
-    </tr>
-  </tbody>
-</table>
-<% end %>
+    </thead>
+
+    <tbody>
+      <% if @sent_follow_requests.any? %>
+      <tr colspan="6"><span class="follows-title">Sent Follow Requests<span></tr>
+        <% @sent_follow_requests.each do |follow_request| %>
+          <tr>
+            <td>
+              <% if follow_request.recipient.photo.url.present? %>
+              <%= image_tag follow_request.recipient.photo.url, style:"width: 25px; height: 25px;" %>
+              <% else %>
+              <%= image_tag "favicon.png", style:"width: 25px; height: 25px;" %>
+              <% end %>
+              <%= follow_request.recipient.username %></td>
+            <td>
+              <% if follow_request.sender.photo.url.present? %>
+              <%= image_tag follow_request.sender.photo.url, style:"width: 25px; height: 25px;" %><%= follow_request.sender.username %>
+              <% else %>
+              <%= image_tag "favicon.png", style:"width: 25px; height: 25px;" %><%= follow_request.sender.username %>
+              <% end %>
+              </td>
+            <td><%= follow_request.status %></td>
+            <td><%= link_to 'Show', follow_request %></td>
+            <td><%= link_to 'Delete', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+      <% else %>
+        <tr>
+          <td colspan="6">You have not sent a follow request yet.</td>
+        </tr>
+      <% end %>
+
+      <% if @received_follow_requests.any? %>
+      <tr colspan="6"><span class="follows-title">Received Follow Requests</span></tr>
+        <% @received_follow_requests.each do |follow_request| %>
+          <tr>
+            <td>
+              <% if follow_request.recipient.photo.url.present? %>
+              <%= image_tag follow_request.recipient.photo.url, style:"width: 25px; height: 25px;" %>
+              <% else %>
+              <%= image_tag "favicon.png", style:"width: 25px; height: 25px;" %>
+              <% end %>
+              <%= follow_request.recipient.username %></td>
+            <td>
+              <% if follow_request.sender.photo.url.present? %>
+              <%= image_tag follow_request.sender.photo.url, style:"width: 25px; height: 25px;" %>
+              <% else %>
+              <%= image_tag "favicon.png", style:"width: 25px; height: 25px;" %>
+              <% end %>
+              <%= follow_request.sender.username %></td>
+            <td><%= follow_request.status %></td>
+            <td><%= link_to 'Show', follow_request %></td>
+            <td><%= link_to 'Delete', follow_request, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+      <% else %>
+        <tr>
+          <td colspan="6">No follow requests from other users.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

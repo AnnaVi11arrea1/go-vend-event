@@ -4,7 +4,9 @@
 #
 #  id                 :integer          not null, primary key
 #  added              :boolean
+#  address            :string
 #  application_status :string
+#  description        :text
 #  expense            :float
 #  paid               :boolean
 #  photo              :string
@@ -26,8 +28,13 @@ class VendorEvent < ApplicationRecord
   delegate :name, :latitude, :longitude, to: :event, prefix: true
 
   has_one_attached :photo
+  has_one :address, :through => :address, :source => :events
+  has_many :comments, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
+  geocoded_by :address
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+
   reverse_geocoded_by :event_latitude, :event_longitude, address: :location do |obj, results|
       if geo = results.first
         obj.state    = geo.state
@@ -43,9 +50,12 @@ class VendorEvent < ApplicationRecord
     end
     
   after_validation :reverse_geocode
+
   attr_accessor :state
 
   has_one :started_at,  :through => :started_at, :source => :events
+  has_one :ends_at,     :through => :ends_at, :source => :events
+  has_one :description, :through => :information, :source => :events
 
   before_save :set_starts_at_from_event
   def self.ransackable_associations(auth_object = nil)
@@ -66,6 +76,11 @@ class VendorEvent < ApplicationRecord
 
   def combined_location
     "#{event_latitude},#{event_longitude}"
+  end
+
+  def duration
+    return nil unless started_at && ends_at
+    ends_at - started_at
   end
 
 

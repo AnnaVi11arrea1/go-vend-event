@@ -68,7 +68,7 @@ class VendorEventsController < ApplicationController
   end
 
   def vendor_event_params
-    params.require(:vendor_event).permit(:name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
+    params.require(:vendor_event).permit(:address, :name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
   end
 
   def set_breadcrumbs

@@ -1,0 +1,21 @@
+<h4 class="d-flex justify-content-center comment-container">Your Feed: Discovering events through people you follow.</h4>
+<div class="feed">
+  <% current_user.feed.each do |event| %>
+    <div class="feed-box animate__animated animate__flipInX">
+      <% if event.photo.present? %>
+        <%= image_tag event.photo, class: "card-img" %>
+      <% else %>
+        <%= image_tag "bulb.png", class: "card-img" %>
+      <% end %>
+      <div class="card-body">
+        <p>Event: </p>
+        <h4 class="card-title"> <%= event.name %></h4>
+        <h5 class="card-title">Shared By: <%= event.host.username %></h5>
+        <p class="card-text">Starts: <%= event.started_at.strftime("%B %d, %Y") %></p>
+        <%= link_to "View this event", event_path(event), class:"btn-pri" %>
+        <hr>
+        <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words(event.created_at) %> ago</small></p>
+      </div>
+    </div>
+  <% end %>
+</div>
