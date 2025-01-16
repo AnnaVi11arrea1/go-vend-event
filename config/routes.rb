@@ -6,7 +6,13 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :follow_requests
+  resources :follow_requests do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
+
   resources :events 
   resources :vendor_events do
     get "/calendar" => "calendar#show"
