@@ -1,5 +1,5 @@
 class FollowRequestsController < ApplicationController
-  before_action :set_follow_request, only: %i[ edit update destroy ]
+  before_action :set_follow_request, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show edit update destroy ]
 
   # GET /follow_requests or /follow_requests.json
@@ -34,7 +34,6 @@ class FollowRequestsController < ApplicationController
 
         format.html { redirect_to user_follow_requests_path(@follow_request.recipient.id), notice: "Follow request was successfully created." }
         format.json { render :show, status: :created, location: @follow_request }
-
     end
   end
 
@@ -81,7 +80,7 @@ class FollowRequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_follow_request
-      @follow_request = FollowRequest.all
+      @follow_request = FollowRequest.find(params[:id])
       if @follow_request.nil?
         redirect_to root_url, alert: "Follow request not found."
         return
