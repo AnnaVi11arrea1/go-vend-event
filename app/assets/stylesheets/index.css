@@ -707,6 +707,30 @@ rotating cube
   transform: rotateX(75deg) rotateY(0deg);
 }
 
+/*=================
+
+EVENT PAGE
+=================*/
+
+.funcard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 300px;
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 30px;
+  background: linear-gradient(to bottom,rgb(157, 15, 223) 30%,rgb(11, 113, 221) 100%) border-box;
+  border: 1px solid transparent;
+}
+  
+.funcard:hover{
+  animation: animate-shadow 3s linear infinite;
+}
+
 
 /*=================
 
