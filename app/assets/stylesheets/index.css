@@ -853,15 +853,37 @@ VENDOR EVENTS SHOW
 }
 
 /*=================
+
 FEED
 =================*/
 
-.discover {
+.feed {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   margin-bottom: 10px;
   align-items: center;
+  width: 100%;
+}
+
+.feed-box{
+  displays: flex;
+  flex-direction: column;
+  align-content: center;
+  color: white;
+  width: 350px;
+  height: 575px;
+  background-color:rgb(41, 0, 80);
+  justify-items: center;
+  margin-top: 20px;
+  border-radius: 20px;
+  }
+
+  .feed-box:hover{
+    animation: animate-shadow 3s linear infinite;
+    border: 2px solid lime;
+    scale: 1.05;
+    
   }
 
 .card-img {

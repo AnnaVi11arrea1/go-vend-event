@@ -6,6 +6,7 @@
 #  address            :string
 #  application_due_at :date
 #  application_link   :string
+#  ends_at            :date
 #  information        :string
 #  latitude           :float
 #  longitude          :float
@@ -78,6 +79,11 @@ class Event < ApplicationRecord
     else
       all
     end
+  end
+
+  def duration
+    return nil unless started_at && ends_at
+    ends_at - started_at
   end
 
   private

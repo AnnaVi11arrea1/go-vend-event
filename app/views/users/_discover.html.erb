@@ -1,0 +1,20 @@
+<h4 class="d-flex justify-content-center comment-container">Discover: Discovering new events from people you aren't currently following!</h4>
+<div class="feed">
+<% current_user.discovered.each do |newevent| %>
+  <div class="feed-box animate__animated animate__flipInX">
+    <% if newevent.photo.present? %>
+      <%= image_tag newevent.photo, class: "card-img" %>
+    <% else %>
+      <%= image_tag "bulb.png", class: "card-img"%>
+    <% end %>
+    <div class="card-body">
+      <p>Event: </p>
+      <h3 class="card-title"> <%= newevent.name %></h3>
+      <h4 class="card-title">Shared By: <%= newevent.host.username %></h4>
+      <p class="card-text">Begins: <%= newevent.started_at.strftime("%B %d, %y") %></p>
+      <%= link_to "View this event", event_path(newevent), class:"btn-pri" %>
+      <hr>
+      <p class="card-text"><small class="text-muted">Created <%= time_ago_in_words(newevent.created_at) %> ago</small></p>
+    </div>
+  </div>
+<% end %>

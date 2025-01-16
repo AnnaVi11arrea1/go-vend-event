@@ -41,6 +41,11 @@
         <p class="card-text">
           <strong>Event Begins:</strong>
           <%= @event.started_at.strftime("%B %d, %Y") %></p>
+        <% if @event.ends_at.present? %>
+        <p class="card-text">
+          <strong>Event Ends:</strong>
+          <%= @event.ends_at.strftime("%B %d, %Y") %></p>
+        <% end %>
 
         <p class="card-text">
           <strong>Information:</strong>

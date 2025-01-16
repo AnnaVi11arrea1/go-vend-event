@@ -13,8 +13,28 @@
         <strong>Event:</strong>
         <%= @vendor_event.event.name %>
       </p>
+      <p>
         <strong>Location:</strong>
         <%= @vendor_event.event.address %>
+      </p>
+      <p>
+        <strong>Description:</strong>
+        <%= @vendor_event.event.information %>
+      </p>
+      <p>
+        <strong>Starts on:</strong>
+        <%= @vendor_event.event.started_at.strftime("%B %d, %Y") %>
+      </p>
+      <% if @vendor_event.event.ends_at.present? %>
+      <p>
+        <strong>Goes until:</strong>
+        <%= @vendor_event.event.ends_at.strftime("%B %d, %Y") %>
+      </p>
+      <p>
+        <strong>Duration:</strong>
+        <%= @vendor_event.event.duration %> days
+      </p>
+      <% end %>
     </div>
     <div class="col-3">
       <strong>Application status:</strong>
