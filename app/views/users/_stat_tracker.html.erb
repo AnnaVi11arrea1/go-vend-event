@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="d-flex">Stat Tracker</h2>
+      <h4 class="d-flex", style="justify-self:center;">Stat Tracker</h4>
     </div>
   </div>
 
@@ -10,17 +10,17 @@
   <table>
     <thead>
       <tr>
-        <th>Event Name</th>
-        <th>Expense</th>
-        <th>Sales</th>
-        <th>Profit</th>
-        <th>Return</th>
+        <th style="color:rgb(160, 255, 255); text-align:center;">Event Name</th>
+        <th style="color:rgb(160, 255, 255); text-align:center;">Expense</th>
+        <th style="color:rgb(160, 255, 255); text-align:center;">Sales</th>
+        <th style="color:rgb(160, 255, 255); text-align:center;">Profit</th>
+        <th style="color:rgb(160, 255, 255); text-align:center;">Return</th>
       </tr>
     </thead>
     <tbody>
       <% @user.vendor_events.each do |event| %>
         <tr>
-          <td><%= event.event.name %></td>
+          <td style="color:black;"><%= event.event.name %></td>
           <td>
             <%= number_field_tag "vendor_events[#{event.id}][expense]", event.expense, class: "form-control", id: "expense_#{event.id}" %>
           </td>
@@ -37,6 +37,6 @@
       <% end %>
     </tbody>
   </table>
-  <%= submit_tag 'Update Expenses and Sales', class: 'btn-pri' %>
+  <%= submit_tag 'Update Expenses and Sales', class:'btn', style:"margin-top:10px; align-content:right;" %>
 <% end %>
 </div>
