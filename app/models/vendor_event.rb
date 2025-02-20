@@ -72,9 +72,6 @@ class VendorEvent < ApplicationRecord
     end
   end
 
-  def combined_location
-    "#{event_latitude},#{event_longitude}"
-  end
 
   def duration
     return nil unless started_at && ends_at
