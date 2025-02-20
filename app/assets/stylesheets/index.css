@@ -87,9 +87,8 @@ FONT
 .darkcard {
   background-color: #150435;
   color:rgb(149, 216, 224);
-  padding: 20px;
-  margin: 10px;
-  border-radius: 20px;
+  padding: 10px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
   border: .5px solid rgb(0, 140, 255);
   line-height: 125%;
@@ -144,11 +143,11 @@ FONT
 
 .input {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin: 10px;
+  padding: 5px;
+
 }
 
 label {
@@ -309,12 +308,12 @@ FOOTER
   display: inline-block;
   background-color: black;
   color: #fff;
-  padding: 40px;
+  padding: 30px;
   text-align: center;
   justify-content: space-between;
   width: 100%;
   bottom: 0;
-  margin-top: 10vh;
+  margin: 0 auto;
 }
 
 /*===================
@@ -920,7 +919,7 @@ FEED
   flex-direction: row;
   justify-content: space-between;
   border: 1px solid #ccc;
-  border-radius: 30px;
+  border-radius: 10px;
   background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 75%) border-box;
   overflow: hidden;
   padding: 10px 5px;
@@ -963,4 +962,3 @@ td {
   border: 1px solid transparent;
   animation: animate-shadow 3s linear infinite;
 }
-
