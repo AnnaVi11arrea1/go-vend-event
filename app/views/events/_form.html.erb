@@ -5,9 +5,9 @@
 
   <h1 class="darktitle">Editing <%= @event.name %></h1>
   <div class="form-inputs">
-    <%= f.input :application_due_at, as: :date %>
-    <%= f.input :ends_at, as: :date %>
-    <%= f.input :started_at, as: :date %>
+    <%= f.input :started_at, as: :date, label: "Starts on: " %>
+    <%= f.input :ends_at, as: :date, label: "Ends on: " %>
+    <%= f.input :application_due_at, as: :date, label: "Application due: " %>
     <%= f.input :name %>
     <%= f.input :information, as: :text %>
     <%= f.input :application_link, as: :string %>

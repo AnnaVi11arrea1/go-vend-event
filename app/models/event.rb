@@ -8,8 +8,6 @@
 #  application_link   :string
 #  ends_at            :date
 #  information        :string
-#  latitude           :float
-#  longitude          :float
 #  name               :string
 #  photo              :string
 #  started_at         :date
