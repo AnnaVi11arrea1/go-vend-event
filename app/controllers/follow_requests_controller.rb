@@ -17,7 +17,7 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/new
   def new
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     @follow_request = FollowRequest.new
   end
 

@@ -24,17 +24,17 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
     
-    <h2>Change Password</h2>
-    <p>Enter new password in both boxes to chnage, or enter current password in both boxes to confirm changes below.</p>
+    <h4>Change Password</h4>
+    <p>Enter new password in both boxes to change, or enter current password in both boxes to confirm changes below.</p>
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password,
-                hint: "Current password required to confirm your changes",
+                hint: "Required to confirm changes.",
                 required: true,
                 input_html: { autocomplete: "current-password", class:"m-2" } %>
   <br>
-  <h2>Modify Attributes</h2>
+  <h4>Modify Attributes</h4>
     <%= f.input :username,
                 hint: "",
                 required: true,
@@ -48,13 +48,14 @@
                 required: false,
                 input_html: { autocomplete: "last-name", class:"m-2" } %>   
     <%= f.input :social_media,
-                hint: "Add a link",
+                hint: "",
                 required: false,
-                input_html: { autocomplete: "social-media", class:"m-2" } %>   
+                input_html: { autocomplete: "social-media", class:"m-2" }, 
+                label: "External Link" %>   
     <%= f.input :about,
-                hint: "Tell the world about you or your business",
+                hint: "What do you want others to know?",
                 required: false,
-                input_html: { autocomplete: "about",class:"m-2" } %> 
+                input_html: { autocomplete: "about" } %> 
     <br>
     <%= f.input :photo, as: :file %>   
   <div class="form-actions m-3">
