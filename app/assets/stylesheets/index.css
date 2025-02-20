@@ -89,7 +89,7 @@ FONT
   color:rgb(158, 255, 207);
   padding: 20px;
   margin: 10px;
-  border-radius: 50px;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
   border: .5px solid lime;
   line-height: 175%;
@@ -133,17 +133,17 @@ FONT
 
 .form-inputs {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
   margin: 5vh;
   align-items: baseline;
+  background-color: black;
+  padding: 2vh;
 }
 
 .input {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid white;
-  border-radius: 10px;
   justify-content: center;
   align-items: center;
   padding: 10px;
@@ -540,7 +540,6 @@ rotating cube
   padding-bottom: 400px;
 }
 
-
 .cube-side {
   position: absolute;
   width: 317px;
@@ -574,7 +573,6 @@ rotating cube
 .animate-border{
   animation: animate-shadow 3s linear infinite;
 }
-
 
 @keyframes animate-shadow {
   0% {
@@ -657,7 +655,6 @@ rotating cube
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.61);
 }
 
-
 @keyframes growingButton {
     0% { transform: scale(1);
         background:rgb(255, 57, 242);
@@ -675,8 +672,6 @@ rotating cube
     background:rgb(0, 255, 128);
         }
 }
-
-
 
 .radio-button:checked ~ .cube{
   transition-duration: 3s;
@@ -731,12 +726,10 @@ EVENT PAGE
   animation: animate-shadow 3s linear infinite;
 }
 
-
 /*=================
 
 CALEDAR
 =================*/
-
 
 /* Define color variables */
 :root {
@@ -762,8 +755,10 @@ CALEDAR
   color: #ffffff;
 }
 
-.event_started_at, .event_application_due_at {
+.event_started_at, .event_application_due_at, .event_ends_at {
   background-color: transparent;
+  display: flex;
+  flex-direction: row;
 }
 
 #event_started_at_1i, 
@@ -806,7 +801,6 @@ CALEDAR
 .calendar-title {
   text-transform: uppercase;
   font-family: "Iceberg", sans-serif;
-  
 }
 
 .calendar {
@@ -967,5 +961,4 @@ td {
   background: linear-gradient(to bottom,rgb(205, 114, 247) 30%, #2c90fc 100%) border-box;
   border: 1px solid transparent;
   animation: animate-shadow 3s linear infinite;
-
 }

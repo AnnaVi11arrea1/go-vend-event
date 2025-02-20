@@ -25,7 +25,7 @@ class VendorEvent < ApplicationRecord
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
-  delegate :name, :latitude, :longitude, to: :event, prefix: true
+  delegate :name, to: :event, prefix: true
 
   has_one_attached :photo
   has_one :address, :through => :address, :source => :events
@@ -48,8 +48,6 @@ class VendorEvent < ApplicationRecord
     def longitude_for_geocoding
       event_longitude
     end
-    
-  after_validation :reverse_geocode
 
   attr_accessor :state
 
