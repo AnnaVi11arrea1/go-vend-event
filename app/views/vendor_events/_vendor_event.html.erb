@@ -3,17 +3,15 @@
     <div class="col-3 d-flex justify-content-center line">
       <p class="px-2">
         <% if vendor_event.photo.present? %>
-          <%= image_tag vendor_event.event.photo.url, alt:"event photo", width:"150px", class:"profile-pic" %>
+          <%= image_tag vendor_event.event.photo.url, alt:"event photo", width:"100px", class:"profile-pic" %>
         <% else %>
-        <%= image_tag 'favicon.png', alt:"profile pic", width:"150px", class:"rounded-circle" %>
+        <%= image_tag 'favicon.png', alt:"profile pic", width:"100px", class:"rounded-circle" %>
         <% end %>
       </p>
     </div>
     <div class="col-3">
-      <p>Event:</p>
-      <h4><%= vendor_event.event.name %></h4>
-      <p>Starts on:</p>
-      <h4><%= vendor_event.event.started_at.strftime("%B %d, %Y") %></h4>
+      <sup><%= vendor_event.event.started_at.strftime("%B %d, %Y") %></sup>
+      <h5><%= vendor_event.event.name %></h5>
     </div>
     <div class="col-3">
       <div class="btn-container">
@@ -23,22 +21,3 @@
     </div>
   </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.explode').forEach(button => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      const button = event.target;
-      const confirmMessage = button.getAttribute('data-confirm');
-      if (confirm(confirmMessage)) {
-        button.classList.add('exploding');
-        setTimeout(() => {
-          button.closest('form').submit();
-        }, 300); // Match the duration of the animation
-      }
-    });
-  });
-});
-
-</script>
