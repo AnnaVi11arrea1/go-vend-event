@@ -67,6 +67,12 @@ FONT
   font-size: 24px;
 }
 
+.nav-title {
+  color: rgb(255, 234, 178);
+  margin-left: 20px;
+  font-size: 24px;
+}
+
 .dropdown-item {
   color: #fff;
   text-decoration: none;
@@ -83,7 +89,7 @@ FONT
 
 .darkcard {
   background-color: #150435;
-  color:rgb(149, 216, 224);
+  color:rgb(255, 234, 178);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
@@ -116,22 +122,28 @@ FONT
 
 .subtitle {
   margin-bottom: 2vh;
-  font-size: .75em;
+  font-size: 14px;
   font-weight: 100;
   letter-spacing: 3px;
+  display: inline-block;
+  color: rgb(255, 234, 178);
 }
+
 .search {
   display: flex;
-  flex-wrap: wrap;
-  justify-items: space-between;
-  margin-bottom: 5vh;
+  align-items: center;
+  flex-direction:column;
+}
+
+.search > * {
+  padding-bottom: 10px;
 }
 
 .form-inputs {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 5vh;
+  margin: 2vh;
   align-items: baseline;
   background-color: black;
   padding: 2vh;
@@ -146,27 +158,19 @@ FONT
 }
 
 label {
-  margin-bottom: 5px;
-  font-size: 20px;
-}
-
-label > * {
-  font-family: "Iceberg", sans-serif;
-  font-weight: 600;
-}
-
-* > label {
-  font-family: "Iceberg", sans-serif;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 100;
 }
 
 * > input {
   padding: 10px;
   font-size: 20px;
-  border: 1px solid lime;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: inset 10px 5px 5px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s;
+  margin-left: 10px;
+  letter-spacing: 1px;
 }
 
 .profile-pic {
@@ -191,20 +195,23 @@ NAVBAR
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 35%, #4bfd33 70%,yellow 85%, orange 100%) border-box;
+  background: linear-gradient(to bottom right,rgb(127, 0, 186) 20%,rgb(0, 53, 213) 75%) border-box;
+  box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  border-radius: 10px;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  display: block;
-  color: #0a2324;
+  display: flex;
+  color:rgb(255, 253, 181);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  font-weight: bold;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
 }
 
 /* Change the color of links on hover */
@@ -309,6 +316,7 @@ FOOTER
   width: 100%;
   bottom: 0;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 /*===================
@@ -467,13 +475,13 @@ BREADCRUMBS
 }
 
 .breadcrumb > li {
-  background:rgb(58, 58, 58);
+  background:rgb(30, 30, 30);
   padding: 10px;
   display: flex;
   align-items: center;
   margin: 0 2px;
-    && > a {
-      color: white;
+  && > a {
+    color: rgb(171, 156, 117);
       text-decoration: none;
     }
 }
@@ -728,27 +736,29 @@ CALEDAR
 
 /* Define color variables */
 :root {
-  --color-monday:rgb(254, 160, 238);
+  --color-monday:rgb(255, 190, 244);
   --color-tuesday:rgb(255, 219, 172);
-  --color-wednesday:rgb(236, 252, 152);
-  --color-thursday:rgb(148, 253, 164);
-  --color-friday:rgb(142, 252, 244);
-  --color-saturday:rgb(158, 193, 255);
-  --color-sunday:rgb(211, 145, 252);
+  --color-wednesday:rgb(255, 254, 169);
+  --color-thursday:rgb(168, 255, 181);
+  --color-friday:rgb(113, 255, 246);
+  --color-saturday:rgb(148, 187, 255);
+  --color-sunday:rgb(222, 164, 255);
 }
 
-
-
-.date {
+td {
   font-size: 20px;
   padding: 2px;
   color: black;
 }
 
+td > * {
+  padding: 2px;
+  border-radius: 5px;
+}
+
 td.day {
   padding:5px;
   display: in-block;
-  flex-direction: row;
 }
 
 @media (max-width: 600px) {
@@ -777,47 +787,35 @@ td.day {
   background-color: transparent;
 }
 
-.month-name {
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.previous-link, .next-link {
-  font-size: 18px;
-  color: blue;
-  cursor: pointer;
-}
-
-.previous-link:hover, .next-link:hover {
-  text-decoration: underline;
-}
-
 .calendar-heading {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   font-size: 24px;
-  color: #ffffff;
+  color:rgb(255, 248, 216);
   background-color:rgb(0, 0, 0);
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.calendar-heading > a {
+  color:rgb(255, 248, 216);
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px;
 }
 
 .calendar-title {
   text-transform: uppercase;
-  font-family: "Iceberg", sans-serif;
+  font-size: 32px;
+  letter-spacing: 4px;
 }
 
-.calendar {
-  background: #000000;
-}
-
-thead {
-  padding: 10px;
+th {
   background-color: #000000;
-  color: #ffffff;
+  color:rgb(255, 248, 216);
+  font-weight: normal;
+
 }
   
 .line {
@@ -858,6 +856,9 @@ thead {
   }
   .event:hover .info-box {
     display: none;
+  }
+  .calendar-title{
+    font-size: 20px;
   }
 }
 
