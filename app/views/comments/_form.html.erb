@@ -1,24 +1,27 @@
-<%= form_with(model: comment) do |form| %>
+<%= form_with(model: [@event, comment]) do |form| %>
   <% if comment.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
       <ul>
-        <% comment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <%= form.hidden_field :author %>
-    <%= form.hidden_field :event_id %>
+  <!-- Hidden field for author_id (the currently logged-in user) -->
+  <%= form.hidden_field :author_id, value: current_user.id %>
+
+  <!-- Hidden field for event_id (ensuring the comment is linked to the event) -->
+  <%= form.hidden_field :event_id, value: @event.id %>
 
   <div class="mb-3">
-    <%= form.text_area :body, class: "form-control" %>
+    <%= form.text_area :body, class: "form-control", placeholder: "Write a comment..." %>
   </div>
 
   <div>
-    <%= form.submit class: "btn btn-outline-secondary btn-block"%>
+    <%= form.submit "Post Comment", class: "btn btn-outline-secondary btn-block" %>
   </div>
 <% end %>
