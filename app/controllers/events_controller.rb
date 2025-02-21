@@ -5,6 +5,9 @@ class EventsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[ index show edit new ]
 
 
+
+
+
   def index
     add_breadcrumb "Events", events_path, title: "Events"
     @vendor_event = VendorEvent.new
@@ -25,21 +28,13 @@ class EventsController < ApplicationController
   end
 
   def host
-    @host = @user.where(:id => @event.host_id).first
+    @host = User.where(:id => @event.host_id).first
   end
   
   # GET /events/1 or /events/1.json
-  def show
+  def show 
     add_breadcrumb "Events", events_path, title: "Events" 
     add_breadcrumb "Show", event_path(@event), title: @event.name
-    @event = Event.find(params[:id])
-    @host = @event.host
-    @comments = @event.comments.order(created_at: :desc)
-    @comment = Comment.new
-    @author = @comment.author
-    @event = Event.find(params[:id])
-    session[:event_id] = @event.id
-  
   end
 
 
@@ -121,12 +116,12 @@ class EventsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.where(id: params[:id])
+    @event = Event.where(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :latitude, :longitude)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address)
   end
 
   def ensure_user_is_authorized

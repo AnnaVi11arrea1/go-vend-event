@@ -3,23 +3,37 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <h1 class="darktitle">Editing <%= @event.name %></h1>
+  <h2 class="darktitle">Edit Event <%= @event.name %></h2>
   <div class="form-inputs">
+    <div class="form-group">
     <%= f.input :started_at, as: :date, label: "Starts on: " %>
+    </div>
+    <div class="form-group">
     <%= f.input :ends_at, as: :date, label: "Ends on: " %>
-    <%= f.input :application_due_at, as: :date, label: "Application due: " %>
+    </div>
+    <div class="form-group">
+    <%= f.input :application_due_at, as: :date, label: "Apply by: ", required: false %>
+    </div>
+    <div class="form-group">
     <%= f.input :name %>
+    </div>
+    <div class="form-group">
     <%= f.input :information, as: :text %>
-    <%= f.input :application_link, as: :string %>
-    <%= f.input :tags %>
+    </div>
+    <div class="form-group">
+    <%= f.input :application_link, as: :string, required: false %>
+    </div>
+    <div class="form-group">
+    <%= f.input :tags, required: false %>
+    </div>
+    <div class="form-group">
     <%= f.input :address, as: :string %>
-
+    </div>
+    <div class="form-group">
     <%= f.input :photo, as: :file %>
+    </div>
     <div class="form-actions">
       <%= f.button :submit, class:"event_btn" %>
     </div>
   <% end %>
-
-</div>
-    <%= link_to "Back to events", events_path, class:"btn-in" %>
-</div>
+  </div>

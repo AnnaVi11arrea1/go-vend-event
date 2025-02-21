@@ -91,11 +91,11 @@
           </div>
             
           <div class="col">
-            <h6 class="mt-0">Commentor <%= comment.author_id %> </h6>
+            <h6 class="mt-0"><%= comment.author %> </h6>
             <p><%= comment.body %></p>
           </div>
 
-          <% if current_user.id = comment.author_id %>
+          <% if current_user == comment.author %>
           <div class="d-flex flex-row">
             <%= link_to "Delete", comment, method: :delete, class:"btn-in" %>
             <%= link_to "Edit", edit_comment_path(comment), class:"btn-in" %>

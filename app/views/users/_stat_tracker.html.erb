@@ -20,7 +20,7 @@
     <tbody>
       <% @user.vendor_events.each do |event| %>
         <tr>
-          <td style="color:black;"><%= event.event.name %></td>
+          <td class="form-control-title"><%= event.event.name %></td>
           <td>
             <%= number_field_tag "vendor_events[#{event.id}][expense]", event.expense, class: "form-control", id: "expense_#{event.id}" %>
           </td>
