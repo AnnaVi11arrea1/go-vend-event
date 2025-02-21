@@ -33,21 +33,6 @@ class VendorEvent < ApplicationRecord
   mount_uploader :photo, PhotoUploader
   
   geocoded_by :address
-  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
-
-  reverse_geocoded_by :event_latitude, :event_longitude, address: :location do |obj, results|
-      if geo = results.first
-        obj.state    = geo.state
-      end
-    end
-
-    def latitude_for_geocoding
-      event_latitude
-    end
-    
-    def longitude_for_geocoding
-      event_longitude
-    end
 
   attr_accessor :state
 

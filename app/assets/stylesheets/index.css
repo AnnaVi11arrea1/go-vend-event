@@ -99,8 +99,8 @@ FONT
 }
 
 .darktitle {
-  color:rgb(158, 255, 207);
-  font-weight: 600;
+  color:rgb(255, 234, 178);
+  font-weight: 500;
   font-family: "Iceberg", sans-serif;
   text-align: center;
   border-bottom: .5px solid rgb(0, 140, 255);
@@ -140,38 +140,68 @@ FONT
 }
 
 .form-inputs {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 2vh;
-  align-items: baseline;
-  background-color: black;
-  padding: 2vh;
+  margin-right: 10px;
 }
 
-.input {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes label left, input right */
+  width: 100%;
+}
+
+.form-group > div {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form-group label {
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  width: 25%;
+  margin-left: 20px;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: 1;
+  margin: 15px 5px;
+  max-width: 60%;
+  padding: 10px;
+  background-image: linear-gradient(to bottom, rgb(85, 85, 85) 20%, white 100%);
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus{
+  background: white;
+  box-shadow: 0 0 10px 5px rgb(98, 0, 255);
+}
+
+.form-group textarea {
+  height: 80px;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
 }
 
 label {
-  font-size: 24px;
-  font-weight: 100;
-}
-
-* > input {
-  padding: 10px;
   font-size: 20px;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 10px;
-  box-shadow: inset 10px 5px 5px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s;
-  margin-left: 10px;
+  font-weight: 100;
   letter-spacing: 1px;
 }
+
 
 .profile-pic {
   width: 100px;
@@ -181,6 +211,11 @@ label {
   visibility: visible;
 }
 
+.profile-top {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 .splash{
   color: #fff;
   background-color: #000;
@@ -707,7 +742,7 @@ rotating cube
 
 /*=================
 
-EVENT PAGE
+Fun cards
 =================*/
 
 .funcard {
@@ -721,12 +756,26 @@ EVENT PAGE
   border-radius: 20px;
   cursor: pointer;
   padding: 30px;
-  background: linear-gradient(to bottom,rgb(157, 15, 223) 30%,rgb(11, 113, 221) 100%) border-box;
+  background: linear-gradient(to bottom,rgb(0, 120, 175) 50%,rgb(35, 0, 131) 100%) border-box;
   border: 1px solid transparent;
 }
   
 .funcard:hover{
   animation: animate-shadow 3s linear infinite;
+}
+
+.funcard2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 30px;
+  background: linear-gradient(to bottom,rgb(61, 0, 166) 30%,rgb(89, 0, 126) 100%) border-box;
+  border: 1px solid transparent;
+  flex-wrap: wrap;
 }
 
 /*=================
@@ -772,19 +821,13 @@ td.day {
   }
 }
 
-.event_started_at, .event_application_due_at, .event_ends_at {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-}
-
 #event_started_at_1i, 
 #event_started_at_2i,
 #event_started_at_3i,
 #event_application_due_at_1i,
 #event_application_due_at_2i,
 #event_apllication_due_at_3i {
-  background-color: transparent;
+  background-color: white;
 }
 
 .calendar-heading {
@@ -953,4 +996,18 @@ td {
   background: linear-gradient(to bottom,rgb(205, 114, 247) 30%, #2c90fc 100%) border-box;
   border: 1px solid transparent;
   animation: animate-shadow 3s linear infinite;
+}
+
+
+//=================
+// Stat tracker
+//=================
+.form-control {
+  display: inline-block;
+  padding: 2px;
+}
+
+.form-control-title {
+  color: black;
+  font-size: 16px;
 }
