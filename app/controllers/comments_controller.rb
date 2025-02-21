@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :comment_params, only: %i[ create update ]
 
   # GET /comments or /comments.json
   def index
@@ -23,9 +24,16 @@ class CommentsController < ApplicationController
   
   # POST /comments or /comments.json
   def create
+    @event = Event.find_by(id: params[:event_id])
+
+    unless @event
+      redirect_to events_path, alert: "Event not found."
+      return
+    end
+  
     @comment = Comment.new(comment_params)
-    @comment.author_id = current_user.id
-    @event = Event.where(:id => @comment.event_id).first
+    @comments = @event.comments.all
+    @comment.author = current_user # Ensure author is assigned
 
     respond_to do |format|
       if @comment.save
@@ -41,7 +49,7 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
     respond_to do |format|
-      if @comment.update(comment_params)
+      if @comment.update
         format.html { redirect_to @comment, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
