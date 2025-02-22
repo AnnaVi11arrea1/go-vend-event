@@ -23,9 +23,6 @@ class EventsController < ApplicationController
       format.js   # Render index.js.erb
     end
   end
-
-
-  
   # GET /events/1 or /events/1.json
   def show 
     add_breadcrumb "Events", events_path, title: "Events" 
@@ -33,12 +30,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @host = @event.host
     @comments = @event.comments.includes(:author)
-
-
-
-
   end
-
 
   def geocode_address
     result = Geocoder.search(params[:address])
@@ -123,7 +115,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :comments)
   end
 
   def ensure_user_is_authorized

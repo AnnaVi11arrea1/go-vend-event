@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   end
 
   resources :events do
-    resources :comments, only: [:create, :update, :destroy]
+    resources :comments, only: [:create, :edit, :update, :destroy]
+
   end
-  
+
   resources :vendor_events do
     get "/calendar" => "calendar#show"
     collection do

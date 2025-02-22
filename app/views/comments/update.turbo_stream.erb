@@ -1,0 +1,17 @@
+<turbo-stream action="replace" target="comment_<%= @comment.id %>">
+  <template>
+    <li id="comment_<%= @comment.id %>" class="comment-container">
+      <div class="d-flex">
+        <%= image_tag "bulb.png", alt: "profile pic", width: "50px", height: "50px" %>
+      </div>
+      <div class="col">
+        <h6 class="mt-0"><%= @comment.author.name %></h6>
+        <p id="comment-body-<%= @comment.id %>"><%= @comment.body %></p>
+
+        <button class="btn-in" onclick="showEditForm(<%= @comment.id %>)">Edit</button>
+
+        <%= link_to "Delete", event_comment_path(@event, @comment), method: :delete, class: "btn-in", data: { turbo_confirm: "Are you sure?" } %>
+      </div>
+    </li>
+  </template>
+</turbo-stream>
