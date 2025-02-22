@@ -86,20 +86,28 @@
   <% if @comments.present? %>
     <ul class="list-group list-group-flush">
       <% @comments.each do |comment| %>
-        <li class="comment-container">
+        <li id="comment_<%= comment.id %>" class="comment-container">
           <div class="d-flex">
             <%= image_tag "bulb.png", alt: "profile pic", width: "50px", height: "50px" %>
           </div>
           <div class="col">
             <h6 class="mt-0"><%= comment.author.username %></h6>
-            <p><%= comment.body %></p>
+            <p id="comment-body-<%= comment.id %>"><%= comment.body %></p>
+
+            <% if current_user == comment.author %>
+              <div class="d-flex flex-row">
+                <button class="mtn-in" onclick="showEditForm(<%= comment.id %>)">Edit</button>
+                <%= link_to "Delete", delete_comment_path(comment),  method: :delete, data: { confirm: "Are you sure?" }, class: "btn-in" %>
+                
+                <div id="edit-form-<%= comment.id %>" style="display: none;">
+                  <%= form_with(model: [@event, comment], remote: true) do |form| %>
+                    <%= form.text_area :body, class: "form-control", value: comment.body %>
+                    <%= form.submit "Update", class: "btn btn-outline-secondary btn-block" %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
-          <% if current_user == comment.author %>
-            <div class="d-flex flex-row">
-              <%= link_to "Delete", comment, method: :delete, class: "btn-in" %>
-              <%= link_to "Edit", edit_comment_path(comment), class: "btn-in" %>
-            </div>
-          <% end %>
         </li>
       <% end %>
     </ul> <!-- This should be outside the loop -->

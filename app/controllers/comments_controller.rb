@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :comment_params, only: %i[ create update ]
+  before_action :set_event
+  before_action :set_comment, only: %i[ edit update destroy ]
 
   # GET /comments or /comments.json
   def index
@@ -19,7 +19,10 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    @comment = Comment.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   # POST /comments or /comments.json
@@ -48,35 +51,38 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
+
+    if @comment.update(comment_params)
     respond_to do |format|
-      if @comment.update
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+        format.html { redirect_to @event, notice: 'Comment was successfully updated.' }
+        format.js
+    end
+    else
+      render :edit
     end
   end
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    @comment.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
+    
+    if @comment.author == current_user
+      @comment.destroy!
+      redirect_to @comment.event, notice: "Comment was successfully destroyed."
+    else
+      redirect_to @comment.event, alert: "You are not authorized to delete this comment."
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = @event.comments.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_event
+      @event = Event.find(params[:event_id])
+    end
+
     def comment_params
-      params.require(:comment).permit(:body, :author_id, :event_id)
+      params.require(:comment).permit(:body)
     end
 end
