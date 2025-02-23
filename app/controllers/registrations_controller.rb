@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_params)
     if @user.save
 
-      redirect_to new_user_session_path, notice: 'Account created, please log in to continue.'
+      redirect_to user_path(@user), notice: 'Next, please login to continue.'
     else
       render :new
     end

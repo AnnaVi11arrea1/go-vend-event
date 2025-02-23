@@ -932,12 +932,12 @@ FEED
   border-radius: 20px;
   }
 
-  .feed-box:hover{
-    animation: animate-shadow 3s linear infinite;
-    border: 2px solid lime;
-    scale: 1.05;
-    
-  }
+.feed-box:hover{
+  animation: animate-shadow 3s linear infinite;
+  border: 2px solid lime;
+  scale: 1.05;
+  
+}
 
 .card-img {
   width: 200px;
@@ -953,11 +953,14 @@ FEED
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 10px;
-  background: linear-gradient(to bottom right, #b827fc 10%, #2c90fc 75%) border-box;
-  overflow: hidden;
+  background: linear-gradient(to bottom right,rgb(96, 39, 252) 10%,rgb(9, 0, 174) 75%) border-box;
   padding: 10px 5px;
+}
+
+.card-body {
+  padding: 0; 
 }
 
 /*==================
