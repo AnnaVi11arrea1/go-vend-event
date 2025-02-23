@@ -14,7 +14,7 @@
 #  last_name              :string
 #  locked_at              :datetime
 #  photo                  :string
-#  private                :boolean          default(FALSE)
+#  private                :boolean          default(TRUE)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -61,6 +61,12 @@ class User < ApplicationRecord
   mount_uploader :photo, PhotoUploader
 
   has_many :comments, foreign_key: "author_id"
+
+  private
+
+  def set_default_private
+    self.private ||= true
+  end
 
   
 end

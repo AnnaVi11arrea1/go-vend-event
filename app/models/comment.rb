@@ -19,6 +19,8 @@ class Comment < ApplicationRecord
   belongs_to :author, class_name: 'User'
   belongs_to :event
 
+  has_rich_text :body
+
 
   validates :body, presence: true
   validates :author, presence: true

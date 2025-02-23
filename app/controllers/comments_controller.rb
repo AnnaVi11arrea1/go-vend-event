@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
     respond_to do |format|
         format.html { redirect_to @event, notice: 'Comment was successfully updated.' }
-        format.js
+        format.turbo_stream
     end
     else
       render :edit
@@ -83,6 +83,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:body)
+      params.require(:comment).permit(:body, :event_id, :author_id)
     end
 end
