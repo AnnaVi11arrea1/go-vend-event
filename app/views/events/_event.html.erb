@@ -30,11 +30,6 @@
           <% end %>
         </div>
         <br>
-          <div>
-            <% if @host.private == true || @user.leaders.include?(@host) == false %>
-              <%= link_to "Follow host to see more!", follow_request_path, class: 'btn' %>
-            <% end %>
-          </div>
       </div>
 
       <div class="col">

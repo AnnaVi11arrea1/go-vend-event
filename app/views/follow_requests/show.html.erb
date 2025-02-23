@@ -1,5 +1,6 @@
-<div class="follows-action">
+<div class="darkcard">
   <h4>Follow Request</h4>
+
   <div>
     <p>
       <strong>Recipient:</strong>
@@ -18,10 +19,11 @@
     </div>
 
       <div>
-        <%= link_to "Back to follow requests", follow_requests_path, class:"btn-pri" %>
-
-        <%= button_to "Accept", accept_follow_request_path(@follow_request), method: :patch, class:"btn-in" %>
+        <% if @user == @follow_request.recipient %>
+        <%= button_to "Accept", accept_follow_request_path(@follow_request), method: :patch, class:"btn-pri" %>
         <%= button_to "Reject", reject_follow_request_path(@follow_request), method: :patch, class:"btn-dang" %>
+        <% end %>
 
       </div>
     </div>
+        <button class="btn-in" ><%= link_to "Back to follow requests", follow_requests_path, style:"color:black" %></button>

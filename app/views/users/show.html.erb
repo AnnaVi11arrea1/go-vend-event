@@ -55,7 +55,6 @@
       </div>
     </div>
   </div>
-</div>
   
 <% if @user == current_user %>
 <div class="darkcard">
@@ -66,7 +65,7 @@
 <% end %>
 
 
-<div>
+<div class="darkcard">
   <% if @user == current_user || @user.private == false || @user.leaders.innclude? || @user.followers.include? %> 
     <h4 style="justify-self:center;">Hosted Events</h4>
       <ul>
@@ -92,4 +91,6 @@
   <% end %>
 
 </div>
+</div>
+
 </div>
