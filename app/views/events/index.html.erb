@@ -68,35 +68,33 @@
 
 <script>
   function initMap() {
-
   const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 41.87657590074282, lng: -87.61936464305545 },
     zoom: 5,
   });
 
   // load preprocessed geocoded data from rails
-  const events = <%= raw @events.to_json(only: [:latitude, :longitude, :name], methods: [:photo_url]) %>;
+  const events = <%= raw @events.to_json(only: [:address, :name], methods: [:photo_url]) %>;
 
   console.log(events); // Debugging: Check the events data
 
   events.forEach(event => {
-    if (event.latitude && event.longitude) {
+    if (event.address, (coords) => { 
       console.log(`Adding marker for event: ${event.name}`); // Debugging: Check each event
       new google.maps.Marker({
-        position: { lat: event.latitude, lng: event.longitude },
+        position: coords,
         map: map,
         title: event.name,
         icon: {
         url: event.photo || '<%= asset_path("bulb.png") %>', // URL to the custom image
         scaledSize: new google.maps.Size(40, 40) // Size of the custom image
-      }
-
+        }
       });
-    }
+    });
   });
-    }
+}
 
-    function fetchCoordinates(address, callback) {
+  function fetchCoordinates(address, callback) {
     fetch(`/geocode_address?address=${encodeURIComponent(address)}`)
   .then(response => response.json())
   .then(data => {

@@ -46,7 +46,10 @@
     <%= f.input :about,
                 hint: "Tell the world about you or your business",
                 required: false,
-                input_html: { autocomplete: "about" } %>   
+                input_html: { autocomplete: "about" } %>
+    <%= f.input :private, as: :boolean,
+                required: false,
+                label: "Make my account private" %>   
     <%= f.input :photo, as: :file,
                 hint: "",
                 required: false,

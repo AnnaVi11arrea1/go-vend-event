@@ -11,6 +11,7 @@ pin "bootstrap" # @5.3.3
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
 pin "@popperjs/core", to: "@popperjs--core.js" # @2.11.8
-pin "@hotwired/turbo-rails", to: "@hotwired--turbo-rails.js" # @8.0.12
-pin "@hotwired/turbo", to: "@hotwired--turbo.js" # @8.0.12
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@rails/actioncable/src", to: "@rails--actioncable--src.js" # @7.2.200
+pin "trix"
+pin "@rails/actiontext", to: "actiontext.esm.js"

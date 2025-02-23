@@ -29,4 +29,6 @@ Rails.application.routes.draw do
     resources :follow_requests
   end
 
+  get 'geocode_address', to: 'geocoding#geocode_address'
+
 end

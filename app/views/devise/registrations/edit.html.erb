@@ -57,6 +57,9 @@
                 required: false,
                 input_html: { autocomplete: "about" } %> 
     <br>
+    <%= f.input :private, as: :boolean,
+                required: false,
+                label: "Make my account private" %>
     <%= f.input :photo, as: :file %>   
   <div class="form-actions m-3">
     <%= f.button :submit, "Update" %>
