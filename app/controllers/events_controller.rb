@@ -28,7 +28,6 @@ class EventsController < ApplicationController
     add_breadcrumb "Events", events_path, title: "Events" 
     add_breadcrumb "Show", event_path(@event), title: @event.name
     @event = Event.find(params[:id])
-    @host = @event.host
     @comments = @event.comments.includes(:author)
   end
 

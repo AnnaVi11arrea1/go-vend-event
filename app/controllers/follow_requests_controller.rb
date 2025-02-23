@@ -1,7 +1,7 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show edit update destroy ]
-  before_action :set_user, only: %i[ new create update ]
+
 
   # GET /follow_requests or /follow_requests.json
   def index
@@ -17,8 +17,9 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/new
   def new
-    @user = User.find(params[:id])
     @follow_request = FollowRequest.new
+    @follow_request.sender_id = current_user
+    @follow_request.recipient_id = @user
   end
 
   # GET /follow_requests/1/edit
@@ -28,14 +29,14 @@ class FollowRequestsController < ApplicationController
   # POST /follow_requests or /follow_requests.json
   def create
     @follow_request = FollowRequest.new(follow_request_params)
-    @user = User.find(params[:user_id])
+    @follow_request.sender_id = current_user
+    @follow_request.recipient_id = @user
 
-    @follow_request.save
 
-    respond_to do |format|
-
-        format.html { redirect_to user_follow_requests_path(@follow_request.recipient.id), notice: "Follow request was successfully created." }
-        format.json { render :show, status: :created, location: @follow_request }
+    if @follow_request.save
+      redirect_to event_path(@event), notice: 'Follow request was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -91,14 +92,8 @@ class FollowRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def follow_request_params
-      if params[:follow_request].present?
-        params.require(:follow_request).permit(:recipient_id, :sender_id, :status)
-      else
-        { recipient_id: params[:user_id], sender_id: current_user.id }
-      end
+      params.require(:follow_request).permit(:recipient_id, :sender_id, :status)
     end
 
-    def set_user
-      @user = User.where(user_id: params[:user_id])
-    end
+
 end

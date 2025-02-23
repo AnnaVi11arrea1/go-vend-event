@@ -1,3 +1,4 @@
+<div class="comment-container">
 <%= form_with(model: [@event, comment]) do |form| %>
   <% if comment.errors.any? %>
     <div style="color: red">
@@ -16,10 +17,10 @@
   <!-- Hidden field for event_id (ensuring the comment is linked to the event) -->
   <%= form.hidden_field :event_id, value: @event.id %>
 
-    <%= form.rich_text_area :body, class: "form-control darkcard", placeholder: "Write a comment..." %>
-
+  <%= form.rich_text_area :body, class: "form-control", placeholder: "Write a comment..." %>
 
   <div>
-    <%= form.submit "Post Comment", class: "btn btn-outline-secondary btn-block" %>
+    <%= form.submit "Post Comment", class: "btn-in" %>
   </div>
 <% end %>
+</div>

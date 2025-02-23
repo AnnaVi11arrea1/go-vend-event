@@ -25,8 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    resources :follow_requests
+  resources :users, only: [:show] do
+    resources :follow_requests, only: [:new, :create]
   end
 
   get 'geocode_address', to: 'geocoding#geocode_address'
