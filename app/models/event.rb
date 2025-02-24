@@ -8,6 +8,8 @@
 #  application_link   :string
 #  ends_at            :date
 #  information        :string
+#  latitude           :float
+#  longitude          :float
 #  name               :string
 #  photo              :string
 #  started_at         :date
@@ -18,7 +20,7 @@
 #
 class Event < ApplicationRecord
   geocoded_by :address
-  after_validation :geocode
+  after_validation :geocode, if: :address_changed?
 
   validates :name, presence: true
   validates :application_due_at, presence: true
@@ -84,11 +86,22 @@ class Event < ApplicationRecord
     ends_at - started_at
   end
 
+  def photo_url
+    photo.present? ? photo.url : nil
+  end
+
   private
 
   def update_vendor_events_start_time
     vendor_events.update_all(start_time: self.started_at)
   end
+
+  def geocode
+    super
+    Rails.logger.debug "Geocoding: #{address} to #{latitude}, #{longitude}"
+  end
+
+
 
 
 end
