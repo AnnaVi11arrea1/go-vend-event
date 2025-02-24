@@ -1,4 +1,5 @@
 <div id="events" class="darkcard">
+        <p class="d-flex justify-content-center">Find events that suite your needs.</p>
 
   <div>
     <div id="map" style='height: 400px;'></div>
@@ -8,7 +9,6 @@
     <%= search_form_for @q do |f| %>
       <div class="search">
         <br>
-        <p>Find events that suite your needs.</p>
         <div>
           <%= f.label :name_cont %>
           <%= f.text_field :name_cont %>
@@ -30,7 +30,7 @@
   <div class="d-flex flex-wrap justify-content-center">
     <% if @events.present? %>
       <% @events.each do |event| %>
-        <div class="funcard">
+        <div class="feed-box">
           <div class="col">
             <div class="d-flex flex-column justify-content-center m-4">
               <p>Event Name:</p>
@@ -51,8 +51,10 @@
                 <%= event.address %></p>
               <p class="card-text"><strong>When:</strong>
                 <%= event.started_at.strftime("%B %d, %Y") %></p>
-              <%= link_to "Show this event", event, class:"event_btn" %>
             </div>
+          </div>
+          <div class="pt-5">
+              <%= link_to "Show this event", event, class:"event_btn" %>
           </div>
         </div>
       <% end %>
