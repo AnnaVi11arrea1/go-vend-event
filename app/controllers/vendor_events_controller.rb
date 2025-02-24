@@ -1,12 +1,28 @@
 class VendorEventsController < ApplicationController
   before_action :set_vendor_event, only: %i[ show edit calendar update destroy ]
   before_action :set_breadcrumbs, only: %i[show edit new]
+
+
   helper CalendarHelper
+  include PaginationHelper
 
   def index
-    @vendor_events = VendorEvent.all.where(:user_id => current_user.id).page(params[:page]).per(5)
-    @a = VendorEvent.ransack(params[:a])
-    @vendor_event = VendorEvent.all.where("start_time < ?", Date.today)
+    pagination = custom_paginate(Event.all, per_page: 5)
+    @vendor_events = pagination[:collection]
+    @current_page = pagination[:current_page]
+    @total_pages = pagination[:total_pages]
+    @vendor_event = VendorEvent.new
+    @q = VendorEvent.ransack(params[:q])
+    if @q.name_cont
+      @vendor_events = @q.result.order(name: :asc).page(params[:page]).per(6)
+    else
+      @vendor_events = @q.result.page(params[:page]).per(6)
+    end
+    @vendor_events = @q.result.order(start_time: :asc).page(params[:page]).per(6)
+  respond_to do |format|
+    format.html # Render index.html.erb
+    format.js   # Render index.js.erb
+  end
   end
   
   def show
@@ -69,6 +85,7 @@ class VendorEventsController < ApplicationController
   def vendor_event_params
     params.require(:vendor_event).permit(:address, :name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
   end
+
 
   def set_breadcrumbs
     add_breadcrumb "Home", :root_path

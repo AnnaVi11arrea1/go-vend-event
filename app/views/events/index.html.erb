@@ -61,7 +61,8 @@
     <% end %>
   </div>
   <div class="d-flex justify-content-around p-3">
-    <%= paginate @events, partial: 'events/paginator' %>
+    
+<%= pagination_links(@current_page, @total_pages) %>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-<div class="darkcard pt-3 intro border border-dark">
+<div class="darkcard">
   <div class="row d-flex justify-content-around">
     <div class="col-3 d-flex justify-content-center line">
       <p class="px-2">
@@ -15,7 +15,7 @@
     </div>
     <div class="col-3">
       <div class="btn-container">
-        <%= link_to "See Main", events_path, class:"event_btn" %>
+        <%= link_to "See Main", event_path(vendor_event.event_id), class:"event_btn" %>
         <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
       </div>
     </div>

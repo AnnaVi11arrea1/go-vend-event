@@ -25,33 +25,37 @@ class VendorEvent < ApplicationRecord
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
-  delegate :name, to: :event, prefix: true
+  delegate :name, :address, :started_at, :ends_at, :information, to: :event, prefix: true
 
   has_one_attached :photo
-  has_one :address, :through => :address, :source => :events
+
   has_many :comments, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
   geocoded_by :address
 
-  attr_accessor :state
-
-  has_one :started_at,  :through => :started_at, :source => :events
-  has_one :ends_at,     :through => :ends_at, :source => :events
-  has_one :description, :through => :information, :source => :events
 
   before_save :set_starts_at_from_event
+
   def self.ransackable_associations(auth_object = nil)
     []
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name paid application_status]
+    %w[name start_time]
   end
 
   def self.search(search)
     if search
-      where('name LIKE ? OR application_status LIKE ? OR paid LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+      joins(:event).where('name LIKE ? OR address LIKE ? OR tags LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      all
+    end
+  end
+
+  def self.search_by_date(search)
+    if search
+      where('started_at = ?', "%#{search}%")
     else
       all
     end

@@ -3,12 +3,16 @@ class EventsController < ApplicationController
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
   before_action :set_breadcrumbs, only: %i[ index show edit new ]
+  include PaginationHelper
 
 
   def index
+    pagination = custom_paginate(Event.all, per_page: 5)
+    @events = pagination[:collection]
+    @current_page = pagination[:current_page]
+    @total_pages = pagination[:total_pages]
     add_breadcrumb "Events", events_path, title: "Events"
-    @vendor_event = VendorEvent.new
-    @events = Event.all.where(user_id: current_user.id).page(params[:page]).per(6)
+    @event = Event.new
     @q = Event.ransack(params[:q])
       if @q.started_at
         @events = @q.result.order(started_at: :asc).page(params[:page]).per(6)
@@ -17,10 +21,6 @@ class EventsController < ApplicationController
       else
         @events = @q.result.page(params[:page]).per(6)
       end
-    end
-    respond_to do |format|
-      format.html # Render index.html.erb
-      format.js   # Render index.js.erb
     end
   end
   # GET /events/1 or /events/1.json
@@ -125,6 +125,10 @@ class EventsController < ApplicationController
 
   def set_breadcrumbs
     add_breadcrumb "Home", :root_path
+  end
+
+  def pagination_params
+    params.permit(:page)
   end
 
 end
