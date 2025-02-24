@@ -418,8 +418,10 @@ BUTTONS
   font-size: 20px;
   &:hover {
     cursor: pointer;
-    border: 5px solidrgb(98, 48, 190);
-    background-image: linear-gradient(rgb(209, 0, 236),rgb(255, 131, 65) ,rgb(235, 252, 44),rgb(51, 253, 118),rgb(235, 252, 44),rgb(255, 131, 65) , rgb(209, 0, 236));
+    border: 2px solid rgb(148, 91, 255);
+    background: rgb(255, 246, 167);
+    text-decoration: none;
+    color: black;
   }
 }
 
@@ -543,7 +545,7 @@ rotating cube
 
 .cube-text {
   font-family: "Iceberg", sans-serif;
-  color: black;
+  color:rgb(255, 246, 167);
 }
 
 .cube-container { /* do not touch! you will distort the cube!!!!! */
@@ -567,21 +569,22 @@ rotating cube
   display: flex;
   align-self: center;
   padding-bottom: 400px;
+  animation: rotate 5s linear infinite;
+
 }
 
 .cube-side {
   position: absolute;
   width: 317px;
   height: 317px;
-  background-color: rgb(64, 0, 148);
-  background-image: linear-gradient(45deg, rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255));
+  background-color: black;
   background-position: center;
   background-size: cover;
-  border: 15px solid;
-  border-image: linear-gradient(45deg, lime, cyan, white) 1 ;
+  border: 2px solid rgb(255, 246, 167);
   box-shadow: 0px 0px 20px 10px rgb(79, 255, 240);
   border-radius: 10px;
   animation: animate-border 3s linear infinite, animate-shadow 3s linear infinite;
+  color: rgb(255, 246, 167);
 }
 
 @keyframes animate-border {
@@ -600,27 +603,27 @@ rotating cube
 }
 
 .animate-border{
-  animation: animate-shadow 3s linear infinite;
+  animation: animate-shadow 5s linear infinite;
 }
 
 @keyframes animate-shadow {
   0% {
-    box-shadow: 0px 0px 20px 15px rgb(247, 0, 255);
+    box-shadow: 0px 0px 10px 4px rgb(247, 0, 255);
   }
   20% {
-    box-shadow: 0px 0px 25px 15px rgb(153, 0, 255);
+    box-shadow: 0px 0px 15px 10px rgb(153, 0, 255);
   }
   40% {
-    box-shadow: 0px 0px 30px 20px rgb(82, 79, 255);
+    box-shadow: 0px 0px 17px 12px rgb(82, 79, 255);
   }
   60% {
-    box-shadow: 0px 0px 30px 17px rgb(0, 255, 234);
+    box-shadow: 0px 0px 20px 20px rgb(0, 255, 234);
   }
   80% {
-    box-shadow: 0px 0px 25px 15px rgb(79, 255, 117);
+    box-shadow: 0px 0px 15px 15px rgb(79, 255, 117);
   }
   100% {
-  box-shadow: 0px 0px 20px 15px rgb(255, 214, 79);
+  box-shadow: 0px 0px 10px 7px rgb(255, 214, 79);
   }
 }
 
@@ -920,16 +923,18 @@ FEED
   justify-items: center;
   margin-top: 20px;
   border-radius: 20px;
-  border: 1px solid transparent;
+  border: 1px solid rgb(105, 101, 72);
   box-shadow: inset 5px -1px 33px 40px rgba(0, 0, 0, 0.5);
   background-color:rgba(50, 0, 100);
+  margin:5px;
   }
 
 .feed-box:hover{
   border: 2px solid rgba(255, 246, 167);
   scale: 1.05;
   box-shadow: 0 0 10px rgba(255, 246, 167);
-  background-color:rgb(51, 0, 128);
+  background-color:rgb(150, 203, 77);
+  color: black;
 }
 
 .card-img {
