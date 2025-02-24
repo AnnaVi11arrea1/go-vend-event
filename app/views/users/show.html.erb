@@ -9,23 +9,50 @@
           <% else %>
             <%= image_tag "favicon.png", alt: "profile pic", width:"200px", class:"rounded-circle" %>
           <% end %>
-        </div>
-      </div>
+        
       
-      <div>
+      
         <% if @user == current_user %>
+        <div class="col">
           <div class="m-2">
             <%= link_to "Edit Profile", edit_user_registration_path, class:"event_btn" %>
           </div>
           <div class="m-2">
             <%= link_to "Follow Requests", follow_requests_path, class:"event_btn" %>
           </div>
-        <% end %>
+        <!-- Button trigger modal -->
+        <button type="button" class="event_btn data-toggle="modal" data-target="#statsModal">
+          Open Stats
+        </button>
+      </div>
+      <div class="modal" tabindex="-1" role="dialog" id="statsModal" aria-labelledby="statsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="statsModalLabel">Stats</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%= render "users/stat_tracker" %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% else %>
+        <p>You are viewing <%= @user.username %>'s profile.</p>
+      <% end %>
       </div>
     </div>
+  </div>
 
 
-
+  </div>
     <div class="funcard2">
       <div>
         <p><strong>First Name:</strong> <%= @user.first_name %></p>
@@ -55,17 +82,9 @@
       </div>
     </div>
   </div>
-  
-<% if @user == current_user %>
-<div class="darkcard">
-    <%= render "users/stat_tracker" %>
-<% else %>
-  <p>You are viewing <%= @user.username %>'s profile.</p>
 </div>
-<% end %>
 
-
-<div class="darkcard">
+<div class="funcard2">
   <% if @user == current_user || @user.private == false || @user.leaders.innclude? || @user.followers.include? %> 
     <h4 style="justify-self:center;">Hosted Events</h4>
       <ul>
@@ -76,10 +95,8 @@
   <% if @hosted_events.empty? %>
     <p><%= @user.first_name %> has not created any events yet.</p>
   <% end %>
-
-
-
-
+  </div>
+<div class="funcard2">
   <h4 style="justify-self:center;">My Events</h4>
   <ul>
     <% @user.vendor_events.joins(:event).order('events.name ASC').each do |vendor_event| %>
@@ -89,8 +106,5 @@
   <% else %>
     <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
   <% end %>
-
 </div>
-</div>
-
 </div>
