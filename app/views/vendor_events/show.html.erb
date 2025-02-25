@@ -65,3 +65,33 @@
     </div>
   </div>
 </div>
+
+<div class="funcard2" style="color:rgb(255,246,167);">
+  <div>
+  <h2>Notes for this Event:</h2>
+  </div>
+  <div>
+    <%= form_with(model: [@vendor_event, Note.new], remote: true) do |form| %>
+      <p>
+        <%= form.label :content, "Add a Note:" %><br>
+        <%= form.rich_text_area :content %>
+      </p>
+      <%= form.submit "Add Note" %>
+    <% end %>
+  </div>
+  <div class="note">
+    <ul>
+      <% @vendor_event.notes.each do |note| %>
+        <li>
+          <div>
+            <%= sanitize(note.content) %>
+
+
+          </div>
+          (<%= link_to "Edit", edit_vendor_event_note_path(@vendor_event, note) %> |
+          <%= link_to "Delete", vendor_event_note_path(@vendor_event, note), method: :delete, data: { confirm: "Are you sure?" } %> )
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
