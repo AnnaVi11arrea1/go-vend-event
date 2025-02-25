@@ -1,23 +1,11 @@
 <div class="darkcard">
   <div class="row d-flex justify-content-around">
-    <div class="col-3 d-flex justify-content-center line">
-      <p class="px-2">
-        <% if vendor_event.photo.present? %>
-          <%= image_tag vendor_event.event.photo.url, alt:"event photo", width:"100px", class:"profile-pic" %>
-        <% else %>
-        <%= image_tag 'favicon.png', alt:"profile pic", width:"100px", class:"rounded-circle" %>
-        <% end %>
-      </p>
-    </div>
     <div class="col-3">
       <sup><%= vendor_event.event.started_at.strftime("%B %d, %Y") %></sup>
       <h5><%= vendor_event.event.name %></h5>
     </div>
-    <div class="col-3">
-      <div class="btn-container">
         <%= link_to "See Main", event_path(vendor_event.event_id), class:"event_btn" %>
         <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
-      </div>
-    </div>
+
   </div>
 </div>

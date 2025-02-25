@@ -4,9 +4,9 @@
     <div class="col-3 d-flex justify-content-center">
       <p class="px-2">
         <% if @vendor_event.photo.present? %>
-          <%= image_tag @vendor_event.photo.url, alt:"event photo", class:"profile-pic" %>
+          <%= image_tag @vendor_event.photo.url, alt:"event photo", class:"vendor-event-pic" %>
         <% elsif @vendor_event.event.photo.present? %>
-          <%= image_tag @vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
+          <%= image_tag @vendor_event.event.photo.url, alt:"event photo", class:"vendor-event-pic" %>
         <% end %>
       </p>
     </div>
