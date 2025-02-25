@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   helper :all
-  
-  skip_forgery_protection
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  protect_from_forgery with: :exception
+  
   helper_method :current_event
   
   def current_event

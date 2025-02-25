@@ -62,11 +62,15 @@ class User < ApplicationRecord
 
   has_many :comments, foreign_key: "author_id"
 
+  def feed
+    Event.where(host_id: self.leaders.ids)
+  end
   private
 
   def set_default_private
     self.private ||= true
   end
+
 
   
 end
