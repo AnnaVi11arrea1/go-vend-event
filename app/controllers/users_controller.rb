@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   end
 
   def feed
-    @username = params[:username]
+    @user = current_user
   end
 
   def discover
@@ -106,13 +106,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    Rails.logger.debug "params: #{params.inspect}"
-    if params[:username]
-      @user = User.find_by(username: params[:username])
-    else
-    @user = User.find(params[:id]) unless params[:username]
-    end
-    Rails.logger.debug "User: #{@user.inspect}"
+    @user = User.find_by(id: params[:id])
   end
     
   # Only allow a list of trusted parameters through.

@@ -1,7 +1,7 @@
 <div class="darkcard" style="color:rgb(255,246,167);">
   <h5>Discovering events through people you follow.</h5>
 <div class="feed">
-  <% current_user.feed.each do |event| %>
+  <% @user.feed.each do |event| %>
     <div class="feed-box animate__animated animate__flipInX">
       <% if event.photo.present? %>
         <%= image_tag event.photo, class: "card-img" %>
