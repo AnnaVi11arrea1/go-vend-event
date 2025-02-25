@@ -1,10 +1,10 @@
 <div class="darkcard" style="color:rgb(255,246,167);">
 <h5>Discovering events from the wild.</h5>
 <div class="feed">
-<% current_user.discovered.each do |newevent| %>
+<% @user.discovered.each do |newevent| %>
   <div class="feed-box animate__animated animate__flipInX">
     <% if newevent.photo.present? %>
-      <%= image_tag newevent.photo, class: "card-img" %>
+      <%= image_tag newevent.photo.url, class: "card-img" %>
     <% else %>
       <%= image_tag "bulb.png", class: "card-img"%>
     <% end %>
