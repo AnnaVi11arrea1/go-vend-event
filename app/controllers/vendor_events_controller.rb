@@ -7,18 +7,18 @@ class VendorEventsController < ApplicationController
   include PaginationHelper
 
   def index
-    pagination = custom_paginate(Event.all, per_page: 5)
+    pagination = custom_paginate(Event.all, per_page: 10)
     @vendor_events = pagination[:collection]
     @current_page = pagination[:current_page]
     @total_pages = pagination[:total_pages]
     @vendor_event = VendorEvent.new
     @q = VendorEvent.ransack(params[:q])
     if @q.name_cont
-      @vendor_events = @q.result.order(name: :asc).page(params[:page]).per(6)
+      @vendor_events = @q.result.order(name: :asc).page(params[:page]).per(10)
     else
-      @vendor_events = @q.result.page(params[:page]).per(6)
+      @vendor_events = @q.result.page(params[:page]).per(10)
     end
-    @vendor_events = @q.result.order(start_time: :asc).page(params[:page]).per(6)
+    @vendor_events = @q.result.order(start_time: :asc).page(params[:page]).per(10)
   respond_to do |format|
     format.html # Render index.html.erb
     format.js   # Render index.js.erb
@@ -83,7 +83,7 @@ class VendorEventsController < ApplicationController
   end
 
   def vendor_event_params
-    params.require(:vendor_event).permit(:address, :name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit)
+    params.require(:vendor_event).permit(:address, :name, :description, :date, :location, :photo, :paid, :application_status, :starts_at, :event_id, :user_id, :expenses, :sales, :return, :profit, :start_time)
   end
 
 

@@ -2,26 +2,6 @@
   <%= render partial: "vendor_events/calendar", locals: { vendor_event: @vendor_event } %>
 </div>
 
-  <div class="darkcard">
-    <%= search_form_for @q do |f| %>
-      <div class="search">
-        <br>
-        <p>Find your added event.</p>
-        <div>
-          <%= f.label :name_cont %>
-          <%= f.text_field :name_cont %>
-        </div>
-        <div>
-          <%= f.submit %>
-        </div>
-        <div>
-          <%= link_to "Clear", vendor_events_path, class:"btn" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-
   <% if @vendor_events.present? %>
     <div id="vendor_event">
       <div class="nav d-flex justify-content-around pb-0">
@@ -37,6 +17,5 @@
     </div>
   <% end %>
 </div>
-  <div class="d-flex justify-content-around p-3">
-    <%= pagination_links(@current_page, @total_pages) %>
-  </div>
+
+<%= pagination_links(@current_page, @total_pages) %>
