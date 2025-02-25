@@ -30,6 +30,7 @@ class VendorEvent < ApplicationRecord
   has_one_attached :photo
 
   has_many :comments, dependent: :destroy
+  has_many :notes, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
   geocoded_by :address

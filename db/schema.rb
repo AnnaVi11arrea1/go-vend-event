@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_24_001141) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_25_021321) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -84,6 +84,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_24_001141) do
     t.index ["sender_id"], name: "index_follow_requests_on_sender_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text "content"
+    t.integer "vendor_event_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notes_on_user_id"
+    t.index ["vendor_event_id"], name: "index_notes_on_vendor_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -137,4 +147,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_24_001141) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "follow_requests", "users", column: "recipient_id"
   add_foreign_key "follow_requests", "users", column: "sender_id"
+  add_foreign_key "notes", "users"
+  add_foreign_key "notes", "vendor_events"
 end

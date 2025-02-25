@@ -1,0 +1,11 @@
+<h2>Edit Note</h2>
+
+<%= form_with(model: [@vendor_event, @note], remote: true) do |form| %>
+  <p>
+    <%= form.label :content, "Update Note:" %><br>
+    <%= form.rich_text_area :content %>
+  </p>
+  <%= form.submit "Save Changes" %>
+<% end %>
+
+<%= link_to "Back to Event", @vendor_event %>

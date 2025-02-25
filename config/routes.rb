@@ -15,7 +15,6 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :comments, only: [:create, :edit, :update, :destroy]
-
   end
 
   resources :vendor_events do
@@ -23,6 +22,7 @@ Rails.application.routes.draw do
     collection do
       post "update_expenses_and_sales" => "vendor_events#update_expenses_and_sales"
     end
+    resources :notes, only: [:create, :edit, :update, :destroy]
   end
 
   resources :users, only: [:show] do

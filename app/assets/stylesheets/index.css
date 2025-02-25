@@ -999,3 +999,9 @@ td {
   color: black;
   font-size: 16px;
 }
+
+.trix-content img {
+  max-width: 300px; /* Limit image width */
+  height: auto;     /* Keep aspect ratio */
+  border-radius: 8px; /* Optional rounded corners */
+}
