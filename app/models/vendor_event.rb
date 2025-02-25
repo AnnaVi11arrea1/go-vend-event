@@ -25,16 +25,13 @@ class VendorEvent < ApplicationRecord
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
-  delegate :name, :address, :started_at, :ends_at, :information, to: :event, prefix: true
-
-  has_one_attached :photo
+  delegate :name, :address, :started_at, :ends_at, :information, :photo, to: :event, prefix: true
 
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
   geocoded_by :address
-
 
   before_save :set_starts_at_from_event
 
