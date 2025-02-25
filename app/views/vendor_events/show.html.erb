@@ -1,9 +1,11 @@
 
-<div class="darkcard pt-3 border border-dark">
+<div class="darkcard">
   <div class="row">
     <div class="col-3 d-flex justify-content-center">
       <p class="px-2">
         <% if @vendor_event.photo.present? %>
+          <%= image_tag @vendor_event.photo.url, alt:"event photo", class:"profile-pic" %>
+        <% elsif @vendor_event.event.photo.present? %>
           <%= image_tag @vendor_event.event.photo.url, alt:"event photo", class:"profile-pic" %>
         <% end %>
       </p>
@@ -66,11 +68,11 @@
   </div>
 </div>
 
-<div class="funcard2" style="color:rgb(255,246,167);">
-  <div>
-  <h2>Notes for this Event:</h2>
-  </div>
-  <div>
+<div class="darkcard" style="color:rgb(255,246,167);">
+
+  <h4>Notes:</h4>
+
+  <div class="funcard2">
     <%= form_with(model: [@vendor_event, Note.new], remote: true) do |form| %>
       <p>
         <%= form.label :content, "Add a Note:" %><br>
@@ -79,19 +81,17 @@
       <%= form.submit "Add Note" %>
     <% end %>
   </div>
-  <div class="note">
-    <ul>
+  <div">
+    <div>
       <% @vendor_event.notes.each do |note| %>
-        <li>
+        <div style=" margin:20px;">
           <div>
             <%= sanitize(note.content) %>
-
-
           </div>
           (<%= link_to "Edit", edit_vendor_event_note_path(@vendor_event, note) %> |
           <%= link_to "Delete", vendor_event_note_path(@vendor_event, note), method: :delete, data: { confirm: "Are you sure?" } %> )
-        </li>
+        </div>
       <% end %>
-    </ul>
+    </div>
   </div>
 </div>
