@@ -25,8 +25,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def logout
-    session.clear
-    redirect_to root_path, notice: 'You have been logged out.'
+    session.destroy!
+    redirect_to "/", notice: 'You have been logged out.'
   end
 
   def update

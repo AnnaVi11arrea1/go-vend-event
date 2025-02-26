@@ -34,6 +34,7 @@ module RailsTemplate
       g.javascripts false
       g.helper false
     end
+    config.autoload_paths += %W(#{config.root}/app/services)
 
     config.action_controller.default_protect_from_forgery = false
     config.action_mailer.default_url_options = { :host => "govend.ing" }
