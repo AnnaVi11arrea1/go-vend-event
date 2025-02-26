@@ -85,7 +85,7 @@
     <div>
       <% @vendor_event.notes.each do |note| %>
         <div style=" margin:20px;">
-          <div>
+          <div class="trix-content">
             <%= sanitize(note.content) %>
           </div>
           (<%= link_to "Edit", edit_vendor_event_note_path(@vendor_event, note) %> |
