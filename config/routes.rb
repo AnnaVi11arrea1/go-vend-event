@@ -31,4 +31,7 @@ Rails.application.routes.draw do
 
   get 'geocode_address', to: 'geocoding#geocode_address'
 
+  get "external_data", to: 'external_data#index'
+
+
 end

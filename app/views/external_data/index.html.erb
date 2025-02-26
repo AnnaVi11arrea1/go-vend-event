@@ -1,0 +1,23 @@
+<!-- app/views/external_data/index.html.erb -->
+<h1>Eventbrite Event Search</h1>
+
+<%= form_tag external_data_path, method: :get do %>
+  <%= label_tag :query, "Search for events" %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<h2>Search Results:</h2>
+<% if @events.present? %>
+  <ul>
+    <% @events.each do |event| %>
+      <li>
+        <strong><%= event['name']['text'] %></strong><br>
+        <%= event['description']['text'].truncate(100) %><br>
+        <%= link_to 'View Event', event['url'], target: '_blank' %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No events found.</p>
+<% end %>
