@@ -50,7 +50,7 @@
           <div class="cube-side d-flex justify-content-center align-items-center">
             <div>
             <p><% if event.photo.present? %>
-                <%= image_tag url_for(event.photo), width: "75px", height: "75px", alt: "default photo" %>
+                <%= image_tag url_for(event.photo.url), width: "75px", height: "75px", alt: "default photo" %>
               <% else %>
                 <%= image_tag "bulb.png", width: "75px", height: "75px", alt: "default photo" %>
               <% end %>
