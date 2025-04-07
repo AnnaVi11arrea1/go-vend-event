@@ -90,7 +90,7 @@
             <% if current_user == comment.author %>
               <div class="d-flex justify-content-between">
                 <div id="edit-form-<%= comment.id %>" style="display: none; width: 100%;">
-                  <%= form_with(model: [@event, comment], remote: true) do |form| %>
+                  <%= form_with(model: [@event, comment], data: { turbo: false }) do |form| %>
                     <%= form.rich_text_area :body, class: "form-control", value: comment.body %>
                     <%= form.submit "Update", class: "btn-in" %>
                   <% end %>

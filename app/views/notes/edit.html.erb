@@ -1,6 +1,6 @@
 <h2>Edit Note</h2>
 
-<%= form_with(model: [@vendor_event, @note], data: { turbo: false } remote: true) do |form| %>
+<%= form_with(model: [@vendor_event, @note], data: { turbo: false }) do |form| %>
   <p>
     <%= form.label :content, "Update Note:" %><br>
     <%= form.rich_text_area :content %>

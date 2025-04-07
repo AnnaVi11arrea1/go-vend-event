@@ -73,7 +73,7 @@
   <h4>Notes:</h4>
 
   <div class="funcard2">
-    <%= form_with(model: [@vendor_event, Note.new], remote: true) do |form| %>
+    <%= form_with(model: [@vendor_event, Note.new], data: { turbo: false }) do |form| %>
       <p>
         <%= form.label :content, "Add a Note:" %><br>
         <%= form.rich_text_area :content %>
