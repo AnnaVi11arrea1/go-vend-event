@@ -14,4 +14,4 @@ pin "@popperjs/core", to: "@popperjs--core.js" # @2.11.8
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@rails/actioncable/src", to: "@rails--actioncable--src.js" # @7.2.200
 pin "trix"
-pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "@rails/actiontext", to: "actiontext.js"
