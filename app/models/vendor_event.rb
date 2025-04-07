@@ -27,7 +27,7 @@ class VendorEvent < ApplicationRecord
   
   delegate :name, :address, :started_at, :ends_at, :information, :photo, to: :event, prefix: true
 
-  has_many :comments, dependent: :destroy
+
   has_many :notes, dependent: :destroy
   mount_uploader :photo, PhotoUploader
   
