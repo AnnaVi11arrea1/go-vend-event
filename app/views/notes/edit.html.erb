@@ -1,11 +1,17 @@
-<h2>Edit Note</h2>
-
-<%= form_with(model: [@vendor_event, @note], data: { turbo: false }) do |form| %>
-  <p>
-    <%= form.label :content, "Update Note:" %><br>
-    <%= form.rich_text_area :content %>
-  </p>
-  <%= form.submit "Save Changes" %>
-<% end %>
-
-<%= link_to "Back to Event", @vendor_event %>
+<div class="darkcard" style="color:rgb(255,246,167);">
+    <div class="trix-container">
+  <h2>Edit Note</h2>
+  <div class="funcard2">
+    <p>
+      <strong>Current:</strong>
+      <%= sanitize(@note.content) %>
+    </p>
+      <%= form_with(model: [@vendor_event, @note], data: { turbo: false }) do |form| %>
+        <%= form.label :content, "Modify:" %><br>
+        <%= form.rich_text_area :content %>
+        <%= form.submit "Save Changes" %>
+      <% end %>
+    </div>
+  <%= link_to "Back to Event", @vendor_event %>
+  </div>
+</div>

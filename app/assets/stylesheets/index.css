@@ -98,6 +98,17 @@ FONT
   font-size: 18px;
 }
 
+.darkcard3 {
+  background-color: rgb(115, 0, 209);
+  color:rgb(255, 234, 178);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
+  border: .5px solid rgb(0, 140, 255);
+  line-height: 125%;
+  font-size: 18px;
+}
+
 .darktitle {
   color:rgb(255, 234, 178);
   font-weight: 500;
@@ -336,13 +347,13 @@ FOOTER
   display: inline-block;
   background-color: black;
   color: #fff;
-  padding: 30px;
+  padding-top: 30px;
   text-align: center;
   justify-content: space-between;
   width: 100%;
   bottom: 0;
   margin: 0 auto;
-  margin-top: 50px;
+
 }
 
 /*===================
@@ -766,7 +777,7 @@ Fun cards
   margin-top: 20px;
   border-radius: 10px;
   cursor: pointer;
-  padding: 30px;
+  padding: 5px;
   background: linear-gradient(to bottom,rgb(61, 0, 166) 30%,rgb(89, 0, 126) 100%) border-box;
   border: 1px solid transparent;
   flex-wrap: wrap;
@@ -951,9 +962,9 @@ FEED
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid black;
+  border-top: 3px solid rgb(0, 255, 0);
   border-radius: 10px;
-  background: linear-gradient(to bottom right,rgb(96, 39, 252) 10%,rgb(9, 0, 174) 75%) border-box;
+  background: linear-gradient(to bottom right,rgb(65, 10, 136) 10%,rgb(9, 0, 174) 75%) border-box;
   padding: 10px 5px;
 }
 
@@ -993,6 +1004,7 @@ td {
 .form-control {
   display: inline-block;
   padding: 2px;
+
 }
 
 .form-control-title {
@@ -1014,4 +1026,31 @@ td {
   max-width: 100%; 
   height: auto;    
   display: block;  
+}
+
+//=================
+// RICH TEXT
+//=================
+
+.trix-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+trix-editor {
+  width: 100%;
+  min-height: 200px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+/* For very small screens */
+@media (max-width: 600px) {
+  trix-editor {
+    min-height: 300px;
+    display: block;
+    white-space: normal;
+  }
 }

@@ -1,20 +1,11 @@
 
 <div class="darkcard">
+  <div class="darktitle">
+    <strong>Event:</strong>
+    <%= @vendor_event.event.name %>
+  </div>
   <div class="row">
-    <div class="col-3 d-flex justify-content-center">
-      <p class="px-2">
-        <% if @vendor_event.photo.present? %>
-          <%= image_tag @vendor_event.photo.url, alt:"event photo", class:"vendor-event-pic" %>
-        <% elsif @vendor_event.event.photo.present? %>
-          <%= image_tag @vendor_event.event.photo.url, alt:"event photo", class:"vendor-event-pic" %>
-        <% end %>
-      </p>
-    </div>
     <div class="col-3 align-self-center">
-      <p>
-        <strong>Event:</strong>
-        <%= @vendor_event.event.name %>
-      </p>
       <p>
         <strong>Location:</strong>
         <%= @vendor_event.event.address %>
@@ -38,6 +29,7 @@
       </p>
       <% end %>
     </div>
+    <div class="col-1"></div>
     <div class="col-3">
       <strong>Application status:</strong>
       <% if @vendor_event.application_status? %>
@@ -52,6 +44,7 @@
         <p>DUE</p>
       <% end %>
     </div>
+    <div class="col-1"></div>
     <div class="col-3 justify-content-between">
       <p>
         <%= link_to "Return", vendor_events_path, class:"event_btn" %>
@@ -68,29 +61,34 @@
   </div>
 </div>
 
-<div class="darkcard" style="color:rgb(255,246,167);">
+<div class="funcard2" style="color:rgb(255,246,167);">
 
-  <h4>Notes:</h4>
+  <div class="darktitle">My Notes</div>
 
-  <div class="funcard2">
+  <div class="trix-content">
     <%= form_with(model: [@vendor_event, Note.new], data: { turbo: false }) do |form| %>
-      <p>
-        <%= form.label :content, "Add a Note:" %><br>
-        <%= form.rich_text_area :content %>
-      </p>
+      <%= form.label :content, "Create Note" %><br>
+      <%= form.rich_text_area :content %>
       <%= form.submit "Add Note" %>
     <% end %>
   </div>
-  <div">
+  <div>
     <div>
       <% @vendor_event.notes.each do |note| %>
-        <div style=" margin:20px;">
-          <div class="trix-content">
+        <div darkcard3>
+          <div class="darkcard3">
             <%= sanitize(note.content) %>
-          </div>
-          (<%= link_to "Edit", edit_vendor_event_note_path(@vendor_event, note) %> |
-          <%= link_to "Delete", vendor_event_note_path(@vendor_event, note), method: :delete, data: { confirm: "Are you sure?" } %> )
+          
+            (<%= link_to "Edit", edit_vendor_event_note_path(@vendor_event, note) %> |
+            <%= link_to "Delete", vendor_event_note_path(@vendor_event, note), method: :delete, data: { confirm: "Are you sure?" } %> )
+            <br>
+            <small>
+            <strong>Created at:</strong>
+            <%= note.created_at.strftime("%B %d, %Y") %>
+            </small>
+            </div>
         </div>
+        <br>
       <% end %>
     </div>
   </div>
