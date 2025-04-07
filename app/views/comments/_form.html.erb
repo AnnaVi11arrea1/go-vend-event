@@ -1,26 +1,20 @@
-<div class="comment-container">
-<%= form_with(model: [@event, comment], data: { turbo: false })  do |form| %>
-  <% if comment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-      <ul>
-        <% comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <!-- Hidden field for author_id (the currently logged-in user) -->
-  <%= form.hidden_field :author_id, value: current_user.id %>
-
-  <!-- Hidden field for event_id (ensuring the comment is linked to the event) -->
-  <%= form.hidden_field :event_id, value: @event.id %>
-
-  <%= form.rich_text_area :body, class: "form-control", placeholder: "Write a comment..." %>
-
-  <div>
+<div class="trix-container">
+  <%= form_with(model: [@event, comment], data: { turbo: false })  do |form| %>
+    <% if comment.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+        <ul>
+          <% comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <!-- Hidden field for author_id (the currently logged-in user) -->
+    <%= form.hidden_field :author_id, value: current_user.id %>
+    <!-- Hidden field for event_id (ensuring the comment is linked to the event) -->
+    <%= form.hidden_field :event_id, value: @event.id %>
+    <%= form.rich_text_area :body, class: "form-control", placeholder: "Write a comment..." %>
     <%= form.submit "Post Comment", class: "btn-in" %>
-  </div>
-<% end %>
+  <% end %>
 </div>
