@@ -1,11 +1,10 @@
 <div class="darkcard" style="color:rgb(255,246,167);">
-    <div class="trix-container">
-  <h2>Edit Note</h2>
-  <div class="funcard2">
-    <p>
+  <div class="trix-container">
+    <h2>Edit Note</h2>
+    <div class="funcard2">
       <strong>Current:</strong>
       <%= sanitize(@note.content) %>
-    </p>
+
       <%= form_with(model: [@vendor_event, @note], data: { turbo: false }) do |form| %>
         <%= form.label :content, "Modify:" %><br>
         <%= form.rich_text_area :content %>
