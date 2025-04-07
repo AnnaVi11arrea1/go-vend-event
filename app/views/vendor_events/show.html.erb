@@ -59,19 +59,18 @@
   </div>
 </div>
 
-<div class="funcard2" style="color:rgb(255,246,167);">
-  <div class="darktitle">My Notes</div>
-  <div>
-    <%= form_with(model: [@vendor_event, Note.new], data: { turbo: false }) do |form| %>
-      <%= form.label :content, "Create Note" %><br>
-      <%= form.rich_text_area :content %>
-      <%= form.submit "Add Note" %>
-    <% end %>
-  </div>
-  <div>
-    <div>
-      <% @vendor_event.notes.each do |note| %>
-        <div darkcard3>
+<div class="darkcard3">
+    <div class="funcard2" style="color:rgb(255,246,167);">
+      <div class="darktitle">My Notes</div>
+      <div class="trix-container">
+        <%= form_with(model: [@vendor_event, Note.new], data: { turbo: false }) do |form| %>
+          <%= form.label :content, "Create Note" %><br>
+          <%= form.rich_text_area :content %>
+          <%= form.submit "Add Note", class: "btn-in" %>
+        <% end %>
+      </div>
+      <div>
+        <% @vendor_event.notes.each do |note| %>
           <div class="darkcard3">
             <%= sanitize(note.content) %>
           
@@ -82,10 +81,9 @@
             <strong>Created at:</strong>
             <%= note.created_at.strftime("%B %d, %Y") %>
             </small>
-            </div>
-        </div>
-        <br>
-      <% end %>
+          </div>
+        <% end %>
+      </div>
+      <br>
     </div>
-  </div>
 </div>

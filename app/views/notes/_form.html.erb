@@ -1,0 +1,20 @@
+<div class="trix-container">
+  <%= form_with(model: [@vendor_event, note], data: { turbo: false })  do |form| %>
+    <% if note.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+        <ul>
+          <% note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <!-- Hidden field for author_id (the currently logged-in user) -->
+    <%= form.hidden_field :author_id, value: current_user.id %>
+    <!-- Hidden field for event_id (ensuring the note is linked to the event) -->
+    <%= form.hidden_field :event_id, value: @vendor_event.id %>
+    <%= form.rich_text_area :content, class: "form-control", placeholder: "Write a note..." %>
+    <%= form.submit "Save Note", class: "btn-in" %>
+  <% end %>
+</div>
