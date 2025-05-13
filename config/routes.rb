@@ -33,5 +33,8 @@ Rails.application.routes.draw do
 
   get "external_data", to: 'external_data#index'
 
+  get '/admin' => 'admin#index', as: :admin_root
+  
+
 
 end
