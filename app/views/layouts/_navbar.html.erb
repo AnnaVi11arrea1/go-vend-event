@@ -21,10 +21,6 @@
         <%= link_to "Sign Up", new_user_registration_path %>
     <% end %>
 
-          <% if current_user.present? && current_user.admin == "true"  %>
-            <%= link_to "Admin", admin_root_path %>
-          <% end %>
-
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>

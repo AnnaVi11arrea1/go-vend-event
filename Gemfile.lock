@@ -192,6 +192,9 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday-gzip (3.0.4)
+      faraday (>= 2.0, < 3)
+      zlib (~> 3.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     faraday-retry (1.0.3)
@@ -595,6 +598,7 @@ GEM
       nokogiri (~> 1.8)
     zeitwerk (2.7.1)
     zip (2.0.2)
+    zlib (3.2.1)
 
 PLATFORMS
   aarch64-linux
@@ -632,6 +636,8 @@ DEPENDENCIES
   draft_matchers
   eventbrite_sdk
   faker
+  faraday
+  faraday-gzip
   fog-aws
   geocoder
   gmaps4rails
@@ -647,6 +653,7 @@ DEPENDENCIES
   jquery-rails
   kaminari (~> 1.2)
   letter_opener
+  nokogiri
   omniauth-github
   omniauth-rails_csrf_protection
   pg (~> 1.1)
@@ -654,6 +661,7 @@ DEPENDENCIES
   puma
   pundit
   pwa
+  racc
   rails (~> 7.1.5.1)
   rails-erd
   rails_db
@@ -676,6 +684,7 @@ DEPENDENCIES
   web-console
   webdrivers
   webmock
+  zlib
 
 RUBY VERSION
    ruby 3.2.1p31
