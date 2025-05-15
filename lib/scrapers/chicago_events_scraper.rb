@@ -30,12 +30,17 @@ module Scrapers
 
         next if title.blank? || date.blank? || link_href.blank?
 
-        event = Event.find_or_initialize_by(name: title)
-        event.started_at = date
-        event.application_link = link_href
-        
-        if event.saved?
+        event = Event.create(
+          name: title,
+          started_at: date,
+          application_link: link_href,
+          host_id: 1
+        )
+
+        if event.persisted?
           puts "Event created: #{event.name} on #{event.started_at}"
+        else
+          puts "Failed to create event: #{event.errors.full_messages.join(', ')}"
         end
       end
     end
