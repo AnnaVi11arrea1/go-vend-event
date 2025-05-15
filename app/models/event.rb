@@ -23,13 +23,9 @@ class Event < ApplicationRecord
   after_validation :geocode, if: :address_changed?
 
   validates :name, presence: true
-  validates :application_due_at, presence: true
   validates :started_at, presence: true
-  validates :information, presence: true
   validates :application_link, presence: true
-  validates :tags, presence: true
-  validates :address, presence: true
-  
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :users, through: :vendor_events
   has_many :vendor_events, dependent: :destroy
 

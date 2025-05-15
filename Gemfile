@@ -14,6 +14,8 @@ gem "devise"
 gem "dotenv-rails"
 gem 'eventbrite_sdk'
 gem "faker"
+gem "faraday"
+gem "faraday-gzip"
 gem "geocoder"
 gem "gmaps4rails"
 gem "good_job", "~> 4.5"
@@ -45,6 +47,9 @@ gem "pundit"
 gem "breadcrumbs_on_rails"
 gem "image_processing", '~> 1.2'
 gem "fog-aws"
+gem "zlib"
+gem "nokogiri"
+gem "racc"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
