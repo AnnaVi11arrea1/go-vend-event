@@ -23,6 +23,14 @@ namespace :scraper do
   task hometown_vendor: :environment do
     require Rails.root.join('lib/scrapers/hometown_vendor_scraper.rb')
     Scrapers::HometownVendorScraper.run
+    # bin/rails scraper:hometown_vendor 
+  end
+
+  desc 'Scrape events from chicagoartisanmarket.com'
+  task chicago_artisan: :environment do
+    require Rails.root.join('lib/scrapers/chicago_artisan_scraper.rb')
+    Scrapers::ChicagoArtisanScraper.run
+    # bin/rails scraper:chicago_artisan
   end
   
   desc 'Run all scrapers'
