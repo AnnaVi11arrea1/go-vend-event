@@ -32,6 +32,13 @@ namespace :scraper do
     Scrapers::ChicagoArtisanScraper.run
     # bin/rails scraper:chicago_artisan
   end
+
+  desc 'Scrape events from bright-star.com'
+  task brightstar: :environment do
+    require Rails.root.join('lib/scrapers/brightstar_scraper.rb')
+    Scrapers::BrightstarScraper.run
+    # bin/rails scraper:chicago_artisan
+  end
   
   desc 'Run all scrapers'
   task all: :environment do
