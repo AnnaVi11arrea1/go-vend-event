@@ -5,10 +5,10 @@ require 'nokogiri'
 # Hello!
 
 module Scrapers
-  class ChicagoEventsScraper
+  class HometownVendorScraper
     def self.run
       conn = Faraday.new(
-        url: 'https://https://hometownvendormarket.com/',
+        url: 'https://hometownvendormarket.com',
         headers: { 
           'Content-Type' => 'application/json',
           'User-Agent' => 'GoScrape' # Agent can be whatever
@@ -20,10 +20,12 @@ module Scrapers
       # GET
       res = conn.get('/illinois/')
       doc = Nokogiri::HTML(res.body)
-      articles = doc.css('.et_pb_section et_pb_section_1 et_pb_with_background et_section_regular')
+      articles = doc.css('.et-last-child')
 
       articles.each do |article|
-        date = article.at_css('p')&.text&.strip
+        date_text = article.at_css('p')&.text&.strip
+        date_only = date_text&.split('|')&.first&.strip
+        date = date_only&.sub(/\w+/) { |month| month.capitalize }
         title = article.at_css('h2')&.text&.strip
         link = article.at_css('a')
         link_href = link&.[]('href')
