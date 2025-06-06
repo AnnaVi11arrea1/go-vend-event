@@ -5,7 +5,7 @@ require 'nokogiri'
 # Hello!
 
 module Scrapers
-  class ILFFEventsScraper
+  class IDFFEventsScraper
     def self.run
       conn = Faraday.new(
         url: 'https://www.fairsandfestivals.net',
@@ -17,7 +17,7 @@ module Scrapers
         f.request :gzip # Enable gzip compression for requests
       end
 
-      res = conn.get('/states/IL')
+      res = conn.get('/states/ID')
       doc = Nokogiri::HTML(res.body)
       articles = doc.css('.event')
 
@@ -31,7 +31,7 @@ module Scrapers
         event = Event.create(
           started_at: date,
           address: location,
-          application_link: "https://www.fairsandfestivals.net/states/IL/" + link_href,
+          application_link: "https://www.fairsandfestivals.net/states/ID" + link_href,
           host_id: 1,
           name: title
         )
