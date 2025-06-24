@@ -199,16 +199,7 @@ GEM
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
     faraday-retry (1.0.3)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm-linux-musl)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86-linux-musl)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
-    ffi (1.17.0-x86_64-linux-musl)
+    ffi (1.17.0)
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
       rake
@@ -335,6 +326,7 @@ GEM
     mime-types-data (3.2025.0220)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.25.4)
     mozaic (2.0.1)
       activesupport (>= 5.0)
@@ -361,17 +353,8 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.4)
-    nokogiri (1.17.2-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.17.2-arm-linux)
-      racc (~> 1.4)
-    nokogiri (1.17.2-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.17.2-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-linux)
+    nokogiri (1.17.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -549,12 +532,8 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    sqlite3 (1.7.3-aarch64-linux)
-    sqlite3 (1.7.3-arm-linux)
-    sqlite3 (1.7.3-arm64-darwin)
-    sqlite3 (1.7.3-x86-linux)
-    sqlite3 (1.7.3-x86_64-darwin)
-    sqlite3 (1.7.3-x86_64-linux)
+    sqlite3 (1.7.3)
+      mini_portile2 (~> 2.8.0)
     ssrf_filter (1.2.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
@@ -691,7 +670,7 @@ DEPENDENCIES
   zlib
 
 RUBY VERSION
-   ruby 3.2.1p31
+   ruby 3.4.4p34
 
 BUNDLED WITH
    2.5.23
