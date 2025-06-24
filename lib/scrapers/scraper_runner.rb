@@ -37,6 +37,7 @@ module Scrapers
       hometown_vendor_scraper
       chicago_artisan_scraper
       brightstar_scraper
+      amdur_events_scraper
     ]
 
     def self.run_all
