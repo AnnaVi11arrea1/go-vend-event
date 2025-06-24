@@ -7,6 +7,12 @@ namespace :scraper do
     Scrapers::ChicagoEventsScraper.run
   end
 
+  desc 'Scrape events from amdurproductions.com'
+  task amdur_events: :environment do
+    require Rails.root.join('lib/scrapers/amdur_events_scraper.rb')
+    Scrapers::AmdurEventsScraper.run
+  end
+
   desc 'Scrape events from fairsandfestivals.net'
   # ARIZONA users will still have to manually search google to find event page unless they login with an account
   task AZFF_events: :environment do
@@ -155,6 +161,13 @@ namespace :scraper do
   end
 
   desc 'Scrape events from fairsandfestivals.net'
+  # NEW YORK users will still have to manually search google to find event page unless they login with an account
+  task NYFF_events: :environment do
+    require Rails.root.join('lib/scrapers/NYFF_events_scraper.rb')
+    Scrapers::NYFFEventsScraper.run
+  end
+
+  desc 'Scrape events from fairsandfestivals.net'
   # SOUTH DAKOTA users will still have to manually search google to find event page unless they login with an account
   task SDFF_events: :environment do
     require Rails.root.join('lib/scrapers/SDFF_events_scraper.rb')
@@ -242,11 +255,5 @@ namespace :scraper do
     require Rails.root.join('lib/scrapers/brightstar_scraper.rb')
     Scrapers::BrightstarScraper.run
     # bin/rails scraper:chicago_artisan
-  end
-  
-  desc 'Run all scrapers'
-  task all: :environment do
-    Rake::Task['scraper:chicago_events'].invoke
-    Rake::Task['scraper:ILFF_events'].invoke
   end
 end
