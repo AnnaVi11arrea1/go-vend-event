@@ -50,6 +50,7 @@ gem "fog-aws"
 gem "zlib"
 gem "nokogiri"
 gem "racc"
+gem "whenever"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
