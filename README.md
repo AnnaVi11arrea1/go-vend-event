@@ -2,7 +2,6 @@
 ## goVend
 <br>
 
-## Description
 An app that helps connects vendors to events! Search for events and find out how/where to apply. 
 
 
