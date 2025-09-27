@@ -4,7 +4,7 @@
 
 Open for hacktoberfest 2025!
 
-<img width="500 " height="500" alt="hacktoberfest2025_govend" src="https://github.com/user-attachments/assets/e9456b5b-3507-47f5-b5aa-c344360ed7ea" />
+<img width="350" height="350" alt="hacktoberfest2025_govend" src="https://github.com/user-attachments/assets/e9456b5b-3507-47f5-b5aa-c344360ed7ea" />
 
 
 ### Intro
