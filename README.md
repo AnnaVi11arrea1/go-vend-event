@@ -64,7 +64,8 @@ Follow the on-screen instructions to use the application
 
 ## Contribute
 
-- branch name with initals first. Tag a project member for a review.
+- See CONTRIBUTE.md :)
+  
 <hr>
 
 ## API
