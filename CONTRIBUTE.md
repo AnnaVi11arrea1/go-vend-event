@@ -1,4 +1,4 @@
-## Contributing to govend
+## :white_check_mark: Contributing to govend
 
 <br>
 
