@@ -2,16 +2,16 @@
 
 <br>
 
-Open for hacktoberfest 2025!
+Open for Hacktoberfest 2025!
 
 <img width="350" height="350" alt="hacktoberfest2025_govend" src="https://github.com/user-attachments/assets/e9456b5b-3507-47f5-b5aa-c344360ed7ea" />
 
 
 ### Intro
 
-Welcome to govend! I am so excited you have taken an interest in this project. Your contributions will help individuals, independant artists, and small businesses help navigate their event driven ventures.
+Welcome to govend! I am so excited you have taken an interest in this project. Your contributions will help individuals, independent artists, and small businesses help navigate their event driven ventures.
 
-If you want to make a meaningful contribution to this project, I welcome your ideas. You are welcome to submit styling improvments or the addition/refinement of features. 
+If you want to make a meaningful contribution to this project, I welcome your ideas. You are welcome to submit styling improvements or the addition/refinement of features, and you can also make non-code contributions.
 
 ### Getting Started
 
@@ -23,7 +23,7 @@ If you want to make a meaningful contribution to this project, I welcome your id
 
 4. Make your changes, commit and push to your fork. 
 
-5. Create a pull request. Use a relevant title like "Styling improvments to calendar" followed by a detailed message of chnages made. 
+5. Create a pull request. Use a relevant title like "Styling improvements to calendar" followed by a detailed message of changes made. 
 
 ### What can I contribute?
 
@@ -43,7 +43,7 @@ Non-Code ideas:
 - Be detailed in your commit messages so others can follow and understand your changes.
 - If resolving a current issue, link it to the issue.
 
-### Communcation Standards
+### Communication Standards
 
 - Don't need to be overly professional here - just be respectful and kind. Inappropriate language towards others, harassment, or wrongful treatment of others will not be tolerated and you will be dismissed from the project. 
 - Contributors or interested individuals are welcome to ask questions on the issues. 
@@ -55,10 +55,10 @@ Non-Code ideas:
 
 -- Example of bad contribution: 
 
-"You are missing a comma on the landing page on the first sentance."
+"You are missing a comma on the landing page on the first sentence."
 
 -- Example of good contribution: 
-"I have reviewed all of the text for formatting and grammer. 
+"I have reviewed all of the text for formatting and grammar. 
 The following areas have been updated: 
 1. (thing) 
 2. (thing2) 
@@ -68,6 +68,6 @@ The following areas have been updated:
 
 YES! You are welcome to suggest and implement improvements even if there isn't an issue made already. 
 
-If your pull request is approved, it will recieve a hacktoberfest-accepted tag.
+If your pull request is approved, it will receive a hacktoberfest-accepted tag.
 
 Excited to work with everyone! Happy Hacktoberfest 2025!
