@@ -57,9 +57,9 @@ Non-Code ideas:
 -- Example of good contribution: 
 "I have reviewed all of the text for formatting and grammer. 
 The following areas have been updated: 
-1. <thing> 
-2. <thing2> 
-3. <thing3>. 
+1. (thing) 
+2. (thing2) 
+3. (thing3). 
 ...and link it to a related issue if one exists.
 
 YES! You are welcome to suggest and implement improvements even if there isn't an issue made already. 
