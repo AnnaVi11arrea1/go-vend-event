@@ -4,6 +4,9 @@
 
 An app that helps connects vendors to events! Search for events and find out how/where to apply. 
 
+### A personal note
+As an artist and vendor for over 7 years, I have traveled the country selling my art at music events, festivals, fairs, cons, and farmers markets. I have found it a huge challenge organizing my events, keeping track of pertinent data, and related complications. Event vendors need an app that they can consolidate all of there information in. This is not another eventbright app. This is for event vendors to find and organize their events, and for event promotors to share there events. Sure, there are other management apps out there. But being a vendor is a very specific job, and anyone that has done events with multiple coordinators knows that every event has different requirements and specifications. It will be a different experience depending on the event and type of vendor you are. Are you a craft vendor? Are you doing an art installment? Or is your food truck looking to share their treats at the coolest local food fest? This app aims to consolidate users specific needs in one unified location. :)
+
 
 <br>
 
