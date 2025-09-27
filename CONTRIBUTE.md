@@ -6,12 +6,13 @@
 
 <img width="350" height="350" alt="hacktoberfest2025_govend" src="https://github.com/user-attachments/assets/e9456b5b-3507-47f5-b5aa-c344360ed7ea" />
 
-
 ### :loudspeaker: Intro
 
 Welcome to govend! I am so excited you have taken an interest in this project. Your contributions will help individuals, independent artists, and small businesses help navigate their event driven ventures.
 
 If you want to make a meaningful contribution to this project, I welcome your ideas. You are welcome to submit styling improvements or the addition/refinement of features, and you can also make non-code contributions.
+
+<hr>
 
 ### :wrench: Getting Started
 
@@ -65,6 +66,8 @@ The following areas have been updated:
 3. (thing3)
 
 ...and link it to a related issue if one exists.
+
+<hr>
 
 YES! You are welcome to suggest and implement improvements even if there isn't an issue made already. 
 
