@@ -61,6 +61,8 @@ Follow the on-screen instructions to use the application
 
 ## ERD
 
+**Please note that this is the original ERD, and that it has since been modified greatly. This is to aid in providing a broad idea for newcomers.
+
 ![Screenshot 2024-12-09 145151](https://github.com/user-attachments/assets/31316f7c-c78e-49c8-b8dc-a7b80e337ddc)
 
 <hr>
