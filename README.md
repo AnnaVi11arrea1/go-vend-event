@@ -9,6 +9,7 @@ An app that helps connects vendors to events! Search for events and find out how
 
 ![Screenshot 2024-12-12 003217](https://github.com/user-attachments/assets/3946bf7e-dc70-4eaf-9653-8e407904002d)
 
+![Screenshot 2024-12-12 003217](https://github.com/user-attachments/assets/b06658b8-19a0-4f9e-a3cb-86dc1ed0e23a)
 
 
 <hr>
