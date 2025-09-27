@@ -53,11 +53,11 @@ Non-Code ideas:
 
 - Please submit only meaningful contributions. Spam is not tolerated.
 
--- Example of bad contribution: 
+#### :no_entry: Example of bad contribution: 
 
 "You are missing a comma on the landing page on the first sentence."
 
--- Example of good contribution: 
+#### :white_check_mark: Example of good contribution: 
 "I have reviewed all of the text for formatting and grammar. 
 The following areas have been updated: 
 1. (thing) 
