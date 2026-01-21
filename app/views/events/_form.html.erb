@@ -6,32 +6,51 @@
   <h2 class="darktitle">Edit Event <%= @event.name %></h2>
   <div class="form-inputs">
     <div class="form-group">
-    <%= f.input :started_at, as: :date, label: "Starts on: " %>
+      <div>
+        <%= f.input :started_at, as: :date, label: "Starts on: " %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :ends_at, as: :date, label: "Ends on: " %>
+      <div>
+        <%= f.input :ends_at, as: :date, label: "Ends on: " %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :application_due_at, as: :date, label: "Apply by: ", required: false %>
+      <div>
+        <%= f.input :application_due_at, as: :date, label: "Apply by: ", required: false %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :name %>
+      <div>
+        <%= f.input :name %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :information, as: :text %>
+      <div>
+        <%= f.input :information, as: :text %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :application_link, as: :string, required: false %>
+      <div>
+        <%= f.input :application_link, as: :string, required: false %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :tags, required: false %>
+      <div>
+        <%= f.input :tags, required: false %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :address, as: :string %>
+      <div>
+        <%= f.input :address, as: :string %>
+      </div>
     </div>
     <div class="form-group">
-    <%= f.input :photo, as: :file %>
+      <div>
+        <%= f.input :photo, as: :file %>
+      </div>
     </div>
+  </div>
     <div class="form-actions">
       <%= f.button :submit, class:"event_btn" %>
     </div>

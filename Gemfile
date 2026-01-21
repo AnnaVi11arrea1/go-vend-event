@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.4"
+ruby ">= 3.3.4"
 
 gem "active_link_to"
 gem "appdev_support"
@@ -29,7 +29,10 @@ gem "jquery-rails"
 gem "kaminari", "~> 1.2"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
-gem "pg", "~> 1.1"
+
+group :production do
+  gem "pg", "~> 1.1"
+end
 gem "puma"
 gem "pwa"
 gem "rails", "~> 7.1.5.1"
@@ -51,6 +54,7 @@ gem "zlib"
 gem "nokogiri"
 gem "racc"
 gem "whenever"
+gem "rake", ">= 13.3.1"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

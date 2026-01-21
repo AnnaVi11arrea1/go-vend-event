@@ -24,6 +24,8 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
     <%= javascript_include_tag "comments", "data-turbo-track": "reload" %>
     <%= turbo_include_tags %>
     <%= javascript_importmap_tags %>
@@ -38,7 +40,7 @@
     </ol>
     <% end %>
     
-    <div class="container">
+    <div class="container container-main">
       <% if notice %>
         <p style="color: green" class="notice"><%= notice %></p>
       <% end %>
@@ -48,6 +50,7 @@
 
       <%= yield %>
     </div>
+
 
   <footer>
     <%= render "layouts/footer"%>

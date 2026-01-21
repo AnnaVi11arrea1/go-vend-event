@@ -1,0 +1,35 @@
+<div class="mobile-bottom-nav d-md-none fixed-bottom">
+  <div class="d-flex justify-content-around align-items-center">
+    <% if current_user.present? %>
+      <%= link_to events_path, class: "nav-item" do %>
+        <i class="fa fa-search"></i>
+        <span>Search</span>
+      <% end %>
+      
+      <%= link_to vendor_events_path, class: "nav-item" do %>
+        <i class="fa fa-calendar"></i>
+        <span>Events</span>
+      <% end %>
+      
+      <%= link_to user_path(current_user), class: "nav-item" do %>
+        <i class="fa fa-user"></i>
+        <span>Profile</span>
+      <% end %>
+
+      <%= link_to feed_path(current_user), class: "nav-item" do %>
+        <i class="fa fa-rss"></i>
+        <span>Feed</span>
+      <% end %>
+    <% else %>
+      <%= link_to root_path, class: "nav-item" do %>
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      <% end %>
+      
+      <%= link_to new_user_session_path, class: "nav-item" do %>
+        <i class="fa fa-sign-in"></i>
+        <span>Sign In</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
