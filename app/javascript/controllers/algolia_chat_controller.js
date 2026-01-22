@@ -38,12 +38,12 @@ export default class extends Controller {
   }
 
   resetChat() {
-    const resetBtn = this.containerTarget.querySelector(".ais-Chat-reset")
+    const resetBtn = this.containerTarget.querySelector(".ais-ChatPrompt-reset")
     if (resetBtn) resetBtn.click()
   }
 
   submitChat() {
-    const submitBtn = this.containerTarget.querySelector(".ais-Chat-submit")
+    const submitBtn = this.containerTarget.querySelector(".ais-ChatPrompt-submit")
     if (submitBtn) submitBtn.click()
   }
 
@@ -72,23 +72,42 @@ export default class extends Controller {
         agentId: '97f69bc5-115e-4234-9fd2-2a13200eebfe',
         transport: {
           api: 'https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezsDQzMTQyBwA/mcp',
-          headers: {
+          headers: () => ({
             'Authorization': `Bearer ${this.authTokenValue}`,
             'X-User-ID': this.userIdValue || 'anonymous',
-          },
-          body: {
+          }),
+          body: () => ({
             sessionId: this.sessionIdValue,
             userId: this.userIdValue || 'anonymous'
-          },
+          }),
           credentials: 'include',
         },
         templates: {
-          submit: () => '',
-          reset: () => '',
-          retry: () => '',
-          copy: () => '',
-          feedbackLike: () => '',
-          feedbackDislike: () => ''
+          // Using default templates to ensure prompt area renders
+        },
+        tools: {
+          'searchEvents': {
+            templates: {
+              layout: ({ message, results }, { html }) => {
+                const events = results?.[0]?.hits || [];
+                if (events.length === 0) return html`<div class="tool-result no-results">No events found.</div>`;
+
+                return html`
+                  <div class="tool-result">
+                    <p class="tool-caption">I found these events:</p>
+                    <div class="event-cards-mini">
+                      ${events.map(event => html`
+                        <div class="event-card-mini">
+                          <span class="event-name">${event.name}</span>
+                          <span class="event-date">${new Date(event.started_at).toLocaleDateString()}</span>
+                        </div>
+                      `)}
+                    </div>
+                  </div>
+                `;
+              }
+            }
+          }
         }
       })
     ]);
