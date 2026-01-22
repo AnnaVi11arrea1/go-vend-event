@@ -6,6 +6,7 @@
 #  address            :string
 #  application_due_at :date
 #  application_link   :string
+#  city               :string
 #  ends_at            :date
 #  information        :string
 #  latitude           :float
@@ -13,6 +14,7 @@
 #  name               :string
 #  photo              :string
 #  started_at         :date
+#  state              :string
 #  tags               :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -55,7 +57,7 @@ class Event < ApplicationRecord
 
   
   def self.ransackable_attributes(auth_object = nil)
-    %w[name address tags started_at]
+    %w[name address tags started_at city state]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -88,7 +90,7 @@ class Event < ApplicationRecord
   end
 
   algoliasearch index_name: "Event" do
-    attributes :name, :address, :tags, :started_at, :latitude, :longitude
+    attributes :name, :address, :tags, :started_at, :latitude, :longitude, :city, :state
   end
 
   private
@@ -98,8 +100,12 @@ class Event < ApplicationRecord
   end
 
   def geocode
-    super
-    Rails.logger.debug "Geocoding: #{address} to #{latitude}, #{longitude}"
+    result = super
+    if result.is_a?(Array) && (res = result.first)
+      self.city = res.city || res.sub_state || res.county
+      self.state = res.state_code || res.state
+    end
+    Rails.logger.debug "Geocoding: #{address} to #{latitude}, #{longitude}, City: #{city}, State: #{state}"
   end
 
 

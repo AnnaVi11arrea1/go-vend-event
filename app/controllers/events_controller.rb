@@ -1,27 +1,22 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ index show new edit update destroy ]
+  before_action :set_event, only: %i[ show edit update destroy ]
   before_action :event_params, only: %i[ create update ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy ]
   before_action :set_breadcrumbs, only: %i[ index show edit new ]
+
   include PaginationHelper
 
 
   def index
-    pagination = custom_paginate(Event.all, per_page: 5)
-    @events = pagination[:collection]
+    @q = Event.ransack(params[:q])
+    @events = @q.result.order(started_at: :asc).page(params[:page]).per(6)
+    
+    pagination = custom_paginate(@events, per_page: 6)
     @current_page = pagination[:current_page]
     @total_pages = pagination[:total_pages]
+    
     add_breadcrumb "Events", events_path, title: "Events"
     @event = Event.new
-    @q = Event.ransack(params[:q])
-      if @q.started_at
-        @events = @q.result.order(started_at: :asc).page(params[:page]).per(6)
-      else if @q.name_cont
-        @events = @q.result.order(name: :asc).page(params[:page]).per(6)
-      else
-        @events = @q.result.page(params[:page]).per(6)
-      end
-    end
   end
   # GET /events/1 or /events/1.json
   def show 
@@ -106,16 +101,18 @@ class EventsController < ApplicationController
     end
   end
 
+  
   private
   # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    @event = Event.where(id: params[:id])
-  end
-
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :comments, :q, :commit)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :comments, :city, :state)
   end
+  
+  def set_event
+    @event = Event.find_by(id: params[:id])
+  end
+
 
   def ensure_user_is_authorized
     if !EventPolicy.new(current_user, @event)

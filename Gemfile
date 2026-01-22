@@ -69,7 +69,6 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "draft_generators"
-  gem "grade_runner"
   gem "letter_opener"
   gem "pry-rails"
   gem "rails_db"

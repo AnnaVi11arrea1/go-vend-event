@@ -31,12 +31,12 @@ module PaginationHelper
 
   # Link to the previous page
   def previous_page_link(current_page)
-    link_to("« Previous", params.permit(:page).merge(page: current_page - 1), class: "page-link #{'disabled' if current_page <= 1}")
+    link_to("« Previous", params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: current_page - 1), class: "page-link #{'disabled' if current_page <= 1}")
   end
 
   # Link to the next page
   def next_page_link(current_page, total_pages)
-    link_to("Next »", params.permit(:page).merge(page: current_page + 1), class: "page-link #{'disabled' if current_page >= total_pages}")
+    link_to("Next »", params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: current_page + 1), class: "page-link #{'disabled' if current_page >= total_pages}")
   end
 
   # Display surrounding page numbers
@@ -53,8 +53,7 @@ module PaginationHelper
 
     # Generate page links
     (start_page..end_page).map do |page|
-      link_to(page, params.permit(:page).merge(page: page), class: "page-link #{'active' if page == current_page}")
+      link_to(page, params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: page), class: "page-link #{'active' if page == current_page}")
     end.join.html_safe
   end
 end
-

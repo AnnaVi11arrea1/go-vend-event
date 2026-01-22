@@ -58,6 +58,14 @@
           <%= f.text_field :name_cont %>
         </div>
         <div>
+          <%= f.label :city_cont, "City / Metro Area" %>
+          <%= f.text_field :city_cont %>
+        </div>
+        <div>
+          <%= f.label :state_cont, "State" %>
+          <%= f.text_field :state_cont %>
+        </div>
+        <div>
           <%= f.label :started_at_gteq, "On or after " %>
           <%= f.date_field :started_at_gteq %>
         </div>
@@ -96,7 +104,7 @@
                 <strong>Where:</strong>
                 <%= event.address %></p>
               <p class="card-text"><strong>When:</strong>
-                <%= event.started_at.strftime("%B %d, %Y") %></p>
+                <%= event.started_at&.year&.positive? ? event.started_at.strftime("%B %d, %Y") : "Date TBD" %></p>
             </div>
           </div>
           <div class="pt-5">

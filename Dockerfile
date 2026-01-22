@@ -38,10 +38,6 @@ ENV BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_JOBS=4 \
     BUNDLE_RETRY=3
 
-# Install gems (optional here, usually done in postCreateCommand or later)
-# COPY --chown=dev:dev Gemfile Gemfile.lock ./
-# RUN bundle install
-
 # Add useful aliases
 RUN echo "alias be='bundle exec'" >> ~/.bash_aliases \
     && echo "alias g='git status'" >> ~/.bash_aliases \
