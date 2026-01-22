@@ -21,7 +21,7 @@
 #  user_id            :integer
 #
 class VendorEvent < ApplicationRecord
-  
+  include AlgoliaSearch
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
   
@@ -65,6 +65,9 @@ class VendorEvent < ApplicationRecord
     ends_at - started_at
   end
 
+  algoliasearch index_name: "VendorEvent" do
+    attributes :id, :address, :start_time, :paid, :application_status, :expense, :profit, :return, :sales, :state
+  end
 
   private
 

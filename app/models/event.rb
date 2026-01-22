@@ -19,6 +19,7 @@
 #  host_id            :integer
 #
 class Event < ApplicationRecord
+  include AlgoliaSearch
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
@@ -84,6 +85,10 @@ class Event < ApplicationRecord
 
   def photo_url
     photo.present? ? photo.url : nil
+  end
+
+  algoliasearch index_name: "Event" do
+    attributes :name, :address, :tags, :started_at, :latitude, :longitude
   end
 
   private

@@ -29,6 +29,9 @@ gem "jquery-rails"
 gem "kaminari", "~> 1.2"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
+gem "algoliasearch-rails"
+gem "algolia"
+
 
 group :production do
   gem "pg", "~> 1.1"

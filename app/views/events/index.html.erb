@@ -1,5 +1,43 @@
-<div id="events" class="darkcard">
+<div id="events" class="darkcard" 
+     data-controller="algolia-chat"
+     data-algolia-chat-app-id-value="MHB695BBRR"
+     data-algolia-chat-search-key-value="<%= ENV['ALGOLIA_SEARCH_KEY'] %>"
+     data-algolia-chat-user-id-value="<%= current_user&.id %>"
+     data-algolia-chat-auth-token-value="<%= form_authenticity_token %>"
+     data-algolia-chat-session-id-value="<%= session.id %>">
         <p class="d-flex justify-content-center">Find events that match your needs. Click map icons to see quick details.</p>
+
+  <!-- Algolia Chat Floating Button -->
+  <button class="chat-toggle-btn" data-action="click->algolia-chat#toggle" data-algolia-chat-target="button">
+    <i class="fas fa-robot"></i> Ask AI
+  </button>
+
+  <div id="chat-window" class="chat-window d-none" data-algolia-chat-target="container">
+    <div class="chat-header">
+      <div class="header-main">
+        <span>AI Search Assistant</span>
+        <div class="header-actions">
+          <button class="maximize-btn" data-action="click->algolia-chat#maximize">
+            <i class="fa fa-expand"></i>
+          </button>
+          <button class="btn-close btn-close-white" data-action="click->algolia-chat#toggle"></button>
+        </div>
+      </div>
+      
+      <div class="chat-toolbar">
+        <button class="toolbar-btn" data-action="click->algolia-chat#resetChat" title="Clear Chat">
+          <i class="fa fa-trash"></i> <span>Clear</span>
+        </button>
+        <button class="toolbar-btn" data-action="click->algolia-chat#copyChat" title="Copy Last Response">
+          <i class="fa fa-copy"></i> <span>Copy</span>
+        </button>
+        <button class="toolbar-btn" data-action="click->algolia-chat#submitChat" title="Send Message">
+          <i class="fa fa-paper-plane"></i> <span>Send</span>
+        </button>
+      </div>
+    </div>
+    <div id="chat-widget-container"></div>
+  </div>
 
   <div>
     <div id="map" 

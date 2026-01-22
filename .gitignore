@@ -45,3 +45,6 @@ examples.txt
 
 # Ignore NodeModules
 /node_modules
+
+
+algoliasearch.rb
