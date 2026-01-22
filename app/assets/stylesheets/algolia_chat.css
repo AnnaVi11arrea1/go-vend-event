@@ -379,6 +379,13 @@ body #events .ais-ChatPrompt-submit:hover {
   }
 }
 
+.ais-Carousel-list {
+  display: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* Tool Results & Cards */
 .tool-result {
   margin-top: 10px;
