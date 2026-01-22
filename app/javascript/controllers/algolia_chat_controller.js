@@ -57,6 +57,8 @@ export default class extends Controller {
   }
 
   initSearch() {
+    console.log("Initializing Algolia Chat with AppID:", this.appIdValue);
+
     const searchClient = algoliasearch(
       this.appIdValue,
       this.searchKeyValue
@@ -68,48 +70,34 @@ export default class extends Controller {
       chat({
         container: '#chat-widget-container',
         agentId: '97f69bc5-115e-4234-9fd2-2a13200eebfe',
-        // Implementing transport as an object to avoid external class dependencies
         transport: {
           api: 'https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezsDQzMTQyBwA/mcp',
-          headers: () => ({
-            Authorization: `Bearer ${this.authTokenValue}`,
-            'X-User-ID': this.userIdValue,
-          }),
-          body: () => ({
+          headers: {
+            'Authorization': `Bearer ${this.authTokenValue}`,
+            'X-User-ID': this.userIdValue || 'anonymous',
+          },
+          body: {
             sessionId: this.sessionIdValue,
-          }),
-          credentials: () => 'include',
+            userId: this.userIdValue || 'anonymous'
+          },
+          credentials: 'include',
         },
         templates: {
-          // Hiding default buttons to move them to header
           submit: () => '',
           reset: () => '',
           retry: () => '',
           copy: () => '',
           feedbackLike: () => '',
           feedbackDislike: () => ''
-        },
-        tools: {
-          'addToChat': {
-            templates: {
-              layout: ({
-                // the current message for the tool
-                message,
-                // the current InstantSearch UI state (query, page, refinements, etc.)
-                indexUiState,
-                // function to update the InstantSearch UI state
-                setIndexUiState,
-                // function to add a result from the tool to the chat
-                addToolResult
-              }, { html }) => html`<div>Tool: addToChat</div>`
-            },
-            onToolCall: ({ addToolResult }) =>
-              addToolResult({ output: { text: 'result' } })
-          }
         }
       })
     ]);
 
+    search.on('render', () => {
+      console.log("InstantSearch rendered");
+    });
+
     search.start();
+    console.log("InstantSearch started");
   }
 }

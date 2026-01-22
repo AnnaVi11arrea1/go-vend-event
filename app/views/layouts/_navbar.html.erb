@@ -33,7 +33,7 @@
           <span>Feed</span>
         <% end %>
 
-        <%= link_to destroy_user_session_path, method: :delete, class: "nav-link-item d-none d-md-flex" do %>
+        <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link-item d-none d-md-flex" do %>
           <span>Sign Out</span>
         <% end %>
       <% else %>
