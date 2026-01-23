@@ -1,28 +1,13 @@
-# == Schema Information
-#
-# Table name: events
-#
-#  id                 :integer          not null, primary key
-#  address            :string
-#  application_due_at :date
-#  application_link   :string
-#  city               :string
-#  ends_at            :date
-#  information        :string
-#  latitude           :float
-#  longitude          :float
-#  name               :string
-#  photo              :string
-#  started_at         :date
-#  state              :string
-#  tags               :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  host_id            :integer
-#
 class Event < ApplicationRecord
   include AlgoliaSearch
-  geocoded_by :address
+  
+  geocoded_by :address do |obj, results|
+    if (res = results.first)
+      obj.city = res.try(:city) || res.try(:sub_state) || res.try(:county)
+      obj.state = res.try(:state_code) || res.try(:state)
+    end
+  end
+
   after_validation :geocode, if: :address_changed?
 
   validates :name, presence: true
@@ -60,35 +45,6 @@ class Event < ApplicationRecord
     %w[name address tags started_at city state]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    []
-  end
-
-  def self.search(search)
-    if search
-      where('name LIKE ? OR address LIKE ? OR tags LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
-    else
-      all
-    end
-  end
-
-  def self.search_by_date(search)
-    if search
-      where('started_at = ?', "%#{search}%")
-    else
-      all
-    end
-  end
-
-  def duration
-    return nil unless started_at && ends_at
-    ends_at - started_at
-  end
-
-  def photo_url
-    photo.present? ? photo.url : nil
-  end
-
   algoliasearch index_name: "Event" do
     attributes :name, :address, :tags, :started_at, :latitude, :longitude, :city, :state
   end
@@ -98,17 +54,5 @@ class Event < ApplicationRecord
   def update_vendor_events_start_time
     vendor_events.update_all(start_time: self.started_at)
   end
-
-  def geocode
-    result = super
-    if result.is_a?(Array) && (res = result.first)
-      self.city = res.city || res.sub_state || res.county
-      self.state = res.state_code || res.state
-    end
-    Rails.logger.debug "Geocoding: #{address} to #{latitude}, #{longitude}, City: #{city}, State: #{state}"
-  end
-
-
-
 
 end

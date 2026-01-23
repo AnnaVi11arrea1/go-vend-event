@@ -1,25 +1,3 @@
-# == Schema Information
-#
-# Table name: vendor_events
-#
-#  id                 :integer          not null, primary key
-#  added              :boolean
-#  address            :string
-#  application_status :string
-#  description        :text
-#  expense            :float
-#  paid               :boolean
-#  photo              :string
-#  profit             :float
-#  return             :float
-#  sales              :float
-#  start_time         :datetime
-#  state              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  event_id           :integer
-#  user_id            :integer
-#
 class VendorEvent < ApplicationRecord
   include AlgoliaSearch
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
@@ -32,6 +10,7 @@ class VendorEvent < ApplicationRecord
   mount_uploader :photo, PhotoUploader
   
   geocoded_by :address
+  after_validation :geocode_extraction, if: :address_changed?
 
   before_save :set_starts_at_from_event
 
@@ -40,7 +19,7 @@ class VendorEvent < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name start_time]
+    %w[name start_time city state]
   end
 
   def self.search(search)
@@ -73,6 +52,15 @@ class VendorEvent < ApplicationRecord
 
   def set_starts_at_from_event
     self.start_time ||= event&.started_at
+  end
+
+  def geocode_extraction
+    result = Geocoder.search(address).first
+    if result
+      self.city = result.try(:city) || result.try(:sub_state) || result.try(:county)
+      self.state = result.try(:state_code) || result.try(:state)
+    end
+    Rails.logger.debug "Geocoding VendorEvent: #{address} to City: #{city}, State: #{state}"
   end
 
 

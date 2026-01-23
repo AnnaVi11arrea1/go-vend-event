@@ -30,6 +30,7 @@ export default class extends Controller {
   addMarkers() {
     this.eventsValue.forEach((event) => {
       if (event.address) {
+        
         this.fetchCoordinates(event.address, (coords) => {
           console.log(`Adding Mapbox marker via Stimulus for event: ${event.name}`);
           

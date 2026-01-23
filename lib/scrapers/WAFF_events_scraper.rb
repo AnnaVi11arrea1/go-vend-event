@@ -25,13 +25,17 @@ module Scrapers
         title = article.at_css('h4')&.text&.strip
         date = article.at_css('.date')&.text&.strip
         location = article.at_css('.location')&.text&.strip
+        city = article.at_css('.city')&.text&.strip
+        state = article.at_css('.state')&.text&.strip
         link = article.at_css('a')
         link_href = link&.[]('href')
         
         event = Event.create(
           started_at: date,
           address: location,
-          application_link: "https://www.fairsandfestivals.net/states/OH" + link_href,
+          city: city,
+          state: state,
+          application_link: "https://www.fairsandfestivals.net/states/WA" + link_href,
           host_id: 1,
           name: title
         )
