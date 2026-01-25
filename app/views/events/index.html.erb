@@ -1,6 +1,6 @@
 <div id="events" class="darkcard" 
      data-controller="algolia-chat"
-     data-algolia-chat-app-id-value="MHB695BBRR"
+     data-algolia-chat-app-id-value="<%= ENV['ALGOLIA_APP_ID'] %>"
      data-algolia-chat-search-key-value="<%= ENV['ALGOLIA_SEARCH_KEY'] %>"
      data-algolia-chat-user-id-value="<%= current_user&.id %>"
      data-algolia-chat-auth-token-value="<%= form_authenticity_token %>"
