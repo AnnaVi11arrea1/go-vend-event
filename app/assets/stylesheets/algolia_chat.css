@@ -57,7 +57,17 @@
   max-width: 100vw !important;
   max-height: 100vh !important;
   border-radius: 0 !important;
-  z-index: 9999 !important;
+  z-index: 1000 !important;
+  padding-top: 80px !important;
+  /* Account for navbar height */
+}
+
+/* Ensure navbar stays above chat in fullscreen */
+@media (min-width: 768px) {
+  .chat-window.fullscreen {
+    padding-top: 60px !important;
+    /* Adjust for desktop navbar height */
+  }
 }
 
 @keyframes slideUp {
