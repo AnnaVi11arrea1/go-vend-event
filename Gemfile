@@ -31,6 +31,7 @@ gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
 gem "algoliasearch-rails"
 gem "algolia"
+gem "ollama-ruby"
 
 
 group :production do

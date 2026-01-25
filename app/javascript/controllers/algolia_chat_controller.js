@@ -1,30 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
-import { liteClient as algoliasearch } from 'algoliasearch/lite'
-import instantsearch from 'instantsearch.js'
-import { chat } from 'instantsearch.js/es/widgets'
 
 // Connects to data-controller="algolia-chat"
 export default class extends Controller {
-  static targets = ["container", "button"]
-  static values = {
-    appId: String,
-    searchKey: String,
-    userId: String,
-    authToken: String,
-    sessionId: String
-  }
+  static targets = ["container", "button", "messages", "input"]
 
   connect() {
-    this.initialized = false
+    this.messages = []
+    this.setupChatUI()
   }
 
   toggle() {
     this.containerTarget.classList.toggle("d-none")
-
-    if (!this.initialized) {
-      this.initSearch()
-      this.initialized = true
-    }
   }
 
   maximize() {
@@ -38,85 +24,166 @@ export default class extends Controller {
   }
 
   resetChat() {
-    const resetBtn = this.containerTarget.querySelector(".ais-ChatPrompt-reset")
-    if (resetBtn) resetBtn.click()
-  }
-
-  submitChat() {
-    const submitBtn = this.containerTarget.querySelector(".ais-ChatPrompt-submit")
-    if (submitBtn) submitBtn.click()
+    this.messages = []
+    this.messagesTarget.innerHTML = ''
+    console.log("✨ Chat reset")
   }
 
   copyChat() {
-    const messages = this.containerTarget.querySelectorAll(".ais-Chat-item--agent .ais-Chat-message")
-    if (messages.length > 0) {
-      const lastMessage = messages[messages.length - 1].innerText
-      navigator.clipboard.writeText(lastMessage)
+    const lastAIMessage = this.messages.filter(m => m.role === 'assistant').pop()
+    if (lastAIMessage) {
+      navigator.clipboard.writeText(lastAIMessage.content)
       alert("Last response copied to clipboard!")
     }
   }
 
-  initSearch() {
-    console.log("Initializing Algolia Chat with AppID:", this.appIdValue);
+  async submitChat() {
+    const input = this.inputTarget
+    const message = input.value.trim()
 
-    const searchClient = algoliasearch(
-      this.appIdValue,
-      this.searchKeyValue
-    );
+    if (!message) return
 
-    const search = instantsearch({ searchClient });
+    console.log("📤 Sending message:", message)
 
-    search.addWidgets([
-      chat({
-        container: '#chat-widget-container',
-        agentId: '97f69bc5-115e-4234-9fd2-2a13200eebfe',
-        transport: {
-          api: 'https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezsDQzMTQyBwA/mcp',
-          headers: () => ({
-            'Authorization': `Bearer ${this.authTokenValue}`,
-            'X-User-ID': this.userIdValue || 'anonymous',
-          }),
-          body: () => ({
-            sessionId: this.sessionIdValue,
-            userId: this.userIdValue || 'anonymous'
-          }),
-          credentials: 'include',
+    // Add user message to UI
+    this.addMessage('user', message)
+    input.value = ''
+
+    // Show loading indicator
+    const loadingId = this.addMessage('assistant', '...', true)
+
+    try {
+      // Send to our Rails backend
+      const response = await fetch('/chat/message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
         },
-        templates: {
-          // Using default templates to ensure prompt area renders
-        },
-        tools: {
-          'searchEvents': {
-            templates: {
-              layout: ({ message, results }, { html }) => {
-                const events = results?.[0]?.hits || [];
-                if (events.length === 0) return html`<div class="tool-result no-results">No events found.</div>`;
-
-                return html`
-                  <div class="tool-result">
-                    <p class="tool-caption">I found these events:</p>
-                    <div class="event-cards-mini">
-                      ${events.map(event => html`
-                        <div class="event-card-mini">
-                          <span class="event-name">${event.name}</span>
-                          <span class="event-date">${new Date(event.started_at).toLocaleDateString()}</span>
-                        </div>
-                      `)}
-                    </div>
-                  </div>
-                `;
-              }
-            }
-          }
-        }
+        body: JSON.stringify({ message })
       })
-    ]);
 
-    search.on('render', () => {
-      console.log("InstantSearch rendered");
-    });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
-    search.start();
-    console.log("InstantSearch started");
+      const data = await response.json()
+      console.log("📥 Received response:", data)
+
+      // Remove loading indicator
+      this.removeMessage(loadingId)
+
+      // Add AI response
+      this.addMessage('assistant', data.response)
+
+      // Add events if any were found
+      if (data.events && data.events.length > 0) {
+        this.addEventsCard(data.events)
+      }
+
+    } catch (error) {
+      console.error("❌ Chat error:", error)
+      this.removeMessage(loadingId)
+      this.addMessage('assistant', 'Sorry, I encountered an error. Please make sure Ollama is running and try again.')
+    }
+  }
+
+  setupChatUI() {
+    // Create messages container if it doesn't exist
+    const chatWidget = this.containerTarget.querySelector('#chat-widget-container')
+    if (chatWidget && !this.hasMessagesTarget) {
+      chatWidget.innerHTML = `
+        <div class="chat-messages-container" data-algolia-chat-target="messages"></div>
+        <div class="chat-input-container">
+          <textarea 
+            data-algolia-chat-target="input" 
+            placeholder="Ask about events..."
+            rows="3"
+            class="chat-input"
+          ></textarea>
+          <button 
+            data-action="click->algolia-chat#submitChat"
+            class="chat-send-btn"
+          >
+            <i class="fa fa-paper-plane"></i> Send
+          </button>
+        </div>
+      `
+    }
+  }
+
+  addMessage(role, content, isLoading = false) {
+    const messageId = `msg-${Date.now()}-${Math.random()}`
+    const messageDiv = document.createElement('div')
+    messageDiv.id = messageId
+    messageDiv.className = `chat-message chat-message--${role}`
+    messageDiv.innerHTML = `
+      <div class="chat-message-content ${isLoading ? 'loading' : ''}">
+        ${content}
+      </div>
+    `
+
+    this.messagesTarget.appendChild(messageDiv)
+    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight
+
+    if (!isLoading) {
+      this.messages.push({ role, content })
+    }
+
+    return messageId
+  }
+
+  removeMessage(messageId) {
+    const element = document.getElementById(messageId)
+    if (element) {
+      element.remove()
+    }
+  }
+
+  addEventsCard(events) {
+    const eventsHtml = events.map((event, index) => `
+      <div class="event-card-item">
+        <div class="event-number">${index + 1}</div>
+        <div class="event-details">
+          <a href="${event.url}" class="event-name-link" target="_blank">
+            ${event.name}
+          </a>
+          <div class="event-location">
+            📍 ${event.city ? event.city + ', ' : ''}${event.state || event.address}
+          </div>
+          <div class="event-date">
+            📅 ${event.started_at || 'Date TBD'}
+          </div>
+        </div>
+      </div>
+    `).join('')
+
+    const eventsCard = `
+      <div class="events-list-card">
+        <div class="events-list-header">
+          Found ${events.length} Event${events.length !== 1 ? 's' : ''}
+        </div>
+        <div class="events-list-body">
+          ${eventsHtml}
+        </div>
+      </div>
+    `
+
+    const messageDiv = document.createElement('div')
+    messageDiv.className = 'chat-message chat-message--events'
+    messageDiv.innerHTML = eventsCard
+
+    this.messagesTarget.appendChild(messageDiv)
+    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight
+  }
+
+  // Handle Enter key to send
+  inputTargetConnected(element) {
+    element.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        this.submitChat()
+      }
+    })
   }
 }

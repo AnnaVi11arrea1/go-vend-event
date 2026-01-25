@@ -12,7 +12,8 @@ class VendorEventsController < ApplicationController
     @current_page = pagination[:current_page]
     @total_pages = pagination[:total_pages]
     @vendor_event = VendorEvent.new
-    @q = VendorEvent.ransack(params[:q])
+    # Only include vendor events that have an associated event
+    @q = VendorEvent.joins(:event).ransack(params[:q])
     if @q.name_cont
       @vendor_events = @q.result.order(name: :asc).page(params[:page]).per(10)
     else

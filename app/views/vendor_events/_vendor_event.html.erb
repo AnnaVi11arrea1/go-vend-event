@@ -1,10 +1,20 @@
-<div class="darkcard">
-  <div class="row d-flex justify-content-around">
-  <h5><%= vendor_event.event.name %></h5>
-    <div class="col-3">
-      <sup><%= vendor_event.event.started_at.strftime("%B %d, %Y") %></sup>
+<% if vendor_event.event.present? %>
+  <div class="darkcard">
+    <div class="row d-flex justify-content-around">
+    <h5><%= vendor_event.event.name %></h5>
+      <div class="col-3">
+        <sup><%= vendor_event.event.started_at&.strftime("%B %d, %Y") || "Date TBD" %></sup>
+      </div>
+          <%= link_to "See Main", event_path(vendor_event.event_id), class:"event_btn" %>
+          <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
     </div>
-        <%= link_to "See Main", event_path(vendor_event.event_id), class:"event_btn" %>
-        <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
   </div>
-</div>
+<% else %>
+  <div class="darkcard">
+    <div class="row d-flex justify-content-around">
+      <h5>Event Not Found</h5>
+      <p class="text-muted">This vendor event is not associated with a valid event.</p>
+      <%= link_to "My Event", vendor_event_path(vendor_event), class:"btn-in" %>
+    </div>
+  </div>
+<% end %>

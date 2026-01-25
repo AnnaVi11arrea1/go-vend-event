@@ -33,6 +33,9 @@ Rails.application.routes.draw do
 
   get "external_data", to: 'external_data#index'
 
+  # Chat API for Ollama-powered chat
+  post 'chat/message', to: 'chat#message'
+
   get '/admin' => 'admin#index', as: :admin_root
   
 

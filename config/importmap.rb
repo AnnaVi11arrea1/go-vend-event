@@ -15,6 +15,3 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@rails/actioncable/src", to: "@rails--actioncable--src.js" # @7.2.200
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.js"
-pin "algoliasearch/lite", to: "https://esm.sh/algoliasearch/lite?bundle"
-pin "instantsearch.js", to: "https://esm.sh/instantsearch.js?bundle"
-pin "instantsearch.js/es/widgets", to: "https://esm.sh/instantsearch.js/es/widgets?bundle"
