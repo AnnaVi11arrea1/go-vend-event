@@ -47,5 +47,7 @@ examples.txt
 # Ignore NodeModules
 /node_modules
 
+# Ignore vendor bundle
+/vendor/bundle
 
 algoliasearch.rb
