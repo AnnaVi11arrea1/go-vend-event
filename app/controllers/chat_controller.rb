@@ -8,20 +8,13 @@ class ChatController < ApplicationController
       return render json: { error: 'Message cannot be empty' }, status: :bad_request
     end
 
-    # Search for relevant events
-    events = search_events_structured(user_message)
-    
-    # Build context for Ollama
-    events_context = events.present? ? format_events_for_ollama(events) : nil
-    
-    # Get AI response from Ollama
-    ollama_service = OllamaService.new
-    ai_response = ollama_service.chat(user_message, events_context)
+    # Use the new Algolia MCP + Ollama service
+    service = AlgoliaSearchService.new
+    ai_response = service.ask(user_message)
     
     render json: {
       response: ai_response,
-      events: events.present? ? events.map { |e| event_json(e) } : [],
-      events_found: events.present?
+      events_found: true  # MCP handles this internally
     }
   rescue StandardError => e
     Rails.logger.error("Chat Error: #{e.message}")
