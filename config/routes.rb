@@ -35,6 +35,9 @@ Rails.application.routes.draw do
 
   # Chat API for Ollama-powered chat
   post 'chat/message', to: 'chat#message'
+  
+  # AI Chat with Algolia MCP
+  post 'ai_chats', to: 'ai_chats#create'
 
   get '/admin' => 'admin#index', as: :admin_root
   

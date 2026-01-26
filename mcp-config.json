@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "algolia": {
+      "url": "https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezsDQzMTQyBwA/mcp",
+      "transport": "sse"
+    }
+  }
+}
