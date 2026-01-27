@@ -15,3 +15,4 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@rails/actioncable/src", to: "@rails--actioncable--src.js" # @7.2.200
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.js"
+pin "marked", to: "https://cdn.jsdelivr.net/npm/marked@17.0.1/lib/marked.esm.js"

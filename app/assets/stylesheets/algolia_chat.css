@@ -345,6 +345,85 @@
   box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
 }
 
+/* Markdown Formatting Styles */
+.chat-message-content ol,
+.chat-message-content ul {
+  margin: 12px 0;
+  padding-left: 24px;
+  line-height: 1.8;
+}
+
+.chat-message-content ol {
+  list-style-type: decimal;
+}
+
+.chat-message-content ul {
+  list-style-type: disc;
+}
+
+.chat-message-content li {
+  margin: 8px 0;
+  padding-left: 8px;
+}
+
+.chat-message-content p {
+  margin: 10px 0;
+  line-height: 1.7;
+}
+
+.chat-message-content p:first-child {
+  margin-top: 0;
+}
+
+.chat-message-content p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-message-content strong {
+  font-weight: 700;
+  color: #00ffcc;
+}
+
+.chat-message-content a {
+  color: #00ffcc;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 255, 204, 0.3);
+  transition: all 0.2s ease;
+}
+
+.chat-message-content a:hover {
+  color: #00e6b8;
+  border-bottom-color: #00e6b8;
+}
+
+.chat-message-content code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.chat-message-content h1,
+.chat-message-content h2,
+.chat-message-content h3 {
+  margin: 16px 0 8px 0;
+  color: #00ffcc;
+  font-weight: 700;
+}
+
+.chat-message-content h1 {
+  font-size: 1.4em;
+}
+
+.chat-message-content h2 {
+  font-size: 1.2em;
+}
+
+.chat-message-content h3 {
+  font-size: 1.1em;
+}
+
 /* Event Cards */
 .chat-message--events {
   max-width: 95%;

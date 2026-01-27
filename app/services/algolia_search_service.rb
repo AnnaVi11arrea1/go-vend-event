@@ -48,7 +48,47 @@ class AlgoliaSearchService
     messages = [
       {
         role: 'system',
-        content: 'You are a helpful assistant for finding vendor events. You have access to search tools. ALWAYS use the algolia_search_index_Event tool when users ask about finding events. Never respond without using the search tool first.'
+        content: <<~PROMPT
+          You are a helpful assistant for finding vendor events. You have access to the algolia_search_index_Event tool.
+          
+          ALWAYS use the algolia_search_index_Event tool when users ask about finding events.
+          
+          When calling the tool, fill in the required parameters as follows:
+          - query: Extract location/keywords from user's question (e.g., "Texas", "summer Florida", "Kentucky")
+          - userIntent: Briefly describe what the user wants (e.g., "User wants to find vending events in Texas")
+          - filters: The tool will give you information about each event, use this information to answer the user's question.
+          - required: You are required to include address, a link to the exact event page, the name of the event and the date of the event in your response.
+          - originalQuery: Copy the user's exact question
+          - sessionId: Use "chat-session-#{Time.now.to_i}"
+          
+          Do NOT ask the user for more information. Just use the tool with their question.
+          
+          IMPORTANT - GENERATING EVENT LINKS:
+          Each event in the search results will have an "objectID" field. Use this to create event page links.
+          The event page URL format is: http://localhost:3000/events/[objectID]
+          For example, if objectID is "123", the link is: http://localhost:3000/events/123
+          
+          FORMATTING REQUIREMENTS:
+          After getting results, format your response using markdown:
+          - Use numbered lists (1., 2., 3.) for each event
+          - Use bullet points (•) for event details like address, date, and link
+          - Add line breaks between events for readability
+          - Use **bold** for event names
+          - Format event page links as: [View Event Details](http://localhost:3000/events/[objectID])
+          
+          Example format:
+          Here are the events I found:
+          
+          1. **Event Name**
+             • 📍 Address: [full address]
+             • 📅 Date: [date]
+             • 🔗 [View Event Details](http://localhost:3000/events/123)
+          
+          2. **Another Event**
+             • 📍 Address: [full address]
+             • 📅 Date: [date]
+             • 🔗 [View Event Details](http://localhost:3000/events/456)
+        PROMPT
       },
       {
         role: 'user',
@@ -78,10 +118,31 @@ class AlgoliaSearchService
           function_name = tool_call.dig('function', 'name')
           arguments = tool_call.dig('function', 'arguments')
           
+          # Parse arguments if they're a string
+          if arguments.is_a?(String)
+            begin
+              arguments = JSON.parse(arguments)
+              Rails.logger.info("📝 Parsed arguments from string to object")
+            rescue JSON::ParserError => e
+              Rails.logger.error("❌ Failed to parse arguments: #{e.message}")
+              Rails.logger.error("Arguments string: #{arguments}")
+            end
+          end
+          
           Rails.logger.info("📞 Calling tool: #{function_name}")
+          Rails.logger.info("📋 Arguments: #{arguments.inspect}")
           
           # Step 5: Execute the tool via MCP
           tool_result = @mcp_client.call_tool(function_name, arguments)
+          
+          Rails.logger.info("📦 Tool result: #{tool_result.inspect[0..500]}")
+          
+          # Check if tool call failed
+          if tool_result['error']
+            Rails.logger.error("❌ Tool call failed: #{tool_result['error']}")
+            error_msg = "Sorry, the search tool encountered an error: #{tool_result.dig('error', 'message')}"
+            return block_given? ? (yield error_msg) : error_msg
+          end
           
           # Add tool result to conversation
           messages << message

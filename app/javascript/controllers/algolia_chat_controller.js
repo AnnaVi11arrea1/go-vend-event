@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { marked } from 'marked'
 
 // Connects to data-controller="algolia-chat"
 export default class extends Controller {
@@ -117,9 +118,15 @@ export default class extends Controller {
     const messageDiv = document.createElement('div')
     messageDiv.id = messageId
     messageDiv.className = `chat-message chat-message--${role}`
+
+    // Parse markdown for assistant messages
+    const formattedContent = (role === 'assistant' && !isLoading)
+      ? marked.parse(content)
+      : content
+
     messageDiv.innerHTML = `
       <div class="chat-message-content ${isLoading ? 'loading' : ''}">
-        ${content}
+        ${formattedContent}
       </div>
     `
 
