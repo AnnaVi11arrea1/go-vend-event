@@ -12,21 +12,38 @@ class AlgoliaSearchService
   def ask(user_query, &block)
     Rails.logger.info("🎯 User Query: #{user_query}")
     
-    # Step 1: Get available tools from Algolia MCP
+    # Send initial "Searching..." message
+    yield "🔍 Searching for events..." if block_given?
+    
+    # Step 1: Get available tools from Algolia MCP - REQUIRED
+    Rails.logger.info("📡 Connecting to Algolia MCP server...")
     tools_response = @mcp_client.list_tools
     
     if tools_response['error']
-      msg = "Sorry, I couldn't connect to the search service. #{tools_response['error']}"
-      return block_given? ? (yield msg) : msg
+      error_msg = <<~ERROR
+        ❌ **Unable to connect to search service**
+        
+        The event search system is currently unavailable. This could be due to:
+        - MCP server connection issue
+        - Expired authentication token
+        - Network connectivity problem
+        
+        Please try again in a moment, or contact support if the issue persists.
+        
+        Technical details: #{tools_response['error']}
+      ERROR
+      return block_given? ? (yield error_msg) : error_msg
     end
 
     available_tools = tools_response.dig('result', 'tools') || []
     Rails.logger.info("🔧 Available tools: #{available_tools.length} tools found")
     
     if available_tools.empty?
-      Rails.logger.warn("⚠️ No tools available from Algolia MCP - using direct Ollama")
-      return ask_ollama_direct(user_query, &block)
+      Rails.logger.warn("⚠️ No tools available from Algolia MCP - using direct Algolia search")
+      return search_with_direct_algolia(user_query, &block)
     end
+    
+    Rails.logger.info("✅ MCP connected successfully with #{available_tools.length} tools")
     
     # Step 2: Format tools for Ollama
     ollama_tools = available_tools.map do |tool|
@@ -65,8 +82,8 @@ class AlgoliaSearchService
           
           IMPORTANT - GENERATING EVENT LINKS:
           Each event in the search results will have an "objectID" field. Use this to create event page links.
-          The event page URL format is: http://localhost:3000/events/[objectID]
-          For example, if objectID is "123", the link is: http://localhost:3000/events/123
+          The event page URL format is: https://govend.ing/events/[objectID]
+          For example, if objectID is "123", the link is: https://govend.ing/events/123
           
           FORMATTING REQUIREMENTS:
           After getting results, format your response using markdown:
@@ -74,7 +91,7 @@ class AlgoliaSearchService
           - Use bullet points (•) for event details like address, date, and link
           - Add line breaks between events for readability
           - Use **bold** for event names
-          - Format event page links as: [View Event Details](http://localhost:3000/events/[objectID])
+          - Format event page links as: [View Event Details](https://govend.ing/events/[objectID]) Event links are clickable and will navigate a user to the events/[objectID] page.
           
           Example format:
           Here are the events I found:
@@ -82,12 +99,12 @@ class AlgoliaSearchService
           1. **Event Name**
              • 📍 Address: [full address]
              • 📅 Date: [date]
-             • 🔗 [View Event Details](http://localhost:3000/events/123)
+             • 🔗 [View Event Details](https://govend.ing/events/123)
           
           2. **Another Event**
              • 📍 Address: [full address]
              • 📅 Date: [date]
-             • 🔗 [View Event Details](http://localhost:3000/events/456)
+             • 🔗 [View Event Details](https://govend.ing/events/456)
         PROMPT
       },
       {
@@ -177,16 +194,112 @@ class AlgoliaSearchService
 
   private
 
-  def ask_ollama_direct(user_query, &block)
-    Rails.logger.info("💬 Asking Ollama directly (no tools)")
+  def search_with_direct_algolia(user_query, &block)
+    Rails.logger.info("🔍 Using direct Algolia search (MCP unavailable)")
     
-    response = call_ollama_chat(
-      model: 'llama3.2',
-      messages: [{ role: 'user', content: user_query }]
-    )
+    # Extract search terms from query
+    search_terms = extract_location_from_query(user_query)
     
-    content = response.dig('message', 'content')
-    return block_given? ? (yield content) : content
+    Rails.logger.info("🔎 Searching Algolia for: #{search_terms}")
+    
+    # Search using database (Algolia is broken)
+    begin
+      Rails.logger.info("🔎 Searching database for: #{search_terms}")
+      
+      # Extract location from search terms
+      location = extract_location_keywords(search_terms)
+      
+      # Search database
+      events = if location.present?
+        Event.where("LOWER(city) LIKE ? OR LOWER(state) LIKE ? OR LOWER(address) LIKE ? OR LOWER(name) LIKE ?",
+                    "%#{location.downcase}%", "%#{location.downcase}%", "%#{location.downcase}%", "%#{location.downcase}%")
+             .limit(10)
+      else
+        Event.where("LOWER(name) LIKE ? OR LOWER(city) LIKE ? OR LOWER(address) LIKE ?",
+                    "%#{search_terms.downcase}%", "%#{search_terms.downcase}%", "%#{search_terms.downcase}%")
+             .limit(10)
+      end
+      
+      if events.empty?
+        return block_given? ? (yield "I couldn't find any events matching your search. Try a different location or check back later!") : "No events found"
+      end
+      
+      # Format events for Ollama to present naturally
+      events_context = events.map.with_index(1) do |event, idx|
+        {
+          index: idx,
+          objectID: event.id,
+          name: event.name,
+          address: event.address,
+          city: event.city,
+          state: event.state,
+          date: event.started_at&.strftime('%B %d, %Y') || 'Date TBD'
+        }
+      end
+      
+      # Ask Ollama to format the results nicely
+      system_prompt = <<~PROMPT
+        You are a helpful assistant. The user asked: "#{user_query}"
+        
+        Here are the events found (#{events.length} total):
+        #{events_context.to_json}
+        
+        Format these events using markdown:
+        - Use numbered lists (1., 2., 3.)
+        - Use bullet points (•) for details
+        - Use **bold** for event names
+        - Include clickable links: [View Event Details](https://govend.ing/events/[objectID])
+        
+        Example format:
+        Here are the events I found:
+        
+        1. **Event Name**
+           • 📍 Address: [full address]
+           • 📅 Date: [date]
+           • 🔗 [View Event Details](https://govend.ing/events/123)
+      PROMPT
+      
+      response = call_ollama_chat(
+        model: 'llama3.2',
+        messages: [
+          { role: 'system', content: system_prompt },
+          { role: 'user', content: "Please format these #{events.length} events for me" }
+        ]
+      )
+      
+      content = response.dig('message', 'content')
+      return block_given? ? (yield content) : content
+      
+    rescue StandardError => e
+      Rails.logger.error("❌ Direct Algolia search error: #{e.message}")
+      Rails.logger.error("Exception class: #{e.class}")
+      Rails.logger.error("Backtrace: #{e.backtrace.first(5).join("\n")}")
+      error_msg = "Sorry, I encountered an error while searching for events. Please try again."
+      return block_given? ? (yield error_msg) : error_msg
+    end
+  end
+  
+  def extract_location_from_query(query)
+    # Simple extraction - just use the whole query
+    # Database will handle the matching
+    query.gsub(/\b(find|show|search|looking for|events?|to vend at|in|can you|me|this|spring|summer|fall|winter)\b/i, '').strip
+  end
+  
+  def extract_location_keywords(query)
+    # Common location patterns
+    locations = {
+      'chicago' => 'Chicago', 'illinois' => 'IL', 'texas' => 'TX', 
+      'florida' => 'FL', 'california' => 'CA', 'new york' => 'NY',
+      'georgia' => 'GA', 'kentucky' => 'KY', 'ohio' => 'OH'
+    }
+    
+    query_lower = query.downcase
+    locations.each do |keyword, value|
+      return value if query_lower.include?(keyword)
+    end
+    
+    # Return the cleaned query if no specific location found
+    query.gsub(/\b(find|show|search|looking for|events?|to vend at|in|can you|me|this|spring|summer|fall|winter)\b/i, '').strip
   end
 
   def call_ollama_chat(model:, messages:, tools: nil)

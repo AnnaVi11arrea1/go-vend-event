@@ -3,15 +3,47 @@ require 'json'
 require 'uri'
 
 class AlgoliaMcpClient
-  ALGOLIA_MCP_URL = "https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezsDQzMTQyBwA/mcp"
+  ALGOLIA_MCP_URL = "https://mcp.us.algolia.com/1/8_VwMrM0dXIKCrJOTE1KNkoztkg1M001Nk01NDBMMUkzszBOSTRNMk9MSrN2LUvNK7E2NDezNDU1szQ2BgA/mcp"
   
   def initialize
     @uri = URI(ALGOLIA_MCP_URL)
     @request_id = 0
+    @initialized = false
+  end
+
+  # Initialize MCP session (required before other operations)
+  def initialize_session
+    return if @initialized
+    
+    response = send_sse_request({
+      jsonrpc: "2.0",
+      id: next_id,
+      method: "initialize",
+      params: {
+        protocolVersion: "2024-11-05",
+        capabilities: {},
+        clientInfo: {
+          name: "goVend",
+          version: "1.0.0"
+        }
+      }
+    })
+    
+    if response['result']
+      @initialized = true
+      Rails.logger.info("✅ MCP session initialized successfully")
+    else
+      Rails.logger.error("❌ MCP initialization failed: #{response.inspect}")
+    end
+    
+    response
   end
 
   # List available tools from Algolia MCP server
   def list_tools
+    # Initialize session first if not already done
+    initialize_session unless @initialized
+    
     response = send_sse_request({
       jsonrpc: "2.0",
       id: next_id,
