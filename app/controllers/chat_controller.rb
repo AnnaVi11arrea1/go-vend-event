@@ -8,8 +8,8 @@ class ChatController < ApplicationController
       return render json: { error: 'Message cannot be empty' }, status: :bad_request
     end
 
-    # Use the new Algolia MCP + Ollama service
-    service = AlgoliaSearchService.new
+    # Use the simpler Algolia + Ollama service (no tool calling needed)
+    service = SimpleAlgoliaSearchService.new
     ai_response = service.ask(user_message)
     
     render json: {
