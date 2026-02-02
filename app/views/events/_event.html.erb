@@ -124,3 +124,46 @@
   <%= render "comments/form", comment: @event.comments.build %>
 
 </div>
+
+<!-- Similar Events Section -->
+<% if @similar_events.present? %>
+  <div class="darkcard3 mt-4">
+    <h3 class="mb-3">✨ Similar Events You Might Like</h3>
+    <p class="text-muted">Based on location, type, and event details</p>
+    
+    <div class="row">
+      <% @similar_events.each do |similar_event| %>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100" style="background-color: #2d2d2d; border: 1px solid #444;">
+            <% if similar_event.photo.present? %>
+              <%= image_tag similar_event.photo.url, alt: similar_event.name, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+            <% else %>
+              <%= image_tag "favicon.png", alt: similar_event.name, class: "card-img-top p-4", style: "height: 200px; object-fit: contain;" %>
+            <% end %>
+            
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= similar_event.name %></h5>
+              
+              <div class="mb-2">
+                <small class="text-muted">
+                  📍 <%= [similar_event.city, similar_event.state].compact.join(', ') %><br>
+                  📅 <%= similar_event.started_at&.strftime("%B %d, %Y") || 'Date TBD' %>
+                </small>
+              </div>
+              
+              <% if similar_event.information.present? %>
+                <p class="card-text flex-grow-1" style="font-size: 0.9rem;">
+                  <%= truncate(similar_event.information, length: 100) %>
+                </p>
+              <% end %>
+              
+              <div class="mt-auto">
+                <%= link_to "View Details", event_path(similar_event), class: "btn-pri w-100" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

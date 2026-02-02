@@ -20,10 +20,14 @@ class EventsController < ApplicationController
   end
   # GET /events/1 or /events/1.json
   def show 
+    @event = Event.find(params[:id])
     add_breadcrumb "Events", events_path, title: "Events" 
     add_breadcrumb "Show", event_path(@event), title: @event.name
-    @event = Event.find(params[:id])
     @comments = @event.comments.includes(:author)
+    
+    # Get similar events using smart search-based matching
+    similarity_service = EventSimilarityService.new
+    @similar_events = similarity_service.get_similar_events(@event, max_results: 6)
   end
 
   def geocode_address
