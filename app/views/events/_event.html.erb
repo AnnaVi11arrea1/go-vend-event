@@ -32,12 +32,12 @@
         </div>
         <div class="d-flex justify-content-center pt-3">
           <% if current_user.vendor_events.exists?(event_id: @event.id) %>
-          <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)), class:"btn-pri" %>
+            <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)), class:"btn-pri" %>
           <% else %>
-          <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
-            <%= form.hidden_field :event_id, value: @event.id %>
-            <%= form.submit 'Add to My Events', class: 'btn-pri' %>
-          <% end %>
+            <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
+              <%= form.hidden_field :event_id, value: @event.id %>
+              <%= form.submit 'Add to My Events', class: 'btn-pri' %>
+            <% end %>
           <% end %>
         </div>
       </div>

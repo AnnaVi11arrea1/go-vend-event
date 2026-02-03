@@ -47,6 +47,11 @@ class Event < ApplicationRecord
 
   algoliasearch index_name: "Event" do
     attributes :name, :address, :tags, :started_at, :latitude, :longitude, :city, :state
+    
+    # Add started_at as a custom attribute (Unix timestamp for filtering)
+    add_attribute :started_at_timestamp do
+      started_at&.to_time&.to_i
+    end
   end
 
   private

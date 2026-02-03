@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
   before_action :event_params, only: %i[ create update ]
-  before_action :authenticate_user!, only: %i[ new create edit update destroy ]
+  before_action :authenticate_user!, only: %i[ show new create edit update destroy ]
   before_action :set_breadcrumbs, only: %i[ index show edit new ]
 
   include PaginationHelper

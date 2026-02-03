@@ -1,10 +1,11 @@
-<header class="navbar-header p-3">
+<header class="d-flex flex-row justify-content-between navbar-header p-3">
   <div class="d-flex align-items-center">
     <%= image_tag "favicon.png", alt:"vendor booth", width:"40px", height:"40px" %> 
-    <h2 class="mb-0"><%= link_to "goVend", root_url, class:"nav-title" %></h2>
+    <div class="d-flex flex-column ml-4">
+      <h2 class="mb-0"><%= link_to "goVend", root_url, class:"nav-title" %></h2>
+      <p class="subtitle mb-0 d-none d-md-block">Connecting Vendors and Events</p>
+    </div>
   </div>
-  <p class="subtitle mb-0 d-none d-md-block">Connecting Vendors and Events</p>
-</header>
 
 <div class="main-nav" id="mainNav">
   <div class="nav-links">
@@ -54,3 +55,4 @@
     <% end %>
   </div>
 </div>
+</header>

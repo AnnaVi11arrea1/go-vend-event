@@ -57,16 +57,17 @@
   max-width: 100vw !important;
   max-height: 100vh !important;
   border-radius: 0 !important;
-  z-index: 1000 !important;
-  padding-top: 80px !important;
-  /* Account for navbar height */
+  z-index: 999 !important;
+  padding-bottom: 70px !important;
+  /* Account for mobile navbar at bottom */
 }
 
 /* Ensure navbar stays above chat in fullscreen */
 @media (min-width: 768px) {
   .chat-window.fullscreen {
-    padding-top: 60px !important;
-    /* Adjust for desktop navbar height */
+    padding-top: 70px !important;
+    padding-bottom: 0 !important;
+    /* Desktop navbar at top */
   }
 }
 
@@ -389,11 +390,14 @@
   text-decoration: none;
   border-bottom: 1px solid rgba(0, 255, 204, 0.3);
   transition: all 0.2s ease;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .chat-message-content a:hover {
   color: #00e6b8;
   border-bottom-color: #00e6b8;
+  text-decoration: underline;
 }
 
 .chat-message-content code {

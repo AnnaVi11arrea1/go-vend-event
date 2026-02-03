@@ -120,9 +120,18 @@ export default class extends Controller {
     messageDiv.className = `chat-message chat-message--${role}`
 
     // Parse markdown for assistant messages
-    const formattedContent = (role === 'assistant' && !isLoading)
+    let formattedContent = (role === 'assistant' && !isLoading)
       ? marked.parse(content)
       : content
+
+    // Make links clickable and open in same window (with Turbo support)
+    if (role === 'assistant' && !isLoading) {
+      // Remove target="_blank" and add data-turbo="false" for internal links
+      formattedContent = formattedContent.replace(
+        /<a href="([^"]+)"[^>]*>/g,
+        '<a href="$1" data-turbo="false">'
+      )
+    }
 
     messageDiv.innerHTML = `
       <div class="chat-message-content ${isLoading ? 'loading' : ''}">
