@@ -129,7 +129,7 @@ export default class extends Controller {
       // Remove target="_blank" and add data-turbo="false" for internal links
       formattedContent = formattedContent.replace(
         /<a href="([^"]+)"[^>]*>/g,
-        '<a href="$1" data-turbo="false">'
+        '<a href="$1" data-turbo="false" target="_blank">'
       )
     }
 
