@@ -127,14 +127,14 @@
 
 <!-- Similar Events Section -->
 <% if @similar_events.present? %>
-  <div class="darkcard3 mt-4">
+  <div class="darkcard mt-4">
     <h3 class="mb-3">✨ Similar Events You Might Like</h3>
     <p class="text-muted">Based on location, type, and event details</p>
     
     <div class="row">
       <% @similar_events.each do |similar_event| %>
         <div class="col-md-4 mb-3">
-          <div class="card h-100" style="background-color: #2d2d2d; border: 1px solid #444;">
+          <div class="card h-100 darkcard3">
             <% if similar_event.photo.present? %>
               <%= image_tag similar_event.photo.url, alt: similar_event.name, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
             <% else %>
@@ -145,8 +145,8 @@
               <h5 class="card-title"><%= similar_event.name %></h5>
               
               <div class="mb-2">
-                <small class="text-muted">
-                  📍 <%= [similar_event.city, similar_event.state].compact.join(', ') %><br>
+                <small>
+                  📍 <%= similar_event.state %><br>
                   📅 <%= similar_event.started_at&.strftime("%B %d, %Y") || 'Date TBD' %>
                 </small>
               </div>

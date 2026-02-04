@@ -41,6 +41,7 @@ class EventSimilarityService
 
   private
 
+  # Modify what returns for "similar events" 
   def build_similarity_queries(event)
     queries = []
     
@@ -54,12 +55,12 @@ class EventSimilarityService
     end
     
     # Strategy 2: Same city (more specific)
-    if event.city.present?
-      queries << {
-        query: extract_keywords(event),
-        filters: "city:#{event.city}"
-      }
-    end
+    # if event.city.present?
+    #   queries << {
+    #     query: extract_keywords(event),
+    #     filters: "city:#{event.city}"
+    #   }
+    # end
     
     # Strategy 3: Similar timeframe (same month/season) - removed for now
     # Date filtering is complex with Algolia, skip for simplicity
