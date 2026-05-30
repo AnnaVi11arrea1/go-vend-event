@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbo:load', function() {
   var paidCheckbox = document.getElementById('paid-checkbox');
   var applicationStatusInput = document.getElementById('application-status-input');
 
@@ -51,4 +51,19 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => console.error('Error:', error));
     });
   }
+
+  // Calendar coloring logic
+  const days = document.querySelectorAll('.day');
+  const colors = [
+    'var(--color-monday)',
+    'var(--color-tuesday)',
+    'var(--color-wednesday)',
+    'var(--color-thursday)',
+    'var(--color-friday)',
+    'var(--color-saturday)',
+    'var(--color-sunday)'
+  ];
+  days.forEach((day, index) => {
+    day.style.backgroundColor = colors[index % colors.length];
+  });
 });
