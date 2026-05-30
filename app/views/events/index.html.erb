@@ -86,9 +86,9 @@
       <% @events.each do |event| %>
         <div class="feed-box">
           <div class="col">
-            <div class="d-flex flex-column justify-content-center m-4">
-              <p>Event Name:</p>
-              <div>
+            <div class="d-flex flex-column justify-content-center m-3 pt-4">
+              <sup><i>Event Name</i></sup>
+              <div style="border-top: .5px solid rgb(0, 255, 0); border-radius: 12px; padding: 8px; background-color: transparent; font-family: 'Trade Winds', sans-serif; font-size: 18px;">
                 <h4> <%= event.name %></h4>
               </div>
             </div>
@@ -100,11 +100,11 @@
               <% end %>
             </div>
             <div class="col">
-              <p class="card-text">
+              <p class="card-text"><small>
                 <strong>Where:</strong>
-                <%= event.address %></p>
-              <p class="card-text"><strong>When:</strong>
-                <%= event.started_at&.year&.positive? ? event.started_at.strftime("%B %d, %Y") : "Date TBD" %></p>
+                <%= event.address %></small></p>
+              <p class="card-text"><small><strong>When:</strong>
+                <%= event.started_at&.year&.positive? ? event.started_at.strftime("%B %d, %Y") : "Date TBD" %></small></p>
             </div>
           </div>
           <div class="pt-5">

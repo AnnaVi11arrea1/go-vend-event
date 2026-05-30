@@ -1,76 +1,141 @@
-<div>
-  <div>
-    <div class="p-3">
-      <div class="funcard2 px-3 py-4" style="color:rgb(255, 246, 167);">
-        <div class="text-center mb-4">
-          <h3>Welcome to goVend</h3>
-          <h1 class="h3">Increase sales and stay organized</h1>
+<div style="background-color: #000; color: #fff;">
+  <!-- Hero Section -->
+  <section class="hero-section" style="padding: 60px 20px; text-align: center; background: linear-gradient(135deg, rgba(61, 0, 166, 0.2) 0%, rgba(0, 53, 213, 0.2) 100%);">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #fff;">Welcome to goVend</h1>
+      <p style="font-size: 1.3rem; color: rgb(255, 246, 167); margin-bottom: 40px; font-weight: 500;">Increase sales and stay organized</p>
+
+      <!-- Cat and Cube Side by Side -->
+      <div style="display: flex; gap: 60px; align-items: center; justify-content: center; margin: 60px auto; flex-wrap: wrap; max-width: 1000px; padding: 0 20px;">
+        <div style="flex: 0 0 auto;">
+          <%= image_tag "favicon.png", alt:"goVend mascot", class:"img-fluid cat", style: "max-width: 140px; height: auto;" %>
         </div>
-        <div class="text-center">
-          <%= image_tag "favicon.png", alt:"vendor booth", class:"img-fluid cat mb-4", style: "max-width: 150px; height: auto;" %>
+
+        <!-- Interactive Cube - Featured Events -->
+        <div style="flex: 0 0 auto;">
+          <div class="cube-gallery-wrapper py-3">
+            <input class="radio-button" type="radio" name="cube-gallery" checked/>
+            <input class="radio-button" type="radio" name="cube-gallery"/>
+            <input class="radio-button" type="radio" name="cube-gallery"/>
+            <input class="radio-button" type="radio" name="cube-gallery"/>
+            <input class="radio-button" type="radio" name="cube-gallery"/>
+            <input class="radio-button" type="radio" name="cube-gallery"/>
+            <div class="cube-container mt-4">
+              <div class="cube">
+                <% upcoming_events = Event.where('started_at > ?', Date.today).order(:started_at).limit(6) %>
+                <% upcoming_events.each do |event| %>
+                  <div class="cube-side d-flex justify-content-center align-items-center">
+                    <div class="text-center p-3">
+                      <div class="mb-2">
+                        <% if event.photo.present? %>
+                          <%= image_tag url_for(event.photo.url), class: "img-fluid rounded", style: "max-height: 100px; width: auto;", alt: "event photo" %>
+                        <% else %>
+                          <%= image_tag "bulb.png", class: "img-fluid", style: "max-height: 100px; width: auto;", alt: "default photo" %>
+                        <% end %>
+                      </div>
+                      <h2 class="h5 mb-1 px-2"><%= event.name %></h2>
+                      <h4 class="cube-text h6 mb-2"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
+                      <p class="small mb-0">Explore more events when you sign up.</p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="lead" style="font-size: 1.1rem;">It is a big task to find events to sell your products at, stay organized, keep track of the events, check payment status, worrying if you applied to them, and most embarassingly of all, double booking. Let's fix that.</p>
-        <p class="lead" style="font-size: 1.1rem;">Made with love by a vendor, for vendors and events. Click the menu to get started.</p>
-      </div>
-  <div class="row funcard2 px-3 py-4 mt-4" style="color:rgb(255, 246, 167);">
-    <div class="col-12 p-2">
-      <h2 class="text-center mb-4">About</h2>
-      <div class="mb-4">
-        <p style="font-size: 1.1rem;"><strong>VENDORS:</strong> Allow me to simplify your life. goVend is a platform that connects vendors to events. It allows you to search for events, apply to them, and keep track of the events you have attended. It also allows you to create events and search for vendors. </p>
-        <p style="font-size: 1.1rem;"><strong>EVENT COORDINATORS:</strong> Allow me to simplify your life as well. Here, you share your events and find vendors. Find new exciting vendors and the latest trends through ambitious businesses to keep your patrons happy.  </p>
-        <p class="text-center font-weight-bold mt-3">Setup in less than 5 minutes!</p>
       </div>
 
-      <div class="mb-4">
-        <h3 class="h4 text-center mb-3">Fast Account Setup</h3>
-        <ol class="pl-4">
-          <li class="mb-2"> Sign up and start finding events in less than 5 minutes.</li>
-          <li class="mb-2"> Create a profile to showcase your business.</li>
-        </ol>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+        <%= link_to "Sign Up", new_user_registration_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
+        <%= link_to "Browse Events", events_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
+      </div>
+      <p style="font-size: 1.1rem; color: #ddd; line-height: 1.6; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Find events. Apply to them. Stay organized. Track payments. Never double-book again. Made with love by vendors, for vendors and events.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- User Types Section -->
+  <section style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 50px; color: #fff; font-weight: 600;">Who Is goVend For?</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <!-- Vendors Card -->
+      <div class="vendor-coordinator-card" style="background: linear-gradient(135deg, rgba(61, 0, 166, 0.3) 0%, rgba(0, 53, 213, 0.3) 100%); border: 1px solid rgba(148, 91, 255, 0.3); border-radius: 15px; padding: 40px 25px; transition: all 0.3s;">
+        <h3 style="font-size: 1.5rem; color: rgb(255, 246, 167); margin-bottom: 20px; font-weight: 600;">For Vendors</h3>
+        <p style="color: #ddd; line-height: 1.7; margin-bottom: 25px;">
+          Search for events, apply instantly, and manage everything in one place. Track your applications, payment status, and event data all from your dashboard.
+        </p>
+        <ul style="list-style: none; padding: 0; color: #ddd; line-height: 1.8;">
+          <li style="margin-bottom: 12px;">✓ Find events that match your business</li>
+          <li style="margin-bottom: 12px;">✓ One-click applications</li>
+          <li style="margin-bottom: 12px;">✓ Avoid double-booking</li>
+          <li style="margin-bottom: 12px;">✓ Track sales and expenses</li>
+          <li>✓ Showcase your business</li>
+        </ul>
       </div>
 
-      <div>
-        <h3 class="h4 text-center mb-3">So many perks</h3>
-        <ul class="pl-4">
-          <li class="mb-2"> Easily host events you want to share with a simple setup.</li>
-          <li class="mb-2"> Once you have created an event, it becomes searchable to all users.</li>
-          <li class="mb-2"> Search for events that are looking for vendors!</li>
-          <li class="mb-2"> View a hosts page to see their other hosted events.</li>
-          <li class="mb-2"> Create a list of your events and update the status.</li>
-          <li class="mb-2"> Track your event data.</li>
+      <!-- Event Coordinators Card -->
+      <div class="vendor-coordinator-card" style="background: linear-gradient(135deg, rgba(61, 0, 166, 0.3) 0%, rgba(0, 53, 213, 0.3) 100%); border: 1px solid rgba(148, 91, 255, 0.3); border-radius: 15px; padding: 40px 25px; transition: all 0.3s;">
+        <h3 style="font-size: 1.5rem; color: rgb(255, 246, 167); margin-bottom: 20px; font-weight: 600;">For Event Coordinators</h3>
+        <p style="color: #ddd; line-height: 1.7; margin-bottom: 25px;">
+          Post your events and discover amazing vendors. Build your vendor network and keep patrons excited with fresh, trending businesses.
+        </p>
+        <ul style="list-style: none; padding: 0; color: #ddd; line-height: 1.8;">
+          <li style="margin-bottom: 12px;">✓ Post events in minutes</li>
+          <li style="margin-bottom: 12px;">✓ Find quality vendors</li>
+          <li style="margin-bottom: 12px;">✓ See vendor profiles & portfolios</li>
+          <li style="margin-bottom: 12px;">✓ Manage applications</li>
+          <li>✓ Build recurring events</li>
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- Features Section -->
+  <section style="padding: 60px 20px; background: linear-gradient(135deg, rgba(61, 0, 166, 0.1) 0%, rgba(0, 53, 213, 0.1) 100%); margin: 60px 0;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <h2 style="text-align: center; font-size: 2rem; margin-bottom: 50px; color: #fff; font-weight: 600;">Why Choose goVend?</h2>
 
-    <div class="cube-gallery-wrapper py-5">
-      <input class="radio-button" type="radio" name="cube-gallery" checked/>
-      <input class="radio-button" type="radio" name="cube-gallery"/>
-      <input class="radio-button" type="radio" name="cube-gallery"/>
-      <input class="radio-button" type="radio" name="cube-gallery"/>
-      <input class="radio-button" type="radio" name="cube-gallery"/>
-      <input class="radio-button" type="radio" name="cube-gallery"/>
-      <div class="cube-container mt-4">
-        <div class="cube">
-          <% upcoming_events = Event.where('started_at > ?', Date.today).order(:started_at).limit(6) %>
-          <% upcoming_events.each do |event| %>
-            <div class="cube-side d-flex justify-content-center align-items-center">
-              <div class="text-center p-3">
-                <div class="mb-2">
-                  <% if event.photo.present? %>
-                    <%= image_tag url_for(event.photo.url), class: "img-fluid rounded", style: "max-height: 100px; width: auto;", alt: "event photo" %>
-                  <% else %>
-                    <%= image_tag "bulb.png", class: "img-fluid", style: "max-height: 100px; width: auto;", alt: "default photo" %>
-                  <% end %>
-                </div>
-                <h2 class="h5 mb-1 px-2"><%= event.name %></h2>
-                <h4 class="cube-text h6 mb-2"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
-                <p class="small mb-0">Create an account view all events.</p>
-              </div>
-            </div>
-          <% end %>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">⚡</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Quick Setup</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Create an account and start using goVend in less than 5 minutes.</p>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🎯</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Easy Discovery</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Search events and vendors with powerful filters. Find exactly what you need.</p>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">📊</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Track Everything</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Monitor applications, sales, expenses, and event performance in one dashboard.</p>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🚀</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Grow Your Business</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Reach more customers and build your vendor network with goVend.</p>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">🛡️</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Trusted Community</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Connect with vetted vendors and organizers in a safe marketplace.</p>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 15px;">❤️</div>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Built by Vendors</h4>
+          <p style="color: #ccc; font-size: 0.95rem;">Made with love by people who understand your challenges.</p>
         </div>
       </div>
     </div>
+  </section>
+
 </div>
