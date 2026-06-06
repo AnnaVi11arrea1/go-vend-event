@@ -5,7 +5,7 @@
      data-algolia-chat-user-id-value="<%= current_user&.id %>"
      data-algolia-chat-auth-token-value="<%= form_authenticity_token %>"
      data-algolia-chat-session-id-value="<%= session.id %>">
-        <p class="d-flex justify-content-center">Find events that match your needs. Click map icons to see quick details.</p>
+        <p class="d-flex justify-content-center">Find events that match your needs. Click map icons to see quick details. Click and drag the map to explore more events. Use your scroller on your mouse to zoom in and out or use the plus and minus buttons on the right.</p>
 
   <!-- Algolia Chat Floating Button -->
   <button class="chat-toggle-btn" data-action="click->algolia-chat#toggle" data-algolia-chat-target="button">
@@ -49,33 +49,42 @@
     </div>
   </div>
 
-  <div class="intro d-flex justify-content-center">
-    <%= search_form_for @q do |f| %>
+  <div class="intro d-flex justify-content-center events-search-shell">
+    <%= search_form_for @q, html: { class: "event-form" } do |f| %>
       <div class="search">
-        <br>
-        <div>
-          <%= f.label :name_cont %>
-          <%= f.text_field :name_cont %>
+        <div class="events-search-params">
+          <div class="form-group">
+            <div>
+              <%= f.label :name_cont %>
+              <%= f.text_field :name_cont %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <%= f.label :city_cont, "City / Metro Area" %>
+              <%= f.text_field :city_cont %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <%= f.label :state_cont, "State" %>
+              <%= f.text_field :state_cont %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <%= f.label :started_at_gteq, "On or after" %>
+              <%= f.date_field :started_at_gteq %>
+            </div>
+          </div>
         </div>
-        <div>
-          <%= f.label :city_cont, "City / Metro Area" %>
-          <%= f.text_field :city_cont %>
-        </div>
-        <div>
-          <%= f.label :state_cont, "State" %>
-          <%= f.text_field :state_cont %>
-        </div>
-        <div>
-          <%= f.label :started_at_gteq, "On or after " %>
-          <%= f.date_field :started_at_gteq %>
-        </div>
-        <div class="flex row justify-content-around">
-        <div>
-          <%= f.submit class:"btn-in" %>
-        </div>
-        <div class="btn-dang">
-          <%= link_to "Clear", events_path %>
-        </div>
+        <div class="form-actions event-form-actions">
+          <div>
+            <%= f.submit class: "btn-in" %>
+          </div>
+          <div class="btn-dang">
+            <%= link_to "Clear", events_path %>
+          </div>
         </div>
       </div>
     <% end %>

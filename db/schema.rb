@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_06_120000) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_06_130000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_06_120000) do
     t.string "name"
     t.date "application_due_at"
     t.date "started_at"
-    t.string "information"
+    t.text "information"
     t.string "application_link"
     t.string "tags"
     t.string "address"
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_06_120000) do
     t.float "longitude"
     t.string "city"
     t.string "state"
+    t.string "contact_email"
   end
 
   create_table "follow_requests", force: :cascade do |t|

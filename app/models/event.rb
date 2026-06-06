@@ -7,8 +7,9 @@
 #  application_due_at :date
 #  application_link   :string
 #  city               :string
+#  contact_email      :string
 #  ends_at            :date
-#  information        :string
+#  information        :text
 #  latitude           :float
 #  longitude          :float
 #  name               :string
@@ -34,7 +35,7 @@ class Event < ApplicationRecord
 
   validates :name, presence: true
   validates :started_at, presence: true
-  validates :application_link, presence: true
+  validate :application_link_or_contact_email_present
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :users, through: :vendor_events
   has_many :vendor_events, dependent: :destroy
@@ -77,6 +78,12 @@ class Event < ApplicationRecord
   end
 
   private
+
+  def application_link_or_contact_email_present
+    return if application_link.present? || contact_email.present?
+
+    errors.add(:base, "Provide either an application link or a contact email.")
+  end
 
   def update_vendor_events_start_time
     vendor_events.update_all(start_time: self.started_at)

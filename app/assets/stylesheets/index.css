@@ -741,8 +741,71 @@ Landing Page
   margin-top: 12px;
 }
 
+.event-form-trix-card {
+  width: 100%;
+  border-radius: 10px;
+  padding: 12px;
+  background: linear-gradient(to bottom, rgb(61, 0, 166) 30%, rgb(89, 0, 126) 100%);
+  border: 1px solid rgb(0, 140, 255);
+}
+
+.event-form-trix .trix-toolbar .trix-button {
+  color: rgb(226, 255, 167);
+  border-color: rgba(226, 255, 167, 0.35);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.event-form-trix .trix-toolbar .trix-button--icon::before {
+  background-color: rgb(226, 255, 167);
+}
+
+.event-form-trix .trix-toolbar .trix-button:hover,
+.event-form-trix .trix-toolbar .trix-button.trix-active {
+  background: rgba(44, 144, 252, 0.35);
+  border-color: rgb(226, 255, 167);
+}
+
+.events-search-shell {
+  width: min(980px, 96vw);
+  margin: 18px auto;
+}
+
+.events-search-shell .search {
+  padding: 10px 16px;
+}
+
+.events-search-shell .events-search-params {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 30px;
+}
+
+.events-search-shell .form-group {
+  margin-bottom: 0;
+}
+
+.events-search-shell .form-group>div {
+  display: block;
+}
+
+.events-search-shell .form-group label {
+  width: auto;
+  margin: 0 0 8px;
+}
+
+.events-search-shell .form-group input,
+.events-search-shell .form-group select,
+.events-search-shell .form-group textarea {
+  max-width: 100%;
+  margin: 0;
+}
+
 @media (min-width: 768px) {
   .event-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .events-search-shell .events-search-params {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

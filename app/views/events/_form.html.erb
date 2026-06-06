@@ -52,6 +52,12 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <div>
+          <%= f.input :contact_email, as: :string, label: "Contact email", required: false, placeholder: "events@example.com", hint: "Provide this if you do not have an application link." %>
+        </div>
+      </div>
+
       <div class="form-group event-form-full">
         <div>
           <%= f.input :address, as: :string, label: "Address", placeholder: "123 Market St, Chicago, IL" %>
@@ -60,7 +66,13 @@
 
       <div class="form-group event-form-full">
         <div>
-          <%= f.input :information, as: :text, label: "Event details", input_html: { rows: 5 }, placeholder: "Include booth details, crowd size expectations, setup times, and any vendor requirements." %>
+          <div class="event-form-trix-card">
+            <%= f.label :information, "Event details" %>
+            <small style="display:block; margin-bottom:8px; color: rgb(255, 241, 186);">Use basic formatting like bold, lists, links, and headings.</small>
+            <div class="trix-container event-form-trix">
+              <%= f.rich_text_area :information %>
+            </div>
+          </div>
         </div>
       </div>
 

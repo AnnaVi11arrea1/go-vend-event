@@ -8,9 +8,9 @@ class VendorEventsController < ApplicationController
 
   def index
     @vendor_event = VendorEvent.new
-    # Only include vendor events that have an associated event
-    @q = VendorEvent.joins(:event).ransack(params[:q])
-    @vendor_events = @q.result.order(start_time: :asc).page(params[:page]).per(10)
+    base_scope = current_user.vendor_events.joins(:event)
+    @q = base_scope.ransack(params[:q])
+    @vendor_events = @q.result.includes(:event).order(start_time: :asc).page(params[:page]).per(10)
     @current_page = @vendor_events.current_page
     @total_pages = @vendor_events.total_pages
 

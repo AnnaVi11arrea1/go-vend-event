@@ -109,7 +109,7 @@ class EventsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :tags, :address, :comments, :city, :state)
+    params.require(:event).permit(:photo, :name, :application_due_at, :started_at, :ends_at, :information, :application_link, :contact_email, :tags, :address, :comments, :city, :state)
   end
   
   def set_event

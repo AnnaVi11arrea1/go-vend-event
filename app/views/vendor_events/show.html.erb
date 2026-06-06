@@ -26,7 +26,7 @@
   <div class="d-flex flex-wrap justify-content-center row-gap-20 col-gap-4 mt-4 pb-4">
     <div class="col-3">
         <strong>Description:</strong>
-        <%= @vendor_event.event.information %>
+      <%= sanitize(@vendor_event.event.information, tags: %w[p br strong em b i u ul ol li a blockquote h1 h2 h3 h4], attributes: %w[href target rel]) %>
     </div>
     <div class="col-1"></div>
     <div class="col-3">
