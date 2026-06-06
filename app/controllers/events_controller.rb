@@ -10,10 +10,9 @@ class EventsController < ApplicationController
   def index
     @q = Event.ransack(params[:q])
     @events = @q.result.order(started_at: :asc).page(params[:page]).per(6)
-    
-    pagination = custom_paginate(@events, per_page: 6)
-    @current_page = pagination[:current_page]
-    @total_pages = pagination[:total_pages]
+
+    @current_page = @events.current_page
+    @total_pages = @events.total_pages
     
     add_breadcrumb "Events", events_path, title: "Events"
     @event = Event.new

@@ -99,8 +99,8 @@
 <div class="funcard2">
   <h4 style="justify-self:center;">My Events</h4>
   <ul>
-    <% @user.vendor_events.joins(:event).order('events.name ASC').each do |vendor_event| %>
-      <li><%= link_to vendor_event.event.name, vendor_event_path(vendor_event),  style:"color:rgb(186, 253, 255);" %></li>
+    <% @user.vendor_events.includes(:event).order(start_time: :asc).each do |vendor_event| %>
+      <li><%= link_to(vendor_event.event&.name || "Event Not Found", vendor_event_path(vendor_event), style:"color:rgb(186, 253, 255);") %></li>
     <% end %> 
   </ul>
   <% else %>

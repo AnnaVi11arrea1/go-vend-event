@@ -31,8 +31,16 @@
           <% end %>
         </div>
         <div class="d-flex justify-content-center pt-3">
-          <% if current_user.vendor_events.exists?(event_id: @event.id) %>
-            <%= link_to "My event", vendor_event_path(current_user.vendor_events.find_by(event_id: @event.id)), class:"btn-pri" %>
+          <% existing_vendor_event = current_user.vendor_events.find_by(event_id: @event.id) %>
+          <% if existing_vendor_event.present? %>
+            <%= button_to "Remove from My Events",
+                vendor_event_path(existing_vendor_event),
+                method: :delete,
+                class: "btn-dang",
+                data: {
+                  turbo_confirm: "Are you sure you want to remove this from your events?",
+                  confirm: "Are you sure you want to remove this from your events?"
+                } %>
           <% else %>
             <%= form_with model: VendorEvent.new, url: vendor_events_path do |form|%>
               <%= form.hidden_field :event_id, value: @event.id %>

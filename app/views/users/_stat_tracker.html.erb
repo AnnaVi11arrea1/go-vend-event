@@ -18,9 +18,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @user.vendor_events.each do |event| %>
+      <% @user.vendor_events.includes(:event).each do |event| %>
         <tr>
-          <td class="form-control-title"><%= event.event.name %></td>
+          <td class="form-control-title"><%= event.event&.name || "Event Not Found" %></td>
           <td>
             <%= number_field_tag "vendor_events[#{event.id}][expense]", event.expense, class: "form-control", id: "expense_#{event.id}" %>
           </td>

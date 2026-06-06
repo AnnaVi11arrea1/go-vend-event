@@ -1,3 +1,36 @@
+# == Schema Information
+#
+# Table name: vendor_events
+#
+#  id                 :integer          not null, primary key
+#  added              :boolean
+#  address            :string
+#  application_status :string
+#  city               :string
+#  description        :text
+#  expense            :float
+#  paid               :boolean
+#  photo              :string
+#  profit             :float
+#  return             :float
+#  sales              :float
+#  start_time         :datetime
+#  state              :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  event_id           :integer          not null
+#  user_id            :integer          not null
+#
+# Indexes
+#
+#  index_vendor_events_on_event_id  (event_id)
+#  index_vendor_events_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  event_id  (event_id => events.id) ON DELETE => cascade
+#  user_id   (user_id => users.id) ON DELETE => cascade
+#
 class VendorEvent < ApplicationRecord
   include AlgoliaSearch
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'

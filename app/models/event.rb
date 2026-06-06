@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                 :integer          not null, primary key
+#  address            :string
+#  application_due_at :date
+#  application_link   :string
+#  city               :string
+#  ends_at            :date
+#  information        :string
+#  latitude           :float
+#  longitude          :float
+#  name               :string
+#  photo              :string
+#  started_at         :date
+#  state              :string
+#  tags               :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  host_id            :integer
+#
 class Event < ApplicationRecord
   include AlgoliaSearch
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_22_225700) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_06_120000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -126,10 +126,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_22_225700) do
   end
 
   create_table "vendor_events", force: :cascade do |t|
-    t.integer "event_id"
+    t.integer "event_id", null: false
     t.string "application_status"
     t.boolean "paid"
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "added"
@@ -143,6 +143,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_22_225700) do
     t.string "address"
     t.text "description"
     t.string "city"
+    t.index ["event_id"], name: "index_vendor_events_on_event_id"
+    t.index ["user_id"], name: "index_vendor_events_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -153,4 +155,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_22_225700) do
   add_foreign_key "follow_requests", "users", column: "sender_id"
   add_foreign_key "notes", "users"
   add_foreign_key "notes", "vendor_events"
+  add_foreign_key "vendor_events", "events", on_delete: :cascade
+  add_foreign_key "vendor_events", "users", on_delete: :cascade
 end

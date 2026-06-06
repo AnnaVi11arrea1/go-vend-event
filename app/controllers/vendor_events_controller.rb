@@ -7,19 +7,13 @@ class VendorEventsController < ApplicationController
   include PaginationHelper
 
   def index
-    pagination = custom_paginate(Event.all, per_page: 10)
-    @vendor_events = pagination[:collection]
-    @current_page = pagination[:current_page]
-    @total_pages = pagination[:total_pages]
     @vendor_event = VendorEvent.new
     # Only include vendor events that have an associated event
     @q = VendorEvent.joins(:event).ransack(params[:q])
-    if @q.name_cont
-      @vendor_events = @q.result.order(name: :asc).page(params[:page]).per(10)
-    else
-      @vendor_events = @q.result.page(params[:page]).per(10)
-    end
     @vendor_events = @q.result.order(start_time: :asc).page(params[:page]).per(10)
+    @current_page = @vendor_events.current_page
+    @total_pages = @vendor_events.total_pages
+
   respond_to do |format|
     format.html # Render index.html.erb
     format.js   # Render index.js.erb
@@ -58,7 +52,7 @@ class VendorEventsController < ApplicationController
 
   def destroy
     if @vendor_event.destroy
-      flash[:notice] = "Vendor event deleted successfully."
+      flash[:notice] = "Removed from your events."
     else
       flash[:alert] = "Unable to delete vendor event."
     end
