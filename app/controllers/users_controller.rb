@@ -9,9 +9,59 @@ class UsersController < ApplicationController
   
   def show
     if @user == current_user || !@user.private? || @user.followers.include?(current_user)
-    
-      @hosted_events = Event.where(:host_id => @user.id)
-      @vendor_event = VendorEvent.where(:user_id => @user.id)
+      begin
+        hosted_events_scope = Event.where(host_id: @user.id)
+        @hosted_events_total_count = hosted_events_scope.count
+        @hosted_search_term = params[:hosted_search].to_s.strip
+        @hosted_search_date = params[:hosted_date].to_s.strip
+
+        if @hosted_search_term.present?
+          escaped_term = ActiveRecord::Base.sanitize_sql_like(@hosted_search_term.downcase)
+          contains_term = "%#{escaped_term}%"
+          hosted_events_scope = hosted_events_scope.where(
+            "LOWER(events.name) LIKE :term OR LOWER(events.tags) LIKE :term OR LOWER(events.information) LIKE :term",
+            term: contains_term
+          )
+
+          exact_name = ActiveRecord::Base.connection.quote(escaped_term)
+          starts_with_name = ActiveRecord::Base.connection.quote("#{escaped_term}%")
+          contains_name = ActiveRecord::Base.connection.quote("%#{escaped_term}%")
+          contains_any = ActiveRecord::Base.connection.quote("%#{escaped_term}%")
+
+          hosted_events_scope = hosted_events_scope.order(
+            Arel.sql(
+              "CASE " \
+              "WHEN LOWER(events.name) = #{exact_name} THEN 0 " \
+              "WHEN LOWER(events.name) LIKE #{starts_with_name} THEN 1 " \
+              "WHEN LOWER(events.name) LIKE #{contains_name} THEN 2 " \
+              "WHEN LOWER(events.tags) LIKE #{contains_any} THEN 3 " \
+              "WHEN LOWER(events.information) LIKE #{contains_any} THEN 4 " \
+              "ELSE 5 END"
+            ),
+            started_at: :asc
+          )
+        else
+          hosted_events_scope = hosted_events_scope.order(started_at: :asc)
+        end
+
+        if @hosted_search_date.present?
+          parsed_date = Date.parse(@hosted_search_date)
+          hosted_events_scope = hosted_events_scope.where(started_at: parsed_date)
+        end
+
+        @hosted_events = hosted_events_scope.page(params[:hosted_events_page]).per(10)
+        @show_hosted_search = @hosted_events_total_count > 10 || @hosted_search_term.present? || @hosted_search_date.present?
+        @hosted_events_query_params = request.query_parameters.except("hosted_events_page")
+        @vendor_event = VendorEvent.where(:user_id => @user.id)
+      rescue ArgumentError
+        hosted_events_scope = Event.where(host_id: @user.id).order(started_at: :asc)
+        @hosted_events = hosted_events_scope.page(params[:hosted_events_page]).per(10)
+        @hosted_events_total_count = hosted_events_scope.count
+        @show_hosted_search = @hosted_events_total_count > 10 || @hosted_search_term.present?
+        @hosted_events_query_params = request.query_parameters.except("hosted_events_page", "hosted_date")
+        @vendor_event = VendorEvent.where(:user_id => @user.id)
+        flash.now[:alert] = "Please enter a valid date in YYYY-MM-DD format."
+      end
     else
       @vendor_event = nil
       @hosted_events = nil

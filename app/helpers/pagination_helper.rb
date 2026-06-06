@@ -19,7 +19,7 @@ module PaginationHelper
     }
   end
 
-  def pagination_links(current_page, total_pages)
+  def pagination_links(current_page, total_pages, page_param: :page, extra_params: nil)
     total_pages = total_pages.to_i
     return "".html_safe if total_pages <= 1
 
@@ -27,9 +27,9 @@ module PaginationHelper
     current_page = [[current_page, 1].max, total_pages].min
 
     links = []
-    links << previous_page_link(current_page) if current_page > 1
-    links << page_number_links(current_page, total_pages)
-    links << next_page_link(current_page, total_pages) if current_page < total_pages
+    links << previous_page_link(current_page, page_param, extra_params) if current_page > 1
+    links << page_number_links(current_page, total_pages, page_param, extra_params)
+    links << next_page_link(current_page, total_pages, page_param, extra_params) if current_page < total_pages
 
     content_tag :nav, class: "pagination" do
       safe_join(links)
@@ -39,17 +39,17 @@ module PaginationHelper
   private
 
   # Link to the previous page
-  def previous_page_link(current_page)
-    link_to("« Previous", params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: current_page - 1), class: "page-link")
+  def previous_page_link(current_page, page_param, extra_params)
+    link_to("« Previous", pagination_params_for(current_page - 1, page_param, extra_params), class: "page-link")
   end
 
   # Link to the next page
-  def next_page_link(current_page, total_pages)
-    link_to("Next »", params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: current_page + 1), class: "page-link")
+  def next_page_link(current_page, total_pages, page_param, extra_params)
+    link_to("Next »", pagination_params_for(current_page + 1, page_param, extra_params), class: "page-link")
   end
 
   # Display surrounding page numbers
-  def page_number_links(current_page, total_pages)
+  def page_number_links(current_page, total_pages, page_param, extra_params)
     window_size = 7
     half_window = window_size / 2
 
@@ -65,8 +65,13 @@ module PaginationHelper
       if page == current_page
         content_tag(:span, page, class: "page-link active", aria: { current: "page" })
       else
-        link_to(page, params.permit(:page, :commit, q: [:name_cont, :started_at_gteq, :city_cont, :state_cont]).merge(page: page), class: "page-link")
+        link_to(page, pagination_params_for(page, page_param, extra_params), class: "page-link")
       end
     end.join.html_safe
+  end
+
+  def pagination_params_for(target_page, page_param, extra_params)
+    base_params = extra_params || request.query_parameters
+    base_params.to_h.deep_dup.merge(page_param.to_s => target_page)
   end
 end

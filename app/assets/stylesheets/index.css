@@ -243,13 +243,14 @@ FONT
 .form-group select,
 .form-group textarea {
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #0080ff;
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 12px;
-  background-image: linear-gradient(to bottom, rgb(85, 85, 85) 20%, white 100%);
+  background-image: linear-gradient(to bottom, rgb(30, 0, 57) 20%, rgb(110, 0, 158) 100%);
   font-size: 16px;
+  color: rgb(176, 254, 127);
 }
 
 @media (min-width: 768px) {
@@ -278,6 +279,7 @@ FONT
 .form-group textarea:focus {
   background: white;
   box-shadow: 0 0 10px 5px rgb(98, 0, 255);
+  color: black;
 }
 
 .form-group textarea {
@@ -674,6 +676,79 @@ Landing Page
 .intro {
   position: relative;
 
+}
+
+.event-form-shell {
+  max-width: 1040px;
+  width: min(1040px, 96vw);
+  margin: 24px auto;
+  padding: 20px;
+}
+
+.event-form-shell .darktitle {
+  margin-bottom: 14px;
+}
+
+.event-form-shell .darktitle h2 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.event-form-subtitle {
+  margin: 8px 0 0;
+  font-size: 16px;
+  color: rgb(255, 241, 186);
+  letter-spacing: 0.5px;
+}
+
+.event-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 18px;
+}
+
+.event-form-shell .form-group {
+  margin-bottom: 6px;
+}
+
+.event-form-shell .form-group>div {
+  display: block;
+}
+
+.event-form-shell .form-group label {
+  width: auto;
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.event-form-shell .form-group input,
+.event-form-shell .form-group select,
+.event-form-shell .form-group textarea {
+  max-width: 100%;
+  margin: 0;
+}
+
+.event-form-shell .form-group textarea {
+  min-height: 140px;
+}
+
+.event-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  .event-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .event-form-full {
+    grid-column: 1 / -1;
+  }
 }
 
 .intro::before {

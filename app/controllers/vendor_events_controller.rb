@@ -21,7 +21,8 @@ class VendorEventsController < ApplicationController
   end
   
   def show
-    add_breadcrumb "Show", vendor_event_path(@vendor_event), title: @vendor_event.event.name
+    add_breadcrumb "Show", vendor_event_path(@vendor_event), title: @vendor_event.event&.name || "Vendor Event"
+    @note ||= Note.new
   end
 
   def new

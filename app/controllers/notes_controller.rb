@@ -9,7 +9,8 @@ class NotesController < ApplicationController
     if @note.save
       redirect_to @vendor_event, notice: 'Note was successfully created.'
     else
-      render :new
+      flash.now[:alert] = @note.errors.full_messages.to_sentence
+      render "vendor_events/show", status: :unprocessable_entity
     end
   end
 
@@ -23,7 +24,8 @@ class NotesController < ApplicationController
     if @note.update(note_params)
       redirect_to @vendor_event, notice: 'Note was successfully updated.'
     else
-      render :edit
+      flash.now[:alert] = @note.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +49,6 @@ class NotesController < ApplicationController
     end
 
     def authorize_user
-      redirect_to @event, alert: "Not authorized!" unless @note.user == current_user
+      redirect_to @vendor_event, alert: "Not authorized!" unless @note.user == current_user
     end
 end

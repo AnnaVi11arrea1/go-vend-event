@@ -23,6 +23,13 @@ class Note < ApplicationRecord
   belongs_to :vendor_event
   belongs_to :user
 
-  validates :content, presence: true
+  validate :content_must_have_text
   has_many_attached :images
+
+  private
+
+  def content_must_have_text
+    plain_text = ActionController::Base.helpers.strip_tags(content.to_s).squish
+    errors.add(:content, "can't be blank") if plain_text.blank?
+  end
 end

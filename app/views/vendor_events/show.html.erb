@@ -68,7 +68,13 @@
     <div class="funcard2">
       <div class="darktitle">Notes</div>
       <div class="trix-container">
-        <%= form_with(model: [@vendor_event, Note.new], data: { turbo: false }) do |form| %>
+        <% @note ||= Note.new %>
+        <% if @note.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <%= @note.errors.full_messages.to_sentence %>
+          </div>
+        <% end %>
+        <%= form_with(model: [@vendor_event, @note], data: { turbo: false }) do |form| %>
           <%= form.label :content, "Create Note" %><br>
           <%= form.rich_text_area :content %>
           <%= form.submit "Add Note", class: "btn-in" %>

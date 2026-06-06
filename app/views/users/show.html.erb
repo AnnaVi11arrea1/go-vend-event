@@ -87,11 +87,38 @@
 <div class="funcard2">
   <% if @user == current_user || @user.private == false || @user.leaders.include?(@user) || @user.followers.include?(@user) %> 
     <h4 style="justify-self:center;">Hosted Events</h4>
-      <ul>
-    <% @hosted_events.order(name: :asc).each do |event| %>
-      <li><%= link_to event.name, event_path(event), style:"color:rgb(186, 253, 255);" %></li>
+
+    <% if @show_hosted_search %>
+      <%= form_with url: user_path(@user), method: :get, local: true, class: "pb-2" do %>
+        <div class="d-flex flex-wrap align-items-end" style="gap: 8px;">
+          <div>
+            <label for="hosted_search">Name or keyword</label>
+            <%= text_field_tag :hosted_search, @hosted_search_term, id: "hosted_search", class: "form-control", placeholder: "Search name, tags, or details" %>
+          </div>
+          <div>
+            <label for="hosted_date">Date</label>
+            <%= date_field_tag :hosted_date, @hosted_search_date, id: "hosted_date", class: "form-control" %>
+          </div>
+          <div>
+            <%= submit_tag "Search", class: "btn-pri" %>
+          </div>
+          <% if @hosted_search_term.present? || @hosted_search_date.present? %>
+            <div>
+              <%= link_to "Clear", user_path(@user), class: "btn-in" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
+
+    <ul>
+      <% @hosted_events.each do |event| %>
+        <li><%= link_to event.name, event_path(event), style:"color:rgb(186, 253, 255);" %> - <%= event.started_at&.strftime("%B %d, %Y") || "Date TBD" %></li>
+      <% end %>
     </ul>
+
+    <%= pagination_links(@hosted_events.current_page, @hosted_events.total_pages, page_param: :hosted_events_page, extra_params: @hosted_events_query_params) %>
+
   <% if @hosted_events.empty? %>
     <p><%= @user.first_name %> has not created any events yet.</p>
   <% end %>

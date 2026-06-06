@@ -1,58 +1,79 @@
-<div class="darkcard intro">
-<%= simple_form_for(@event) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<% form_title = @event.persisted? ? "Edit Event" : "Create New Event" %>
+<% form_subtitle = @event.persisted? ? "Update details for #{@event.name}." : "Share your next vending opportunity with the community." %>
+<% submit_label = @event.persisted? ? "Save Changes" : "Create Event" %>
 
-  <h2 class="darktitle">Edit Event <%= @event.name %></h2>
-  <div class="form-inputs">
-    <div class="form-group">
-      <div>
-        <%= f.input :started_at, as: :date, label: "Starts on: " %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :ends_at, as: :date, label: "Ends on: " %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :application_due_at, as: :date, label: "Apply by: ", required: false %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :name %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :information, as: :text %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :application_link, as: :string, required: false %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :tags, required: false %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :address, as: :string %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div>
-        <%= f.input :photo, as: :file %>
-      </div>
-    </div>
+<div class="darkcard intro event-form-shell">
+  <div class="darktitle">
+    <h2><%= form_title %></h2>
+    <p class="event-form-subtitle"><%= form_subtitle %></p>
   </div>
-    <div class="form-actions">
-      <%= f.button :submit, class:"event_btn" %>
+
+  <%= simple_form_for(@event, html: { class: "event-form" }) do |f| %>
+    <% if @event.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <%= @event.errors.full_messages.to_sentence %>
+      </div>
+    <% end %>
+
+    <div class="event-form-grid">
+      <div class="form-group">
+        <div>
+          <%= f.input :name, label: "Event name", placeholder: "Chicago Summer Market" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :tags, label: "Tags", required: false, placeholder: "food, crafts, night market" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :started_at, as: :string, label: "Starts on", input_html: { type: "date" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :ends_at, as: :string, label: "Ends on", required: false, input_html: { type: "date" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :application_due_at, as: :string, label: "Apply by", required: false, input_html: { type: "date" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :application_link, as: :string, label: "Application link", required: false, placeholder: "https://" %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :address, as: :string, label: "Address", placeholder: "123 Market St, Chicago, IL" %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :information, as: :text, label: "Event details", input_html: { rows: 5 }, placeholder: "Include booth details, crowd size expectations, setup times, and any vendor requirements." %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :photo, as: :file, label: "Event image", required: false %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions event-form-actions">
+      <%= f.button :submit, submit_label, class: "event_btn" %>
+      <%= link_to "Back to Events", events_path, class: "btn-in" %>
     </div>
   <% end %>
-  </div>
+</div>
