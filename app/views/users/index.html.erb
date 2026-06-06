@@ -1,18 +1,27 @@
 <div style="background-color: #000; color: #fff;">
   <!-- Hero Section -->
-  <section class="hero-section" style="padding: 60px 20px; text-align: center; background: linear-gradient(135deg, rgba(61, 0, 166, 0.2) 0%, rgba(0, 53, 213, 0.2) 100%);">
+  <section class="hero-section" style="padding: 60px 20px; text-align: center;">
     <div style="max-width: 900px; margin: 0 auto;">
-      <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #fff;">Welcome to goVend</h1>
-      <p style="font-size: 1.3rem; color: rgb(255, 246, 167); margin-bottom: 40px; font-weight: 500;">Increase sales and stay organized</p>
+      <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #fff;">Welcome to 
+      <div style="font-family: 'Trade Winds', cursive; font-size: 4rem;">
+        <div class="d-flex justify-content-center">
+          <div style="color: lime;">go</div>
+          <div style="color: rgb(170, 50, 255);">Vend</div>
+        </div>
+      </div>
+    </div>
+      <p style="font-size: 1.3rem; margin-bottom: 40px; font-weight: 500;">Increase sales and stay organized</p>
 
-      <!-- Cat and Cube Side by Side -->
-      <div style="display: flex; gap: 60px; align-items: center; justify-content: center; margin: 60px auto; flex-wrap: wrap; max-width: 1000px; padding: 0 20px;">
-        <div style="flex: 0 0 auto;">
+      <!-- Cat above Sign Up | Cube above Browse Events -->
+      <div style="display: flex; gap: 60px; align-items: flex-end; justify-content: center; margin: 60px auto 40px; flex-wrap: wrap; max-width: 1000px; padding: 0 20px;">
+        <!-- Sign Up column -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
           <%= image_tag "favicon.png", alt:"goVend mascot", class:"img-fluid cat", style: "max-width: 140px; height: auto;" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
         </div>
 
-        <!-- Interactive Cube - Featured Events -->
-        <div style="flex: 0 0 auto;">
+        <!-- Browse Events column -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
           <div class="cube-gallery-wrapper py-3">
             <input class="radio-button" type="radio" name="cube-gallery" checked/>
             <input class="radio-button" type="radio" name="cube-gallery"/>
@@ -42,17 +51,12 @@
               </div>
             </div>
           </div>
+          <%= link_to "Browse Events", events_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
         </div>
-      </div>
-
-      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
-        <%= link_to "Sign Up", new_user_registration_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
-        <%= link_to "Browse Events", events_path, class: "sign_up_btn", style: "text-decoration: none; color: #000;" %>
       </div>
       <p style="font-size: 1.1rem; color: #ddd; line-height: 1.6; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
         Find events. Apply to them. Stay organized. Track payments. Never double-book again. Made with love by vendors, for vendors and events.
       </p>
-
     </div>
   </section>
 
@@ -131,7 +135,7 @@
 
         <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(148, 91, 255, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
           <div style="font-size: 2.5rem; margin-bottom: 15px;">❤️</div>
-          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Built by Vendors</h4>
+          <h4 style="color: rgb(255, 246, 167); margin-bottom: 12px; font-weight: 600;">Built by a Vendor</h4>
           <p style="color: #ccc; font-size: 0.95rem;">Made with love by people who understand your challenges.</p>
         </div>
       </div>

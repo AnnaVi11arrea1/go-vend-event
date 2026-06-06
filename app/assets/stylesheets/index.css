@@ -80,11 +80,13 @@ FONT
   color: #fff;
   padding: 10px;
   font-size: 24px;
+  
 }
 
 .nav-title {
-  color: rgb(255, 234, 178);
+  color: rgb(170, 50, 255);
   font-size: 24px;
+  font-family: "Trade Winds", system-ui;
 }
 
 .dropdown-item {
@@ -103,18 +105,65 @@ FONT
 
 .darkcard {
   background-color: #150435;
-  color: rgb(255, 234, 178);
+  color: rgb(226, 255, 163);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
   border: .5px solid rgb(0, 140, 255);
   line-height: 125%;
   font-size: 18px;
+  
+}
+
+.vendor-event-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(165px, 1fr) minmax(260px, auto);
+  gap: 12px;
+  align-items: center;
+}
+
+.vendor-event-name h5 {
+  margin: 0;
+}
+
+.vendor-event-name p {
+  margin: 6px 0 0;
+}
+
+.vendor-event-date {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.vendor-event-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.vendor-event-actions-single {
+  grid-template-columns: minmax(110px, 1fr);
+}
+
+.vendor-event-action-btn {
+  margin: 0;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .vendor-event-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .vendor-event-date {
+    text-align: left;
+  }
 }
 
 .darkcard3 {
   background-color: rgb(115, 0, 209);
-  color: rgb(255, 234, 178);
+  color: rgb(226, 255, 163);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(10, 50, 50, 0.5);
@@ -124,10 +173,11 @@ FONT
 }
 
 .darktitle {
-  color: rgb(255, 234, 178);
+  color: rgb(226, 255, 163);
   font-weight: 500;
-  font-family: "Iceberg", sans-serif;
+  font-family: "Trade Winds", system-ui;
   text-align: center;
+  font-size: 24px;
   border-bottom: .5px solid rgb(0, 140, 255);
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -295,7 +345,7 @@ NAVBAR
 }
 
 .nav-link-item {
-  color: rgb(255, 253, 181);
+  color: rgb(226, 255, 163);
   text-decoration: none;
   font-size: 11px;
   display: flex;
@@ -487,7 +537,7 @@ BUTTONS
   flex-shrink: 1;
   justify-content: center;
   align-items: center;
-  font-family: "Iceberg", sans-serif;
+  font-family: 'Trade Winds', system-ui;
   border: 2px solid transparent;
   color: black;
   border-radius: 16px;
@@ -538,7 +588,7 @@ BUTTONS
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Iceberg", sans-serif;
+  font-family: "Trade Winds", system-ui;
   font-weight: 600;
   width: 100%;
   max-width: 400px;
@@ -956,10 +1006,11 @@ Fun cards
   margin-top: 20px;
   border-radius: 10px;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
   background: linear-gradient(to bottom, rgb(61, 0, 166) 30%, rgb(89, 0, 126) 100%) border-box;
   border: 1px solid transparent;
   flex-wrap: wrap;
+  color: rgb(226, 255, 167);
 }
 
 /*=================
@@ -1234,6 +1285,10 @@ RICH TEXT
   max-width: 100%;
   overflow-x: auto;
   box-sizing: border-box;
+}
+
+.trix-button-row {
+  color: rgb(223, 255, 167);
 }
 
 trix-editor {
