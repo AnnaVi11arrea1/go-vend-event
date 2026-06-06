@@ -1,0 +1,30 @@
+<div class="container py-4">
+  <h1 class="darktitle">Admin Ticket Detail</h1>
+
+  <div class="darkcard p-4 mb-3">
+    <h4><%= @ticket.subject %></h4>
+    <p><strong>Status:</strong> <%= @ticket.status.humanize %></p>
+    <p><strong>User:</strong> <%= @ticket.user.username.presence || @ticket.user.email %></p>
+    <p><strong>Submitted:</strong> <%= @ticket.created_at.strftime("%b %d, %Y %H:%M") %></p>
+    <hr>
+    <p style="white-space: pre-wrap;"><%= @ticket.message %></p>
+  </div>
+
+  <div class="darkcard p-4 mb-3">
+    <h5>Update Ticket</h5>
+    <%= form_with model: [:admin, @ticket], local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :status, class: "form-label" %>
+        <%= f.select :status, Ticket.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-select" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :admin_response, "Response", class: "form-label" %>
+        <%= f.text_area :admin_response, rows: 6, class: "form-control" %>
+      </div>
+
+      <%= f.submit "Save Update", class: "event_btn" %>
+      <%= link_to "Back to Queue", admin_tickets_path, class: "event_btn" %>
+    <% end %>
+  </div>
+</div>

@@ -9,3 +9,4 @@ bundle exec rake db:migrate
 
 bundle exec rake csv:admin
 bundle exec rake csv:events
+./bin/post-deploy.sh

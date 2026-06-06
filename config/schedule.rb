@@ -4,6 +4,7 @@ set :output, "log/cron_log.log"
 set :environment, "production"
 env :RAILS_MASTER_KEY, ENV['RAILS_MASTER_KEY'] 
 
-every 2.weeks do
-  rake "scraper:all"
+# First day of every month at 03:00 server time.
+every "0 3 1 * *" do
+  rake "scraper:monthly"
 end

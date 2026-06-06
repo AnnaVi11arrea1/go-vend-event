@@ -29,6 +29,12 @@ Rails.application.routes.draw do
     resources :follow_requests, only: [:new, :create]
   end
 
+  resources :tickets, only: [:index, :new, :create, :show]
+
+  namespace :admin do
+    resources :tickets, only: [:index, :show, :update]
+  end
+
   get 'geocode_address', to: 'geocoding#geocode_address'
 
   get "external_data", to: 'external_data#index'

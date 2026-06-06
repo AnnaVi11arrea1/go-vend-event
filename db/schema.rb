@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_06_130000) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_06_173000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -97,6 +97,22 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_06_130000) do
     t.index ["vendor_event_id"], name: "index_notes_on_vendor_event_id"
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "subject", null: false
+    t.text "message", null: false
+    t.integer "status", default: 0, null: false
+    t.text "admin_response"
+    t.integer "responded_by_id"
+    t.datetime "responded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_tickets_on_created_at"
+    t.index ["responded_by_id"], name: "index_tickets_on_responded_by_id"
+    t.index ["status"], name: "index_tickets_on_status"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -145,6 +161,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_06_130000) do
     t.text "description"
     t.string "city"
     t.index ["event_id"], name: "index_vendor_events_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_vendor_events_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_vendor_events_on_user_id"
   end
 
@@ -156,6 +173,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_06_130000) do
   add_foreign_key "follow_requests", "users", column: "sender_id"
   add_foreign_key "notes", "users"
   add_foreign_key "notes", "vendor_events"
+  add_foreign_key "tickets", "users"
+  add_foreign_key "tickets", "users", column: "responded_by_id"
   add_foreign_key "vendor_events", "events", on_delete: :cascade
   add_foreign_key "vendor_events", "users", on_delete: :cascade
 end

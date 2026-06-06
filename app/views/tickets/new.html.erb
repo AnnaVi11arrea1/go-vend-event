@@ -1,0 +1,32 @@
+<div class="container py-4">
+  <h1 class="darktitle">Submit a Help Ticket</h1>
+
+  <div class="darkcard p-4">
+    <%= form_with model: @ticket, local: true do |f| %>
+      <% if @ticket.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @ticket.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= f.label :subject, class: "form-label" %>
+        <%= f.text_field :subject, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :message, class: "form-label" %>
+        <%= f.text_area :message, rows: 6, class: "form-control", required: true %>
+      </div>
+
+      <div class="d-flex gap-2">
+        <%= f.submit "Submit Ticket", class: "event_btn" %>
+        <%= link_to "Back", tickets_path, class: "event_btn" %>
+      </div>
+    <% end %>
+  </div>
+</div>

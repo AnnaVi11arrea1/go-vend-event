@@ -35,12 +35,28 @@ class VendorEventsController < ApplicationController
   end
 
   def create
-    @vendor_event = current_user.vendor_events.build(vendor_event_params.merge(event_id: params.dig("vendor_event", "event_id")))
-      if @vendor_event.save
-        redirect_to @vendor_event, notice: "Vendor event was successfully created." 
-      else
-        render :new, status: :unprocessable_entity 
-      end
+    event_id = params.dig("vendor_event", "event_id")
+    event = Event.find_by(id: event_id)
+
+    if event.blank?
+      redirect_back fallback_location: events_path, alert: "Event not found."
+      return
+    end
+
+    if event.host_id == current_user.id
+      redirect_to event_path(event), alert: "You host this event, so it is already tracked under Hosted Events."
+      return
+    end
+
+    @vendor_event = current_user.vendor_events.find_or_initialize_by(event_id: event.id)
+    @vendor_event.assign_attributes(vendor_event_params.except(:event_id))
+    @vendor_event.added = true if @vendor_event.added.nil?
+
+    if @vendor_event.save
+      redirect_to @vendor_event, notice: "Vendor event was successfully created."
+    else
+      redirect_to event_path(event), alert: @vendor_event.errors.full_messages.to_sentence
+    end
   end
 
   def update

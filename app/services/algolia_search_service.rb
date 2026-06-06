@@ -2,7 +2,11 @@ require 'net/http'
 require 'json'
 
 class AlgoliaSearchService
-  OLLAMA_URL = 'http://localhost:11434'
+  OLLAMA_URL = ENV.fetch('OLLAMA_URL', 'http://localhost:11434')
+  OLLAMA_MODEL = ENV.fetch('OLLAMA_MODEL', 'llama3.2:1b')
+  OLLAMA_NUM_CTX = ENV.fetch('OLLAMA_NUM_CTX', '1024').to_i
+  OLLAMA_NUM_PREDICT = ENV.fetch('OLLAMA_NUM_PREDICT', '384').to_i
+  OLLAMA_TEMPERATURE = ENV.fetch('OLLAMA_TEMPERATURE', '0.3').to_f
   
   def initialize
     # Initialize Algolia MCP client
@@ -117,7 +121,7 @@ class AlgoliaSearchService
       Rails.logger.info("📤 Sending to Ollama with #{ollama_tools.length} tools")
       
       response = call_ollama_chat(
-        model: 'llama3.2',
+        model: OLLAMA_MODEL,
         messages: messages,
         tools: ollama_tools
       )
@@ -171,7 +175,7 @@ class AlgoliaSearchService
 
         # Step 6: Get final response from Ollama with tool results
         final_response = call_ollama_chat(
-          model: 'llama3.2',
+          model: OLLAMA_MODEL,
           messages: messages
         )
 
@@ -260,7 +264,7 @@ class AlgoliaSearchService
       PROMPT
       
       response = call_ollama_chat(
-        model: 'llama3.2',
+        model: OLLAMA_MODEL,
         messages: [
           { role: 'system', content: system_prompt },
           { role: 'user', content: "Please format these #{events.length} events for me" }
@@ -308,6 +312,11 @@ class AlgoliaSearchService
     payload = {
       model: model,
       messages: messages,
+      options: {
+        num_ctx: OLLAMA_NUM_CTX,
+        num_predict: OLLAMA_NUM_PREDICT,
+        temperature: OLLAMA_TEMPERATURE
+      },
       stream: false
     }
     payload[:tools] = tools if tools

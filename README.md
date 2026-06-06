@@ -59,6 +59,140 @@ Follow the on-screen instructions to use the application
    
 2. You will need to setup an IAM account and a S3 bucket for photo storage and include those credentials as well.
 
+## AI Chat Defaults (Nano Friendly)
+
+Out of the box, AI chat now defaults to a Jetson-friendly profile:
+
+1. `OLLAMA_MODEL=llama3.2:1b`
+2. `OLLAMA_NUM_CTX=1024`
+3. `OLLAMA_NUM_PREDICT=384`
+4. `OLLAMA_TEMPERATURE=0.3`
+
+To prepare a self-hosted Linux/Jetson host:
+
+```bash
+ollama pull llama3.2:1b
+```
+
+The deploy env template in `deploy/systemd/govend.env.example` already includes these settings.
+
+Validate AI runtime and Nano-safety on host:
+
+```bash
+bundle exec rake ai:nano_check
+```
+
+Automatic Nano bootstrap at deploy:
+
+1. `./bin/post-deploy.sh` now runs `./bin/nano-ai-bootstrap.sh`
+2. On Jetson hosts, it automatically:
+	- Applies Nano-safe Ollama env values
+	- Tries to start Ollama service (if available)
+	- Pulls the configured lightweight model
+	- Runs `bundle exec rake ai:nano_check`
+3. On non-Jetson hosts, it safely no-ops.
+
+## Scraper Scheduling (Render + Self-Hosted)
+
+The scraper is configured to run in two phases:
+
+1. Once at deployment via `scraper:deploy`
+2. Monthly on the 1st day via `scraper:monthly`
+
+### Portable deploy hook (any host)
+
+Run this after each successful deploy:
+
+```bash
+./bin/post-deploy.sh
+```
+
+This script currently runs:
+
+```bash
+bundle exec rake scraper:deploy
+```
+
+### Self-hosted Linux / Jetson (cron)
+
+Preferred for self-hosted Linux is systemd timer units (more reliable than user crontab).
+
+### Self-hosted Linux / Jetson (systemd, recommended)
+
+This repo includes ready-to-use units:
+
+1. `deploy/systemd/govend-scraper-monthly.service`
+2. `deploy/systemd/govend-scraper-monthly.timer`
+3. `deploy/systemd/govend.env.example`
+
+Install on host:
+
+```bash
+sudo cp deploy/systemd/govend-scraper-monthly.service /etc/systemd/system/
+sudo cp deploy/systemd/govend-scraper-monthly.timer /etc/systemd/system/
+sudo cp deploy/systemd/govend.env.example /etc/default/govend
+```
+
+Edit unit paths/user/group for your machine:
+
+1. Update `User`, `Group`, `WorkingDirectory`, and log paths in `/etc/systemd/system/govend-scraper-monthly.service`
+2. Update secrets/env vars in `/etc/default/govend`
+
+Enable and start:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now govend-scraper-monthly.timer
+```
+
+Verify status and next run:
+
+```bash
+systemctl status govend-scraper-monthly.timer
+systemctl list-timers govend-scraper-monthly.timer
+```
+
+Run once manually for smoke test:
+
+```bash
+sudo systemctl start govend-scraper-monthly.service
+```
+
+### Self-hosted Linux / Jetson (cron fallback)
+
+From the app directory, add a cron entry for the app user:
+
+```bash
+crontab -e
+```
+
+Add:
+
+```cron
+0 3 1 * * cd /workspaces/go-vend-event && /usr/bin/env bash -lc 'bundle exec rake scraper:monthly RAILS_ENV=production' >> log/cron_log.log 2>&1
+```
+
+Notes:
+
+1. Replace `/workspaces/go-vend-event` with your actual deploy path on the Jetson.
+2. Make sure your production env vars are available to cron (or sourced in the command).
+
+### Render
+
+Render is already wired in this repo:
+
+1. Deploy-time run in `bin/render-build.sh` via `./bin/post-deploy.sh`
+2. Monthly run via cron service in `render.yaml`
+
+### Optional: Whenever-based cron installation
+
+If you use `whenever` on your host, this repo already defines monthly schedule in `config/schedule.rb`.
+Install/update cron with:
+
+```bash
+bundle exec whenever --update-crontab
+```
+
 ## ERD
 
 **Please note that this is the original ERD, and that it has since been modified greatly. This is to aid in providing a broad idea for newcomers.

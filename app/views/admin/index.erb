@@ -1,5 +1,44 @@
-<h1>STUFF</h1>
-<p>Welcome to the admin page!</p>
+<div class="container py-4">
+	<h1 class="darktitle">Admin Dashboard</h1>
 
+	<div class="darkcard p-4 mb-3">
+		<h4>App Statistics</h4>
+		<div class="row">
+			<div class="col-md-4 mb-2"><strong>Users:</strong> <%= @stats[:users] %></div>
+			<div class="col-md-4 mb-2"><strong>Events:</strong> <%= @stats[:events] %></div>
+			<div class="col-md-4 mb-2"><strong>My Events Records:</strong> <%= @stats[:vendor_events] %></div>
+			<div class="col-md-4 mb-2"><strong>Open Tickets:</strong> <%= @stats[:open_tickets] %></div>
+			<div class="col-md-4 mb-2"><strong>Unresolved Tickets:</strong> <%= @stats[:unresolved_tickets] %></div>
+			<div class="col-md-4 mb-2"><strong>Admins:</strong> <%= @admin_users.count %></div>
+		</div>
+	</div>
 
+	<div class="darkcard p-4 mb-3">
+		<h4>Warnings</h4>
+		<% if @warnings.any? %>
+			<ul class="mb-0">
+				<% @warnings.each do |warning| %>
+					<li><%= warning %></li>
+				<% end %>
+			</ul>
+		<% else %>
+			<p class="mb-0">No active warnings.</p>
+		<% end %>
+	</div>
 
+	<div class="darkcard p-4 mb-3">
+		<h4>Support Tickets</h4>
+		<p><%= link_to "Open Ticket Queue", admin_tickets_path, class: "event_btn" %></p>
+		<% if @recent_tickets.any? %>
+			<% @recent_tickets.each do |ticket| %>
+				<div class="mb-2">
+					<%= link_to ticket.subject, admin_ticket_path(ticket) %>
+					(<%= ticket.status.humanize %>)
+					- <%= ticket.user.username.presence || ticket.user.email %>
+				</div>
+			<% end %>
+		<% else %>
+			<p class="mb-0">No tickets submitted yet.</p>
+		<% end %>
+	</div>
+</div>

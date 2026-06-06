@@ -1,0 +1,29 @@
+<div class="container py-4">
+  <h1 class="darktitle">Admin Ticket Queue</h1>
+
+  <div class="darkcard p-3 mb-3">
+    <%= form_with url: admin_tickets_path, method: :get, local: true do |f| %>
+      <div class="d-flex gap-2 align-items-end flex-wrap">
+        <div>
+          <%= f.label :status, "Filter by status", class: "form-label" %>
+          <%= f.select :status, options_for_select([['All', ''], ['Open', 'open'], ['In progress', 'in_progress'], ['Resolved', 'resolved']], @status_filter), {}, class: "form-select" %>
+        </div>
+        <div>
+          <%= f.submit "Apply", class: "event_btn" %>
+          <%= link_to "Reset", admin_tickets_path, class: "event_btn" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="darkcard p-3">
+    <% @tickets.each do |ticket| %>
+      <div class="mb-3 pb-3" style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+        <h5><%= link_to ticket.subject, admin_ticket_path(ticket) %></h5>
+        <p class="mb-1"><strong>Status:</strong> <%= ticket.status.humanize %></p>
+        <p class="mb-1"><strong>User:</strong> <%= ticket.user.username.presence || ticket.user.email %></p>
+        <p class="mb-0"><strong>Created:</strong> <%= ticket.created_at.strftime("%b %d, %Y %H:%M") %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

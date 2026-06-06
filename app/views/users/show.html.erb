@@ -124,12 +124,15 @@
   <% end %>
   </div>
 <div class="funcard2">
-  <h4 style="justify-self:center;">My Events</h4>
+  <h4 style="justify-self:center;">Vendor Events</h4>
   <ul>
-    <% @user.vendor_events.includes(:event).order(start_time: :asc).each do |vendor_event| %>
+    <% @profile_vendor_events.each do |vendor_event| %>
       <li><%= link_to(vendor_event.event&.name || "Event Not Found", vendor_event_path(vendor_event), style:"color:rgb(186, 253, 255);") %></li>
     <% end %> 
   </ul>
+  <% if @profile_vendor_events.blank? %>
+    <p><%= @user.first_name %> has no vendor events outside their hosted events yet.</p>
+  <% end %>
   <% else %>
     <p><%= @user.first_name %> has not been a vendor at any events yet.</p>
   <% end %>

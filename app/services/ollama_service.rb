@@ -3,8 +3,11 @@ class OllamaService
   require 'json'
 
   def initialize
-    @api_url = ENV['OLLAMA_API_URL'] || 'http://localhost:11434'
-    @model = ENV['OLLAMA_MODEL'] || 'mistral'
+    @api_url = ENV['OLLAMA_URL'] || ENV['OLLAMA_API_URL'] || 'http://localhost:11434'
+    @model = ENV['OLLAMA_MODEL'] || 'llama3.2:1b'
+    @num_ctx = ENV.fetch('OLLAMA_NUM_CTX', '1024').to_i
+    @num_predict = ENV.fetch('OLLAMA_NUM_PREDICT', '384').to_i
+    @temperature = ENV.fetch('OLLAMA_TEMPERATURE', '0.3').to_f
   end
 
   def chat(user_message, events_context = nil)
@@ -16,6 +19,11 @@ class OllamaService
     request_body = {
       model: @model,
       prompt: prompt,
+      options: {
+        num_ctx: @num_ctx,
+        num_predict: @num_predict,
+        temperature: @temperature
+      },
       stream: false
     }.to_json
 

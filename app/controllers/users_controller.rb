@@ -50,12 +50,16 @@ class UsersController < ApplicationController
         end
 
         @hosted_events = hosted_events_scope.page(params[:hosted_events_page]).per(10)
+        hosted_event_ids = Event.where(host_id: @user.id).select(:id)
+        @profile_vendor_events = @user.vendor_events.includes(:event).where.not(event_id: hosted_event_ids).order(start_time: :asc)
         @show_hosted_search = @hosted_events_total_count > 10 || @hosted_search_term.present? || @hosted_search_date.present?
         @hosted_events_query_params = request.query_parameters.except("hosted_events_page")
         @vendor_event = VendorEvent.where(:user_id => @user.id)
       rescue ArgumentError
         hosted_events_scope = Event.where(host_id: @user.id).order(started_at: :asc)
         @hosted_events = hosted_events_scope.page(params[:hosted_events_page]).per(10)
+        hosted_event_ids = Event.where(host_id: @user.id).select(:id)
+        @profile_vendor_events = @user.vendor_events.includes(:event).where.not(event_id: hosted_event_ids).order(start_time: :asc)
         @hosted_events_total_count = hosted_events_scope.count
         @show_hosted_search = @hosted_events_total_count > 10 || @hosted_search_term.present?
         @hosted_events_query_params = request.query_parameters.except("hosted_events_page", "hosted_date")
@@ -65,6 +69,7 @@ class UsersController < ApplicationController
     else
       @vendor_event = nil
       @hosted_events = nil
+      @profile_vendor_events = nil
       respond_to do |format|
         format.html { render "users/private", notice: "You are not authorized to view this page." }
         format.json { render json: @user.errors, status: :unprocessable_entity }

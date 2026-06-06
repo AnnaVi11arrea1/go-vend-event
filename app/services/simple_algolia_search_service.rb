@@ -2,7 +2,11 @@ require 'net/http'
 require 'json'
 
 class SimpleAlgoliaSearchService
-  OLLAMA_URL = 'http://localhost:11434'
+  OLLAMA_URL = ENV.fetch('OLLAMA_URL', 'http://localhost:11434')
+  OLLAMA_MODEL = ENV.fetch('OLLAMA_MODEL', 'llama3.2:1b')
+  OLLAMA_NUM_CTX = ENV.fetch('OLLAMA_NUM_CTX', '1024').to_i
+  OLLAMA_NUM_PREDICT = ENV.fetch('OLLAMA_NUM_PREDICT', '384').to_i
+  OLLAMA_TEMPERATURE = ENV.fetch('OLLAMA_TEMPERATURE', '0.3').to_f
   
   def initialize
     @algolia_app_id = ENV['ALGOLIA_APP_ID']
@@ -99,7 +103,12 @@ class SimpleAlgoliaSearchService
         Be friendly and encouraging!
       PROMPT
       
-      ollama_response = call_ollama(system_prompt, "Please format these #{events_data.length} events for me")
+      ollama_response = begin
+        call_ollama(system_prompt, "Please format these #{events_data.length} events for me")
+      rescue StandardError => e
+        Rails.logger.warn("⚠️ Ollama unavailable, using fallback formatter: #{e.message}")
+        format_events_fallback(events_data, zipcode)
+      end
       
       return block_given? ? (yield ollama_response) : ollama_response
       
@@ -270,11 +279,16 @@ class SimpleAlgoliaSearchService
     uri = URI("#{OLLAMA_URL}/api/chat")
     
     payload = {
-      model: 'llama3.2:latest',
+      model: OLLAMA_MODEL,
       messages: [
         { role: 'system', content: system_message },
         { role: 'user', content: user_message }
       ],
+      options: {
+        num_ctx: OLLAMA_NUM_CTX,
+        num_predict: OLLAMA_NUM_PREDICT,
+        temperature: OLLAMA_TEMPERATURE
+      },
       stream: false
     }
     
@@ -347,5 +361,22 @@ class SimpleAlgoliaSearchService
     rescue
       'Date TBD'
     end
+  end
+
+  def format_events_fallback(events_data, zipcode = nil)
+    intro = zipcode.present? ? "Here are events I found near #{zipcode}:" : "Here are events I found:"
+
+    lines = events_data.each_with_index.map do |event, idx|
+      link = "#{ENV['APP_URL'] || 'http://localhost:3000'}/events/#{event[:objectID]}"
+      details = []
+      details << "#{idx + 1}. **#{event[:name] || 'Event'}**"
+      details << "   • 📍 Address: #{event[:address].presence || 'Address unavailable'}"
+      details << "   • 📅 Date: #{event[:date] || 'Date TBD'}"
+      details << "   • 📏 Distance: #{event[:distance]}" if event[:distance].present?
+      details << "   • 🔗 [View Event Details](#{link})"
+      details.join("\n")
+    end
+
+    ([intro] + lines).join("\n\n")
   end
 end

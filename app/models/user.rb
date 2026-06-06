@@ -63,6 +63,8 @@ class User < ApplicationRecord
   mount_uploader :photo, PhotoUploader
 
   has_many :comments, foreign_key: "author_id"
+  has_many :tickets, dependent: :destroy
+  has_many :responded_tickets, class_name: "Ticket", foreign_key: "responded_by_id", dependent: :nullify
 
   def feed
     Event.where(host_id: self.leaders.ids)

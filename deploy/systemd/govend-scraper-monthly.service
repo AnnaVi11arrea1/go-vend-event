@@ -1,0 +1,16 @@
+[Unit]
+Description=goVend monthly scraper task
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=deploy
+Group=deploy
+WorkingDirectory=/opt/go-vend-event/current
+Environment=RAILS_ENV=production
+EnvironmentFile=-/etc/default/govend
+ExecStart=/usr/bin/env bash -lc 'bundle exec rake scraper:monthly'
+StandardOutput=append:/opt/go-vend-event/shared/log/cron_log.log
+StandardError=append:/opt/go-vend-event/shared/log/cron_log.log
+Nice=10

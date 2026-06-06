@@ -23,8 +23,9 @@
 #
 # Indexes
 #
-#  index_vendor_events_on_event_id  (event_id)
-#  index_vendor_events_on_user_id   (user_id)
+#  index_vendor_events_on_event_id              (event_id)
+#  index_vendor_events_on_user_id               (user_id)
+#  index_vendor_events_on_user_id_and_event_id  (user_id,event_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -35,6 +36,8 @@ class VendorEvent < ApplicationRecord
   include AlgoliaSearch
   belongs_to :user, required: true, class_name: "User", foreign_key: 'user_id'
   belongs_to :event, required: true, class_name: "Event", foreign_key: 'event_id'
+  validates :event_id, uniqueness: { scope: :user_id }
+  validate :user_cannot_be_event_host
   
   delegate :name, :address, :started_at, :ends_at, :information, :photo, to: :event, prefix: true
 
@@ -94,6 +97,13 @@ class VendorEvent < ApplicationRecord
       self.state = result.try(:state_code) || result.try(:state)
     end
     Rails.logger.debug "Geocoding VendorEvent: #{address} to City: #{city}, State: #{state}"
+  end
+
+  def user_cannot_be_event_host
+    return if user.blank? || event.blank?
+    return unless event.host_id == user_id
+
+    errors.add(:base, "Hosted events are managed in Hosted Events and cannot be added to My Events.")
   end
 
 

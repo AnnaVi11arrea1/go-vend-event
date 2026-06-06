@@ -34,6 +34,18 @@
           <span>Feed</span>
         <% end %>
 
+        <%= link_to tickets_path, class: "nav-link-item" do %>
+          <i class="fa fa-life-ring d-md-none"></i>
+          <span>Help</span>
+        <% end %>
+
+        <% if current_user.admin? %>
+          <%= link_to admin_root_path, class: "nav-link-item" do %>
+            <i class="fa fa-shield d-md-none"></i>
+            <span>Admin</span>
+          <% end %>
+        <% end %>
+
         <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link-item d-none d-md-flex" do %>
           <span>Sign Out</span>
         <% end %>

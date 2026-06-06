@@ -1,0 +1,11 @@
+[Unit]
+Description=Run goVend monthly scraper on the first day of each month
+
+[Timer]
+OnCalendar=*-*-01 03:00:00
+Persistent=true
+RandomizedDelaySec=5m
+Unit=govend-scraper-monthly.service
+
+[Install]
+WantedBy=timers.target
