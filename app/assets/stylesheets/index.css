@@ -701,6 +701,60 @@ Landing Page
   letter-spacing: 0.5px;
 }
 
+.signup-form-shell {
+  width: min(920px, 96vw);
+}
+
+.signup-form-note {
+  margin: 0 0 14px;
+  color: rgb(255, 241, 186);
+  letter-spacing: 0.4px;
+}
+
+.signup-form-shell .form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.signup-form-shell .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.signup-form-shell .form-check-label {
+  margin: 0;
+}
+
+.signup-links {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.signup-links a {
+  color: rgb(158, 231, 255);
+  text-decoration: none;
+}
+
+.signup-links a:hover {
+  color: rgb(226, 255, 167);
+  text-decoration: underline;
+}
+
+.edit-profile-shell {
+  width: min(980px, 96vw);
+}
+
+.edit-profile-danger-zone {
+  border: 1px solid rgba(255, 122, 122, 0.7);
+  background: linear-gradient(to bottom, rgba(95, 0, 35, 0.75), rgba(40, 0, 20, 0.8));
+}
+
+.edit-profile-danger-zone h4 {
+  margin-bottom: 8px;
+}
+
 .event-form-grid {
   display: grid;
   grid-template-columns: 1fr;

@@ -1,65 +1,127 @@
-<div class="darkcard intro">
-<h2 class="darktitle">Sign up</h2>
-<p>Fields with * are required.</p>
+<div class="darkcard intro event-form-shell signup-form-shell">
+  <div class="darktitle">
+    <h2>Create Account</h2>
+    <p class="event-form-subtitle">Join goVend and start tracking events, applications, and vendor goals.</p>
+  </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <p class="signup-form-note">Fields marked with * are required.</p>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "event-form" }) do |f| %>
+    <%= f.error_notification %>
+
     <% if resource.errors.any? %>
-    <div class="error-messages">
-      <h4><%= pluralize(resource.errors.count, "error") %> prohibited this user from being saved:</h4>
-      <ul>
-        <% resource.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <div class="alert alert-danger" role="alert">
+        <%= resource.errors.full_messages.to_sentence %>
+      </div>
+    <% end %>
+
+    <div class="event-form-grid">
+      <div class="form-group">
+        <div>
+          <%= f.input :email,
+                      label: "Email",
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :username,
+                      label: "Username",
+                      hint: "Choose the name people will see",
+                      required: true,
+                      input_html: { autocomplete: "username" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :password,
+                      label: "Password",
+                      required: true,
+                      hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                      input_html: { autocomplete: "new-password" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :password_confirmation,
+                      label: "Confirm password",
+                      required: true,
+                      input_html: { autocomplete: "new-password" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :first_name,
+                      label: "First name",
+                      hint: "Optional",
+                      required: false,
+                      input_html: { autocomplete: "given-name" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :last_name,
+                      label: "Last name",
+                      hint: "Optional",
+                      required: false,
+                      input_html: { autocomplete: "family-name" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :social_media,
+                      label: "Social media",
+                      hint: "Optional link",
+                      required: false,
+                      input_html: { autocomplete: "url", placeholder: "https://" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :about,
+                      label: "About you",
+                      hint: "Tell vendors and hosts a little about your business",
+                      required: false,
+                      input_html: { autocomplete: "off" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full signup-privacy-group">
+        <div>
+          <%= f.input :private,
+                      as: :boolean,
+                      required: false,
+                      label: "Make my account private" %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :photo,
+                      as: :file,
+                      label: "Profile image",
+                      required: false,
+                      input_html: { autocomplete: "off" } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions event-form-actions">
+      <%= f.button :submit, "Create Account", class: "event_btn" %>
+      <%= link_to "Back", root_path, class: "btn-in" %>
     </div>
   <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :username,
-                hint: "Add a user name",
-                required: true,
-                input_html: { autocomplete: "user-name" } %>    
-    <%= f.input :first_name,
-                hint: "optional",
-                required: false,
-                input_html: { autocomplete: "first-name" } %>            
-    <%= f.input :last_name,
-                hint: "optional",
-                required: false,
-                input_html: { autocomplete: "last-name" } %>   
-    <%= f.input :social_media,
-                hint: "Add a link",
-                required: false,
-                input_html: { autocomplete: "social-media" } %>   
-    <%= f.input :about,
-                hint: "Tell the world about you or your business",
-                required: false,
-                input_html: { autocomplete: "about" } %>
-    <%= f.input :private, as: :boolean,
-                required: false,
-                label: "Make my account private" %>   
-    <%= f.input :photo, as: :file,
-                hint: "",
-                required: false,
-                input_html: { autocomplete: "photo", class:"btn" } %>   
+  <div class="signup-links">
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "DO MAGIC!", class:"sign_up_btn" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
 </div>
