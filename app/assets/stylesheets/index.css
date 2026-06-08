@@ -534,6 +534,196 @@ Landing Page
 
 }
 
+.event-form-shell {
+  max-width: 1040px;
+  width: min(1040px, 96vw);
+  margin: 24px auto;
+  padding: 20px;
+}
+
+.event-form-shell .darktitle {
+  margin-bottom: 14px;
+}
+
+.event-form-shell .darktitle h2 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.event-form-subtitle {
+  margin: 8px 0 0;
+  font-size: 16px;
+  color: rgb(255, 241, 186);
+  letter-spacing: 0.5px;
+}
+
+.signup-form-shell {
+  width: min(920px, 96vw);
+}
+
+.signup-form-note {
+  margin: 0 0 14px;
+  color: rgb(255, 241, 186);
+  letter-spacing: 0.4px;
+}
+
+.signup-form-shell .form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.signup-form-shell .form-check-input {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.signup-form-shell .form-check-label {
+  margin: 0;
+}
+
+.signup-links {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.signup-links a {
+  color: rgb(158, 231, 255);
+  text-decoration: none;
+}
+
+.signup-links a:hover {
+  color: rgb(226, 255, 167);
+  text-decoration: underline;
+}
+
+.edit-profile-shell {
+  width: min(980px, 96vw);
+}
+
+.edit-profile-danger-zone {
+  border: 1px solid rgba(255, 122, 122, 0.7);
+  background: linear-gradient(to bottom, rgba(95, 0, 35, 0.75), rgba(40, 0, 20, 0.8));
+}
+
+.edit-profile-danger-zone h4 {
+  margin-bottom: 8px;
+}
+
+.event-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 18px;
+}
+
+.event-form-shell .form-group {
+  margin-bottom: 6px;
+}
+
+.event-form-shell .form-group>div {
+  display: block;
+}
+
+.event-form-shell .form-group label {
+  width: auto;
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.event-form-shell .form-group input,
+.event-form-shell .form-group select,
+.event-form-shell .form-group textarea {
+  max-width: 100%;
+  margin: 0;
+}
+
+.event-form-shell .form-group textarea {
+  min-height: 140px;
+}
+
+.event-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.event-form-trix-card {
+  width: 100%;
+  border-radius: 10px;
+  padding: 12px;
+  background: linear-gradient(to bottom, rgb(61, 0, 166) 30%, rgb(89, 0, 126) 100%);
+  border: 1px solid rgb(0, 140, 255);
+}
+
+.event-form-trix .trix-toolbar .trix-button {
+  color: rgb(226, 255, 167);
+  border-color: rgba(226, 255, 167, 0.35);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.event-form-trix .trix-toolbar .trix-button--icon::before {
+  background-color: rgb(226, 255, 167);
+}
+
+.event-form-trix .trix-toolbar .trix-button:hover,
+.event-form-trix .trix-toolbar .trix-button.trix-active {
+  background: rgba(44, 144, 252, 0.35);
+  border-color: rgb(226, 255, 167);
+}
+
+.events-search-shell {
+  width: min(980px, 96vw);
+  margin: 18px auto;
+}
+
+.events-search-shell .search {
+  padding: 10px 16px;
+}
+
+.events-search-shell .events-search-params {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 30px;
+}
+
+.events-search-shell .form-group {
+  margin-bottom: 0;
+}
+
+.events-search-shell .form-group>div {
+  display: block;
+}
+
+.events-search-shell .form-group label {
+  width: auto;
+  margin: 0 0 8px;
+}
+
+.events-search-shell .form-group input,
+.events-search-shell .form-group select,
+.events-search-shell .form-group textarea {
+  max-width: 100%;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .event-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .events-search-shell .events-search-params {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .event-form-full {
+    grid-column: 1 / -1;
+  }
+}
+
 .intro::before {
   content: "";
   position: absolute;

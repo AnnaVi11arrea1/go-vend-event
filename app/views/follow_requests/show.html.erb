@@ -19,9 +19,11 @@
     </div>
 
       <div>
-        <% if @user == @follow_request.recipient %>
-        <%= button_to "Accept", accept_follow_request_path(@follow_request), method: :patch, class:"btn-pri" %>
-        <%= button_to "Reject", reject_follow_request_path(@follow_request), method: :patch, class:"btn-dang" %>
+        <% if current_user == @follow_request.recipient && @follow_request.pending? %>
+          <%= button_to "Accept", accept_follow_request_path(@follow_request), method: :patch, class:"btn-pri" %>
+          <%= button_to "Reject", reject_follow_request_path(@follow_request), method: :patch, class:"btn-dang" %>
+        <% elsif current_user == @follow_request.sender && @follow_request.pending? %>
+          <%= button_to "Cancel Request", follow_request_path(@follow_request), method: :delete, data: { turbo_confirm: "Cancel this request?" }, class:"btn-dang" %>
         <% end %>
 
       </div>

@@ -1,76 +1,128 @@
-<div class="darkcard">
-<h2 class="darktitle">Edit <%= resource_name.to_s.humanize %></h2>
+<div class="darkcard intro event-form-shell edit-profile-shell">
+  <div class="darktitle">
+    <h2>Edit Profile</h2>
+    <p class="event-form-subtitle">Update your account details and privacy settings.</p>
+  </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
- 
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "event-form" }) do |f| %>
+    <%= f.error_notification %>
+
     <% if resource.errors.any? %>
-    <div class="error-messages">
-      <h4><%= pluralize(resource.errors.count, "error") %> prohibited from being saved:</h4>
-      <ul>
-        <% resource.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="alert alert-danger" role="alert">
+        <%= resource.errors.full_messages.to_sentence %>
+      </div>
+    <% end %>
 
-
-
-  <div class="form-inputs p-3">
     <%= f.hidden_field :email, required: true, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <p class="signup-form-note">Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
-    
-    <h4>Change Password</h4>
-    <p>Enter new password in both boxes to change, or enter current password in both boxes to confirm changes below.</p>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password,
-                hint: "Required to confirm changes.",
-                required: true,
-                input_html: { autocomplete: "current-password", class:"m-2" } %>
-  <br>
-  <h4>Modify Attributes</h4>
-    <%= f.input :username,
-                hint: "",
-                required: true,
-                input_html: { autocomplete: "user-name", class:"m-2" } %>    
-    <%= f.input :first_name,
-                hint: "",
-                required: false,
-                input_html: { autocomplete: "first-name", class:"m-2" } %>            
-    <%= f.input :last_name,
-                hint: "",
-                required: false,
-                input_html: { autocomplete: "last-name", class:"m-2" } %>   
-    <%= f.input :social_media,
-                hint: "",
-                required: false,
-                input_html: { autocomplete: "social-media", class:"m-2" }, 
-                label: "External Link" %>   
-    <%= f.input :about,
-                hint: "What do you want others to know?",
-                required: false,
-                input_html: { autocomplete: "about" } %> 
-    <br>
-    <%= f.input :private, as: :boolean,
-                required: false,
-                label: "Make my account private" %>
-    <%= f.input :photo, as: :file %>   
-  <div class="form-actions m-3">
-    <%= f.button :submit, "Update" %>
+
+    <div class="event-form-grid">
+      <div class="form-group event-form-full">
+        <div>
+          <h4>Change Password</h4>
+          <p class="signup-form-note">Enter values below to update your password and confirm account changes.</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :password_confirmation,
+                      label: "Confirm password",
+                      required: true,
+                      input_html: { autocomplete: "new-password" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :password,
+                      label: "Current password",
+                      hint: "Required to confirm changes.",
+                      required: true,
+                      input_html: { autocomplete: "current-password" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <h4>Modify Attributes</h4>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :username,
+                      label: "Username",
+                      required: true,
+                      input_html: { autocomplete: "username" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :first_name,
+                      label: "First name",
+                      required: false,
+                      input_html: { autocomplete: "given-name" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :last_name,
+                      label: "Last name",
+                      required: false,
+                      input_html: { autocomplete: "family-name" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <%= f.input :social_media,
+                      label: "External link",
+                      required: false,
+                      input_html: { autocomplete: "url", placeholder: "https://" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :about,
+                      label: "About",
+                      hint: "What do you want others to know?",
+                      required: false,
+                      input_html: { autocomplete: "off" } %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full signup-privacy-group">
+        <div>
+          <%= f.input :private,
+                      as: :boolean,
+                      required: false,
+                      label: "Make my account private" %>
+        </div>
+      </div>
+
+      <div class="form-group event-form-full">
+        <div>
+          <%= f.input :photo, as: :file, label: "Profile image", required: false %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions event-form-actions">
+      <%= f.button :submit, "Update Profile", class: "event_btn" %>
+      <%= link_to "Back", user_path(current_user), class: "btn-in" %>
+    </div>
+  <% end %>
+
+  <div class="darkcard p-3 mt-4 edit-profile-danger-zone">
+    <h4>Cancel Account</h4>
+    <p>Unhappy?</p>
+    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn-dang" %>
   </div>
-<% end %>
-</div>
-
-<br>
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
 </div>
