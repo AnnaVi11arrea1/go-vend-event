@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: appdev.Dockerfile
+    image: go-vend-event:dev
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
