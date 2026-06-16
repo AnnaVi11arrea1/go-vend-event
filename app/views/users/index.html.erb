@@ -34,17 +34,17 @@
                 <% upcoming_events = Event.where('started_at > ?', Date.today).order(:started_at).limit(6) %>
                 <% upcoming_events.each do |event| %>
                   <div class="cube-side d-flex justify-content-center align-items-center">
-                    <div class="text-center p-3">
-                      <div class="mb-2">
+                    <div class="cube-side-content">
+                      <div class="cube-side-media">
                         <% if event.photo.present? %>
-                          <%= image_tag url_for(event.photo.url), class: "img-fluid rounded", style: "max-height: 100px; width: auto;", alt: "event photo" %>
+                          <%= image_tag url_for(event.photo.url), class: "cube-side-image img-fluid rounded", alt: "event photo" %>
                         <% else %>
-                          <%= image_tag "bulb.png", class: "img-fluid", style: "max-height: 100px; width: auto;", alt: "default photo" %>
+                          <%= image_tag "bulb.png", class: "cube-side-image img-fluid", alt: "default photo" %>
                         <% end %>
                       </div>
-                      <h2 class="h5 mb-1 px-2"><%= event.name %></h2>
-                      <h4 class="cube-text h6 mb-2"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
-                      <p class="small mb-0">Explore more events when you sign up.</p>
+                      <h2 class="cube-side-title"><%= event.name %></h2>
+                      <h4 class="cube-text cube-side-date"><%= event.started_at.strftime("%A, %B %d, %Y") %></h4>
+                      <p class="cube-side-copy">Explore more events when you sign up.</p>
                     </div>
                   </div>
                 <% end %>
