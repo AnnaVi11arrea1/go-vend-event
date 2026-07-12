@@ -1,86 +1,139 @@
+<div align="center">
 
-## goVend
-<br>
+# 🎪 goVend
 
-An app that helps connects vendors to events! Search for events and find out how/where to apply. 
+**The app that connects vendors to events.**
 
-### A personal note
-As an artist and vendor for over 7 years, I have traveled the country selling my art at music events, festivals, fairs, cons, and farmers markets. I have found it a huge challenge organizing my events, keeping track of pertinent data, and related complications. Event vendors need an app that they can consolidate all of there information in. This is not another eventbright app. This is for event vendors to find and organize their events, and for event promotors to share there events. Sure, there are other management apps out there. But being a vendor is a very specific job, and anyone that has done events with multiple coordinators knows that every event has different requirements and specifications. It will be a different experience depending on the event and type of vendor you are. Are you a craft vendor? Are you doing an art installment? Or is your food truck looking to share their treats at the coolest local food fest? This app aims to consolidate users specific needs in one unified location. :)
+Search for events, discover how and where to apply, and keep all your vending logistics
+organized in one place — built by a vendor, for vendors.
 
+[![Ruby on Rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?logo=rubyonrails&logoColor=white)](https://rubyonrails.org/)
+[![Ruby](https://img.shields.io/badge/Ruby-3.1.2-CC342D?logo=ruby&logoColor=white)](https://www.ruby-lang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Live Site](https://img.shields.io/badge/Live-govend.ing-brightgreen)](https://www.govend.ing/)
 
-<br>
+</div>
 
-![Screenshot 2024-12-12 003217](https://github.com/user-attachments/assets/3946bf7e-dc70-4eaf-9653-8e407904002d)
+---
 
-![Screenshot 2024-12-12 003217](https://github.com/user-attachments/assets/b06658b8-19a0-4f9e-a3cb-86dc1ed0e23a)
+## ✨ Overview
 
+goVend helps event vendors **find events, apply to them, and stay organized** — and helps event
+promoters **share their events** with the right vendors.
 
-<hr>
+This isn't another Eventbrite. It's purpose-built for the specific, messy reality of vending:
+every event has different requirements, different coordinators, and different specs.
 
-## Install
+### 💬 A personal note
 
-1. Clone the repository:
-`git clone https://github.com/yourusername/yourproject.git`
+> As an artist and vendor for over 7 years, I've traveled the country selling my art at music
+> events, festivals, fairs, cons, and farmers markets. Organizing events, tracking pertinent
+> data, and juggling each coordinator's requirements is a genuine challenge. Event vendors need
+> one place to consolidate all their information — whether you're a craft vendor, running an art
+> installation, or a food truck looking to share treats at the coolest local food fest. goVend
+> aims to bring those needs into one unified home. 🙂
 
-2. Navigate to the project directory:
-`cd yourproject`
+---
 
-3. Install the required gems:
-`bundle install`
+## 🖼️ Screenshots
 
-4. Set up the database:
-`rails db:create`
-`rails db:migrate`
+<div align="center">
 
-5. Run rake tasks so you have something to look at:
-`rake csv:admin`
-`rake csv:users`
-`rake csv:events`
+![goVend screenshot](https://github.com/user-attachments/assets/3946bf7e-dc70-4eaf-9653-8e407904002d)
 
-![Screenshot 2024-11-22 221850](https://github.com/user-attachments/assets/63b910a5-3963-4359-bee0-ca37d4d15745)
+![goVend screenshot](https://github.com/user-attachments/assets/b06658b8-19a0-4f9e-a3cb-86dc1ed0e23a)
 
-7. Start server
-run `rails s` in the terminal.
+</div>
 
-<hr>
+---
 
-## Usage 
+## 🛠️ Tech Stack
 
-1. Open your browser and navigate to http://localhost:3000
-Follow the on-screen instructions to use the application
+- **Ruby on Rails** (Ruby 3.1.2) — full-stack web framework
+- **PostgreSQL** — relational database
+- **Docker** — containerized dev environment (`docker-compose.yml`)
+- **RSpec** — test suite
+- **Google Maps API** — location & mapping
+- **AWS S3 + IAM** — photo storage
+- **Render** — hosting (`render.yaml`)
 
-2. Create a user account so you can interact with the features!
+---
 
-<hr>
+## 🚀 Installation
 
-## Config
+```bash
+# 1. Clone the repository
+git clone https://github.com/annavi11arrea1/go-vend-event.git
+cd go-vend-event
 
-1. You will need to setup a google maps API and add it to your environment variables.
-   
-2. You will need to setup an IAM account and a S3 bucket for photo storage and include those credentials as well.
+# 2. Install dependencies
+bundle install
 
-## ERD
+# 3. Set up the database
+rails db:create
+rails db:migrate
 
-**Please note that this is the original ERD, and that it has since been modified greatly. This is to aid in providing a broad idea for newcomers.
+# 4. Seed sample data so you have something to look at
+rake csv:admin
+rake csv:users
+rake csv:events
 
-![Screenshot 2024-12-09 145151](https://github.com/user-attachments/assets/31316f7c-c78e-49c8-b8dc-a7b80e337ddc)
+# 5. Start the server
+rails s
+```
 
-<hr>
+Then open **http://localhost:3000** and create a user account to explore the features.
 
-## Contribute
+<div align="center">
 
-- See CONTRIBUTE.md :)
-  
-<hr>
+![Seed data screenshot](https://github.com/user-attachments/assets/63b910a5-3963-4359-bee0-ca37d4d15745)
 
-## API
+</div>
 
-Google maps: <a href="https://mapsplatform.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=google_maps_brand_us_1&gad_source=1&gclid=Cj0KCQiAx9q6BhCDARIsACwUxu5pCo2TeSBr7uZv1pddBhuudpFeQo5A2Z-Mi7afs3LlJ8NEe6lrGGwaAvulEALw_wcB&gclsrc=aw.ds">Google Maps API</a>
-Amazon: <a href="https://aws.amazon.com/iam/?gclid=Cj0KCQiAx9q6BhCDARIsACwUxu69lUF2r85cryrvzNg0WFRbYyKEZnlcousLmgrIc3STjyVvimpcbKMaAiurEALw_wcB&trk=da94b437-337f-4ee7-81b4-5dcf158370ab&sc_channel=ps&ef_id=Cj0KCQiAx9q6BhCDARIsACwUxu69lUF2r85cryrvzNg0WFRbYyKEZnlcousLmgrIc3STjyVvimpcbKMaAiurEALw_wcB:G:s&s_kwcid=AL!4422!3!651737511581!e!!g!!amazon%20iam%20console!19845796027!146736269229">AWS IAM</a>
+---
 
-<hr>
+## ⚙️ Configuration
 
-## Contact & Troubleshooting
+You'll need to provide the following credentials via environment variables:
 
-If you stumble into an unresolvable problem, create an issue and tag me, or send me a message! 
-Anna Villarreal [stayfluorescent@gmail.com](mailto:stayfluorescence@gmail.com)
+1. **Google Maps API key** — for location and mapping features
+2. **AWS IAM account + S3 bucket** — for photo storage
+
+| Service | Link |
+|---------|------|
+| Google Maps Platform | [mapsplatform.google.com](https://mapsplatform.google.com/) |
+| AWS IAM | [aws.amazon.com/iam](https://aws.amazon.com/iam/) |
+
+---
+
+## 🗺️ ERD
+
+> **Note:** This is the *original* ERD and has since been modified significantly. It's included
+> to give newcomers a broad conceptual overview.
+
+<div align="center">
+
+![goVend ERD](https://github.com/user-attachments/assets/31316f7c-c78e-49c8-b8dc-a7b80e337ddc)
+
+</div>
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome — see [`CONTRIBUTE.md`](CONTRIBUTE.md) for guidelines.
+
+---
+
+## 📬 Contact & Troubleshooting
+
+Hit an unresolvable problem? Open an issue and tag me, or reach out directly:
+
+**Anna Villarreal** — [stayfluorescent@gmail.com](mailto:stayfluorescent@gmail.com)
+
+<div align="center">
+
+🌐 Live at [govend.ing](https://www.govend.ing/)
+
+</div>
